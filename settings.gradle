@@ -1,0 +1,7 @@
+rootProject.name = 'worker-decorator'
+
+include 'annotation'
+findProject(':annotation')?.name = 'workerdecorator-annotation'
+include 'processor'
+findProject(':processor')?.name = 'workerdecorator-processor'
+

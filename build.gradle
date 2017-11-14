@@ -1,0 +1,4 @@
+allprojects {
+    group 'com.octo'
+    version '1.0-SNAPSHOT'
+}

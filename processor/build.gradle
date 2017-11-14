@@ -1,0 +1,14 @@
+plugins {
+    id "org.jetbrains.kotlin.jvm" version "1.1.60"
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile project(":workerdecorator-annotation")
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7"
+
+    testCompile "junit:junit:4.12"
+}
