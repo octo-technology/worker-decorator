@@ -16,10 +16,12 @@ class Analyser(private val elements: Elements) {
                 .filter { it.kind == ElementKind.METHOD }
                 .map { it as ExecutableElement }
                 .filter { it.enclosingElement.simpleName.toString() != Any::class.java.simpleName }
-                .map { Method(it.simpleName.toString(), makeParameterList(it.parameters)) }
+                .map { Method(it.simpleName.toString(), makeParameterList(it.parameters), it) }
 
-        val className = input.simpleName.toString()
-        return Document("${className}Decorated", methods)
+        val originalQualifiedName = input.qualifiedName.toString()
+        val originalPackage = originalQualifiedName.split(".").dropLast(1).joinToString(".")
+        val originalName = input.simpleName
+        return Document(originalPackage, "${originalName}Decorated", methods, input.asType())
     }
 
     private fun makeParameterList(input: List<VariableElement>): List<Parameter>

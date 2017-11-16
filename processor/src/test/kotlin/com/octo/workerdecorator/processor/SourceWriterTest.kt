@@ -26,7 +26,7 @@ class SourceWriterTest {
         // Given
         val file = testFolder.newFile()
 
-        val document = Document("DogeDecoration", mock())
+        val document = Document("stuff", "DogeDecoration", mock(), mock())
         val source = "much source, wow!"
 
         val filer: Filer = mock(defaultAnswer = RETURNS_DEEP_STUBS)

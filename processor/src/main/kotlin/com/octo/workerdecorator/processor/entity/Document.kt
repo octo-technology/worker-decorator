@@ -1,10 +1,16 @@
 package com.octo.workerdecorator.processor.entity
 
+import javax.lang.model.element.ExecutableElement
 import javax.lang.model.type.TypeMirror
 
-data class Document(val name: String, val methods: List<Method>)
+data class Document(val `package`: String,
+                    val name: String,
+                    val methods: List<Method>,
+                    val originalTypeMirror: TypeMirror)
 
-data class Method(val name: String, val parameters: List<Parameter>)
+data class Method(val name: String,
+                  val parameters: List<Parameter>,
+                  val executableElement: ExecutableElement)
 
 data class Parameter(val name: String, val typeMirror: TypeMirror) {
 

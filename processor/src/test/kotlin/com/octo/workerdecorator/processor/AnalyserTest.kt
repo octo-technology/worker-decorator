@@ -1,22 +1,15 @@
 package com.octo.workerdecorator.processor
 
-import com.google.testing.compile.CompilationRule
 import com.octo.workerdecorator.processor.entity.Document
-import com.octo.workerdecorator.processor.entity.Method
-import com.octo.workerdecorator.processor.entity.Parameter
 import com.octo.workerdecorator.processor.test.fixture.ChildrenInterface
+import com.octo.workerdecorator.processor.test.fixture.CompilationAwareTest
 import com.octo.workerdecorator.processor.test.fixture.SimpleInterface
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.Rule
 import org.junit.Test
-import javax.lang.model.type.TypeKind
-import kotlin.reflect.KClass
+import javax.lang.model.type.TypeKind.BOOLEAN
+import javax.lang.model.type.TypeKind.INT
 
-class AnalyserTest {
-
-    @JvmField
-    @Rule
-    var compilationRule = CompilationRule()
+class AnalyserTest : CompilationAwareTest() {
 
     @Test
     fun `analyses a simple kotlin interface`() {
@@ -26,15 +19,15 @@ class AnalyserTest {
         val input = typeElement(SimpleInterface::class)
 
         val methods = listOf(
-                Method("pam", emptyList()),
-                Method("jim",
+                methodFixture("pam", input),
+                methodFixture("jim",
                         listOf(
-                                Parameter("arg0",
-                                        typeElement(TypeKind.INT)),
-                                Parameter("arg1",
-                                        typeElement(String::class).asType())))
-        )
-        val expected = Document("SimpleInterfaceDecorated", methods)
+                                parametedFixture("arg0", INT),
+                                parametedFixture("arg1", String::class)),
+                        input))
+
+        val expected = Document("com.octo.workerdecorator.processor.test.fixture",
+                "SimpleInterfaceDecorated", methods, input.asType())
 
         // When
         val document = analyser.analyse(input)
@@ -51,14 +44,11 @@ class AnalyserTest {
         val input = typeElement(ChildrenInterface::class)
 
         val methods = listOf(
-                Method("daddy",
-                        listOf(Parameter("arg0",
-                                typeElement(String::class).asType()))),
-                Method("son",
-                        listOf(Parameter("arg0",
-                                typeElement(TypeKind.BOOLEAN))))
-        )
-        val expected = Document("ChildrenInterfaceDecorated", methods)
+                methodFixture("daddy", parametedFixture("arg0", String::class), input),
+                methodFixture("son", parametedFixture("arg0", BOOLEAN), input))
+
+        val expected = Document("com.octo.workerdecorator.processor.test.fixture",
+                "ChildrenInterfaceDecorated", methods, input.asType())
 
         // When
         val document = analyser.analyse(input)
@@ -66,10 +56,4 @@ class AnalyserTest {
         // Then
         assertThat(document).isEqualTo(expected)
     }
-
-    private fun <T : Any> typeElement(`class`: KClass<T>)
-            = compilationRule.elements.getTypeElement(`class`.java.name)
-
-    private fun typeElement(kind: TypeKind)
-            = compilationRule.types.getPrimitiveType(kind)
 }
