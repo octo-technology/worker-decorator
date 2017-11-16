@@ -5,21 +5,15 @@ import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.then
 import com.octo.workerdecorator.processor.entity.Configuration
 import com.octo.workerdecorator.processor.entity.Document
-import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TemporaryFolder
 import org.junit.runner.RunWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
-import javax.lang.model.element.Element
+import javax.lang.model.element.TypeElement
 
 @RunWith(MockitoJUnitRunner::class)
 class InteractorTest {
-
-    @JvmField
-    @Rule
-    var testFolder = TemporaryFolder()
 
     @Mock lateinit var analyser: Analyser
     @Mock lateinit var configurationReader: ConfigurationReader
@@ -30,7 +24,7 @@ class InteractorTest {
     @Test
     fun `interactor orchestrates correctly`() {
         // Given
-        val element: Element = mock()
+        val element: TypeElement = mock()
         val document: Document = mock()
         val configuration: Configuration = mock()
         val generator: Generator = mock()
