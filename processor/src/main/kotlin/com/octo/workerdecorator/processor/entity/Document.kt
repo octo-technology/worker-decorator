@@ -1,6 +1,5 @@
 package com.octo.workerdecorator.processor.entity
 
-import javax.lang.model.element.ExecutableElement
 import javax.lang.model.type.TypeMirror
 
 data class Document(val `package`: String,
@@ -9,8 +8,7 @@ data class Document(val `package`: String,
                     val originalTypeMirror: TypeMirror)
 
 data class Method(val name: String,
-                  val parameters: List<Parameter>,
-                  val executableElement: ExecutableElement)
+                  val parameters: List<Parameter>)
 
 data class Parameter(val name: String, val typeMirror: TypeMirror) {
 

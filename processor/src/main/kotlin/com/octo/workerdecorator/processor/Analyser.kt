@@ -16,7 +16,7 @@ class Analyser(private val elements: Elements) {
                 .filter { it.kind == ElementKind.METHOD }
                 .map { it as ExecutableElement }
                 .filter { it.enclosingElement.simpleName.toString() != Any::class.java.simpleName }
-                .map { Method(it.simpleName.toString(), makeParameterList(it.parameters), it) }
+                .map { Method(it.simpleName.toString(), makeParameterList(it.parameters)) }
 
         val originalQualifiedName = input.qualifiedName.toString()
         val originalPackage = originalQualifiedName.split(".").dropLast(1).joinToString(".")

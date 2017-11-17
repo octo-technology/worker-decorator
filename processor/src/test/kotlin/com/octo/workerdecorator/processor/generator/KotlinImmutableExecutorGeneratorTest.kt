@@ -17,12 +17,11 @@ class KotlinImmutableExecutorGeneratorTest : CompilationAwareTest() {
         val generator = KotlinImmutableExecutorGenerator()
 
         val methods = listOf(
-                methodFixture("pam", typeElement),
+                methodFixture("pam"),
                 methodFixture("jim",
                         listOf(
-                                parametedFixture("arg0", INT),
-                                parametedFixture("arg1", String::class)),
-                        typeElement))
+                                parameterFixture("arg0", INT),
+                                parameterFixture("arg1", String::class))))
 
         val document = Document("com.octo.workerdecorator.processor.test.fixture",
                 "SimpleInterfaceDecorated", methods, typeElement.asType())

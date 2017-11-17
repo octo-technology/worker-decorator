@@ -19,12 +19,11 @@ class AnalyserTest : CompilationAwareTest() {
         val input = typeElement(SimpleInterface::class)
 
         val methods = listOf(
-                methodFixture("pam", input),
+                methodFixture("pam"),
                 methodFixture("jim",
                         listOf(
-                                parametedFixture("arg0", INT),
-                                parametedFixture("arg1", String::class)),
-                        input))
+                                parameterFixture("arg0", INT),
+                                parameterFixture("arg1", String::class))))
 
         val expected = Document("com.octo.workerdecorator.processor.test.fixture",
                 "SimpleInterfaceDecorated", methods, input.asType())
@@ -44,8 +43,8 @@ class AnalyserTest : CompilationAwareTest() {
         val input = typeElement(ChildrenInterface::class)
 
         val methods = listOf(
-                methodFixture("daddy", parametedFixture("arg0", String::class), input),
-                methodFixture("son", parametedFixture("arg0", BOOLEAN), input))
+                methodFixture("daddy", parameterFixture("arg0", String::class)),
+                methodFixture("son", parameterFixture("arg0", BOOLEAN)))
 
         val expected = Document("com.octo.workerdecorator.processor.test.fixture",
                 "ChildrenInterfaceDecorated", methods, input.asType())
