@@ -2,7 +2,7 @@ package com.octo.workerdecorator.processor
 
 import java.io.File
 import javax.annotation.processing.*
-import javax.lang.model.SourceVersion.RELEASE_7
+import javax.lang.model.SourceVersion
 import javax.lang.model.element.ElementKind
 import javax.lang.model.element.TypeElement
 
@@ -12,7 +12,6 @@ import javax.lang.model.element.TypeElement
  * It contains no logic, all the processing is delegater to an [Interactor] instance.
  */
 @Suppress("unused")
-@SupportedSourceVersion(RELEASE_7)
 @SupportedAnnotationTypes("com.octo.workerdecorator.annotation.Decorate")
 @SupportedOptions(Processor.GENERATE_KOTLIN_CODE_OPTION)
 open class Processor : AbstractProcessor() {
@@ -47,4 +46,7 @@ open class Processor : AbstractProcessor() {
 
         return true
     }
+
+    override fun getSupportedSourceVersion(): SourceVersion
+            = SourceVersion.latestSupported()
 }
