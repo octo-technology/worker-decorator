@@ -6,6 +6,11 @@ import javax.lang.model.SourceVersion.RELEASE_7
 import javax.lang.model.element.ElementKind
 import javax.lang.model.element.TypeElement
 
+/**
+ * The processor called by annotation processing tools
+ *
+ * It contains no logic, all the processing is delegater to an [Interactor] instance.
+ */
 @Suppress("unused")
 @SupportedSourceVersion(RELEASE_7)
 @SupportedAnnotationTypes("com.octo.workerdecorator.annotation.Decorate")
@@ -39,5 +44,4 @@ open class Processor : AbstractProcessor() {
 
         return true
     }
-
 }

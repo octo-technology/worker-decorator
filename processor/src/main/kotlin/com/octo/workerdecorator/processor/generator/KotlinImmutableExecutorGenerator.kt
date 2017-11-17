@@ -11,7 +11,7 @@ import java.util.concurrent.Executor
 class KotlinImmutableExecutorGenerator : Generator {
 
     override fun generate(document: Document): String {
-        val decoratedType = document.originalTypeMirror.asTypeName()
+        val decoratedType = document.typeMirror.asTypeName()
 
         val functions = document.methods.map {
 

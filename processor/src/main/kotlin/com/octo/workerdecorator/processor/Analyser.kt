@@ -9,6 +9,16 @@ import javax.lang.model.element.TypeElement
 import javax.lang.model.element.VariableElement
 import javax.lang.model.util.Elements
 
+/**
+ * Class responsible for creating a [Document] entity from a [TypeElement] input
+ *
+ * All the members (possibly inherited) from the given [TypeElement] are browsed.
+ * Only the methods are kept.
+ * The methods declared in [Any] are discarded.
+ *
+ * A [Document] object is returned, containing the analysed file package name,
+ * decorated name, and a representation of the methods to be overridden.
+ */
 class Analyser(private val elements: Elements) {
 
     fun analyse(input: TypeElement): Document {

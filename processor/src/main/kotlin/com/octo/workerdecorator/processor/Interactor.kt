@@ -2,6 +2,7 @@ package com.octo.workerdecorator.processor
 
 import javax.lang.model.element.TypeElement
 
+
 class Interactor(private val analyser: Analyser,
                  private val configurationReader: ConfigurationReader,
                  private val generatorFactory: GeneratorFactory,

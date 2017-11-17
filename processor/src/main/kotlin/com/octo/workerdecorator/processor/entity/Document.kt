@@ -5,7 +5,7 @@ import javax.lang.model.type.TypeMirror
 data class Document(val `package`: String,
                     val name: String,
                     val methods: List<Method>,
-                    val originalTypeMirror: TypeMirror)
+                    val typeMirror: TypeMirror)
 
 data class Method(val name: String,
                   val parameters: List<Parameter>)
