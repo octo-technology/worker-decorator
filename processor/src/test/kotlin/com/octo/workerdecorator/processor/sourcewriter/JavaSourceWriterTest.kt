@@ -21,7 +21,7 @@ class JavaSourceWriterTest {
         // Given
         val file = testFolder.newFile()
         val filer: Filer = mock(defaultAnswer = RETURNS_DEEP_STUBS)
-        given(filer.createSourceFile("DogeDecoration").openWriter())
+        given(filer.createSourceFile("stuff.DogeDecoration").openWriter())
                 .willReturn(file.writer())
 
         val document = Document("stuff", "DogeDecoration", mock(), mock())

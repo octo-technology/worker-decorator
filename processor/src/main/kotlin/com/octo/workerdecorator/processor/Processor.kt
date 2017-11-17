@@ -27,11 +27,14 @@ open class Processor : AbstractProcessor() {
     override fun init(processingEnv: ProcessingEnvironment) {
         super.init(processingEnv)
 
+        val kotlinFolder = File(processingEnv.options[KAPT_KOTLIN_GENERATED_OPTION])
+        kotlinFolder.mkdirs()
+
         interactor = Interactor(
                 Analyser(processingEnv.elementUtils),
                 ConfigurationReader(),
                 GeneratorFactory(),
-                SourceWriterFactory(File(processingEnv.options[KAPT_KOTLIN_GENERATED_OPTION]!!),
+                SourceWriterFactory(kotlinFolder,
                         processingEnv.filer))
     }
 

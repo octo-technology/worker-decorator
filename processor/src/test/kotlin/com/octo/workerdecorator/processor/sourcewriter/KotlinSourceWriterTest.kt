@@ -27,7 +27,8 @@ class KotlinSourceWriterTest {
         sourceWriter.write(document, source)
 
         // Then
-        val writtenFile = File(folder, "DogeDecoration.kt").readText()
+        val packageFolder = File(folder, "stuff")
+        val writtenFile = File(packageFolder, "DogeDecoration.kt").readText()
         assertThat(writtenFile).isEqualTo(source)
     }
 }

@@ -6,6 +6,7 @@ import com.octo.workerdecorator.processor.entity.Configuration
 import com.octo.workerdecorator.processor.entity.Implementation.EXECUTOR
 import com.octo.workerdecorator.processor.entity.Language.KOTLIN
 import com.octo.workerdecorator.processor.entity.Mutability.UNMUTABLE
+import com.octo.workerdecorator.processor.extension.children
 import com.octo.workerdecorator.processor.sourcewriter.KotlinSourceWriter
 import com.octo.workerdecorator.processor.test.fixture.CompilationAwareTest
 import com.octo.workerdecorator.processor.test.fixture.SimpleInterface
@@ -13,7 +14,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import java.io.File
 
 class IntegrationTests : CompilationAwareTest() {
 
@@ -42,7 +42,7 @@ class IntegrationTests : CompilationAwareTest() {
         interactor.process(input)
 
         // Then
-        val resultingContent = File(folder, "SimpleInterfaceDecorated.kt").readText()
+        val resultingContent = folder.children("SimpleInterfaceDecorated.kt", "com.octo.workerdecorator.processor.test.fixture").readText()
         val targetContent = readResource("ExpectedSimpleInterfaceWorkerDecoration.kt")
 
         assertThat(resultingContent).isEqualTo(targetContent)
