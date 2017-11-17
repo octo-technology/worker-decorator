@@ -7,14 +7,14 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import javax.lang.model.type.TypeKind.INT
 
-class KotlinImmutableExecutorGeneratorTest : CompilationAwareTest() {
+class KotlinUnmutableExecutorGeneratorTest : CompilationAwareTest() {
 
     @Test
     fun `it generate the wanted kotlin file`() {
         // Given
         val typeElement = typeElement(SimpleInterface::class)
 
-        val generator = KotlinImmutableExecutorGenerator()
+        val generator = KotlinUnmutableExecutorGenerator()
 
         val methods = listOf(
                 methodFixture("pam"),

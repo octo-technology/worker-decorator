@@ -3,6 +3,7 @@ package com.octo.workerdecorator.processor
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.then
+import com.octo.workerdecorator.annotation.Decorate
 import com.octo.workerdecorator.processor.entity.Configuration
 import com.octo.workerdecorator.processor.entity.Document
 import org.junit.Test
@@ -25,6 +26,7 @@ class InteractorTest {
     fun `interactor orchestrates correctly`() {
         // Given
         val element: TypeElement = mock()
+        val annotation: Decorate = mock()
         val document: Document = mock()
         val configuration: Configuration = mock()
         val generator: Generator = mock()
@@ -33,7 +35,7 @@ class InteractorTest {
 
         given(analyser.analyse(element))
                 .willReturn(document)
-        given(configurationReader.read())
+        given(configurationReader.read(annotation))
                 .willReturn(configuration)
         given(generatorFactory.make(configuration))
                 .willReturn(generator)
@@ -43,7 +45,7 @@ class InteractorTest {
                 .willReturn(source)
 
         // When
-        interactor.process(element)
+        interactor.process(element, annotation)
 
         // Then
         then(sourceWriter).should().write(document, "beautiful source code")

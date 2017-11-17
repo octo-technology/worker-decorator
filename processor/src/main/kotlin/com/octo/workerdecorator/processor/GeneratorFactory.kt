@@ -1,7 +1,7 @@
 package com.octo.workerdecorator.processor
 
 import com.octo.workerdecorator.processor.entity.Configuration
-import com.octo.workerdecorator.processor.generator.KotlinImmutableExecutorGenerator
+import com.octo.workerdecorator.processor.generator.KotlinUnmutableExecutorGenerator
 
 /**
  * Class responsible for creating the [Generator] corresponding to the given [Configuration]
@@ -12,6 +12,6 @@ class GeneratorFactory {
 
     fun make(configuration: Configuration): Generator {
         // This is "mocked" for now
-        return KotlinImmutableExecutorGenerator()
+        return KotlinUnmutableExecutorGenerator()
     }
 }

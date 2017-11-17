@@ -1,8 +1,12 @@
 package com.octo.workerdecorator.processor
 
+import com.nhaarman.mockito_kotlin.given
+import com.nhaarman.mockito_kotlin.mock
+import com.octo.workerdecorator.annotation.Decorate
 import com.octo.workerdecorator.processor.entity.Configuration
 import com.octo.workerdecorator.processor.entity.Implementation.EXECUTOR
 import com.octo.workerdecorator.processor.entity.Language.KOTLIN
+import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
 import com.octo.workerdecorator.processor.entity.Mutability.UNMUTABLE
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
@@ -10,13 +14,32 @@ import org.junit.Test
 class ConfigurationReaderTest {
 
     @Test
-    fun `mock configuration fetching for now`() {
+    fun `return a mutable configuration`() {
+        // Given
+        val reader = ConfigurationReader()
+        val expected = Configuration(KOTLIN, EXECUTOR, MUTABLE)
+
+        val annotation: Decorate = mock()
+        given(annotation.decoratedObjectIsMutable).willReturn(true)
+
+        // When
+        val result = reader.read(annotation)
+
+        // Then
+        assertThat(result).isEqualTo(expected)
+    }
+
+    @Test
+    fun `return a unmutable configuration`() {
         // Given
         val reader = ConfigurationReader()
         val expected = Configuration(KOTLIN, EXECUTOR, UNMUTABLE)
 
+        val annotation: Decorate = mock()
+        given(annotation.decoratedObjectIsMutable).willReturn(false)
+
         // When
-        val result = reader.read()
+        val result = reader.read(annotation)
 
         // Then
         assertThat(result).isEqualTo(expected)

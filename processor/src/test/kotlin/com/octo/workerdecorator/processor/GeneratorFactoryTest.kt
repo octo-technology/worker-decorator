@@ -2,7 +2,7 @@ package com.octo.workerdecorator.processor
 
 import com.nhaarman.mockito_kotlin.mock
 import com.octo.workerdecorator.processor.entity.Configuration
-import com.octo.workerdecorator.processor.generator.KotlinImmutableExecutorGenerator
+import com.octo.workerdecorator.processor.generator.KotlinUnmutableExecutorGenerator
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
@@ -18,6 +18,6 @@ class GeneratorFactoryTest {
         val result = reader.make(configuration)
 
         // Then
-        assertThat(result).isExactlyInstanceOf(KotlinImmutableExecutorGenerator::class.java)
+        assertThat(result).isExactlyInstanceOf(KotlinUnmutableExecutorGenerator::class.java)
     }
 }

@@ -1,5 +1,6 @@
 package com.octo.workerdecorator.processor
 
+import com.octo.workerdecorator.annotation.Decorate
 import java.io.File
 import javax.annotation.processing.*
 import javax.lang.model.SourceVersion
@@ -9,7 +10,7 @@ import javax.lang.model.element.TypeElement
 /**
  * The processor called by annotation processing tools
  *
- * It contains no logic, all the processing is delegater to an [Interactor] instance.
+ * It contains no logic, all the processing is delegated to an [Interactor] instance.
  */
 @Suppress("unused")
 @SupportedAnnotationTypes("com.octo.workerdecorator.annotation.Decorate")
@@ -42,7 +43,7 @@ open class Processor : AbstractProcessor() {
                 .flatten()
                 .filter { it.kind == ElementKind.INTERFACE }
                 .map { it as TypeElement }
-                .map { interactor.process(it) }
+                .map { interactor.process(it, it.getAnnotation(Decorate::class.java)) }
 
         return true
     }

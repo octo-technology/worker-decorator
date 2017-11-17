@@ -2,6 +2,7 @@ package com.octo.workerdecorator.processor
 
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
+import com.octo.workerdecorator.annotation.Decorate
 import com.octo.workerdecorator.processor.entity.Configuration
 import com.octo.workerdecorator.processor.entity.Implementation.EXECUTOR
 import com.octo.workerdecorator.processor.entity.Language.KOTLIN
@@ -26,20 +27,22 @@ class IntegrationTests : CompilationAwareTest() {
         // Given
         val folder = testFolder.newFolder()
 
+        val input = typeElement(SimpleInterface::class)
+        val annotation: Decorate = mock()
+
         val analyser = Analyser(compilationRule.elements)
         val generatorFactory = GeneratorFactory()
         val configurationReader: ConfigurationReader = mock()
         val sourceWriterFactory: SourceWriterFactory = mock()
-        val input = typeElement(SimpleInterface::class)
 
         val configuration = Configuration(KOTLIN, EXECUTOR, UNMUTABLE)
-        given(configurationReader.read()).willReturn(configuration)
+        given(configurationReader.read(annotation)).willReturn(configuration)
         given(sourceWriterFactory.make(configuration)).willReturn(KotlinSourceWriter(folder))
 
         val interactor = Interactor(analyser, configurationReader, generatorFactory, sourceWriterFactory)
 
         // When
-        interactor.process(input)
+        interactor.process(input, annotation)
 
         // Then
         val resultingContent = folder.children("SimpleInterfaceDecorated.kt", "com.octo.workerdecorator.processor.test.fixture").readText()
