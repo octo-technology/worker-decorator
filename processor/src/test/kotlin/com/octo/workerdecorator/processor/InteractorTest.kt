@@ -18,7 +18,7 @@ class InteractorTest {
     @Mock lateinit var analyser: Analyser
     @Mock lateinit var configurationReader: ConfigurationReader
     @Mock lateinit var generatorFactory: GeneratorFactory
-    @Mock lateinit var sourceWriter: SourceWriter
+    @Mock lateinit var sourceWriterFactory: SourceWriterFactory
     @InjectMocks lateinit var interactor: Interactor
 
     @Test
@@ -28,6 +28,7 @@ class InteractorTest {
         val document: Document = mock()
         val configuration: Configuration = mock()
         val generator: Generator = mock()
+        val sourceWriter: SourceWriter = mock()
         val source = "beautiful source code"
 
         given(analyser.analyse(element))
@@ -36,6 +37,8 @@ class InteractorTest {
                 .willReturn(configuration)
         given(generatorFactory.make(configuration))
                 .willReturn(generator)
+        given(sourceWriterFactory.make(configuration))
+                .willReturn(sourceWriter)
         given(generator.generate(document))
                 .willReturn(source)
 

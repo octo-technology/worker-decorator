@@ -26,7 +26,8 @@ open class Processor : AbstractProcessor() {
                 Analyser(processingEnv.elementUtils),
                 ConfigurationReader(),
                 GeneratorFactory(),
-                SourceWriter(File(processingEnv.options[KAPT_KOTLIN_GENERATED_OPTION]!!)))
+                SourceWriterFactory(File(processingEnv.options[KAPT_KOTLIN_GENERATED_OPTION]!!),
+                        processingEnv.filer))
     }
 
     override fun process(annotations: MutableSet<out TypeElement>, roundEnv: RoundEnvironment): Boolean {
