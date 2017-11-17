@@ -2,22 +2,28 @@ package com.octo.workerdecorator.processor.generator
 
 import com.octo.workerdecorator.processor.Generator
 import com.octo.workerdecorator.processor.entity.Document
+import com.octo.workerdecorator.processor.extension.checkStringType
 import com.squareup.kotlinpoet.*
+import com.squareup.kotlinpoet.KModifier.OVERRIDE
 import com.squareup.kotlinpoet.KModifier.PRIVATE
 import java.util.concurrent.Executor
 
 class KotlinImmutableExecutorGenerator : Generator {
 
     override fun generate(document: Document): String {
-
         val decoratedType = document.originalTypeMirror.asTypeName()
 
         val functions = document.methods.map {
 
-            val args = it.parameters.map { it.name }.joinToString(", ")
+            val specParameters = it.parameters.map {
+                ParameterSpec.builder(it.name, it.typeMirror.asTypeName().checkStringType()).build()
+            }
+            val bodyParameters = it.parameters.joinToString(", ") { it.name }
 
-            FunSpec.overriding(it.executableElement)
-                    .addStatement("executor.execute { decorated.${it.name}($args) }")
+            FunSpec.builder(it.name)
+                    .addModifiers(OVERRIDE)
+                    .addParameters(specParameters)
+                    .addStatement("executor.execute { decorated.${it.name}($bodyParameters) }")
                     .build()
         }.asIterable()
 
