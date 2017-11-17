@@ -7,7 +7,6 @@ import com.octo.workerdecorator.processor.test.fixture.SimpleInterface
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import javax.lang.model.type.TypeKind.BOOLEAN
-import javax.lang.model.type.TypeKind.INT
 
 class AnalyserTest : CompilationAwareTest() {
 
@@ -17,16 +16,7 @@ class AnalyserTest : CompilationAwareTest() {
         val analyser = Analyser(compilationRule.elements)
 
         val input = typeElement(SimpleInterface::class)
-
-        val methods = listOf(
-                methodFixture("pam"),
-                methodFixture("jim",
-                        listOf(
-                                parameterFixture("arg0", INT),
-                                parameterFixture("arg1", String::class))))
-
-        val expected = Document("com.octo.workerdecorator.processor.test.fixture",
-                "SimpleInterfaceDecorated", methods, input.asType())
+        val expected = simpleInterfaceFixture()
 
         // When
         val document = analyser.analyse(input)

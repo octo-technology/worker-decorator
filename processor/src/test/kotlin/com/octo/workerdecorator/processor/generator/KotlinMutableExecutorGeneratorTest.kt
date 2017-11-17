@@ -4,19 +4,19 @@ import com.octo.workerdecorator.processor.test.fixture.CompilationAwareTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
-class KotlinUnmutableExecutorGeneratorTest : CompilationAwareTest() {
+class KotlinMutableExecutorGeneratorTest : CompilationAwareTest() {
 
     @Test
     fun `it generates the wanted kotlin file`() {
         // Given
-        val generator = KotlinUnmutableExecutorGenerator()
+        val generator = KotlinMutableExecutorGenerator()
         val document = simpleInterfaceFixture()
 
         // When
         val result = generator.generate(document)
 
         // Then
-        val targetContent = readResource("ExpectedSimpleInterfaceWorkerDecoration.kt")
+        val targetContent = readResource("ExpectedSimpleInterfaceMutableWorkerDecoration.kt")
         assertThat(result).isEqualTo(targetContent)
     }
 

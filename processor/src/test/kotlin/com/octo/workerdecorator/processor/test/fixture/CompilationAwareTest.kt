@@ -1,6 +1,7 @@
 package com.octo.workerdecorator.processor.test.fixture
 
 import com.google.testing.compile.CompilationRule
+import com.octo.workerdecorator.processor.entity.Document
 import com.octo.workerdecorator.processor.entity.Method
 import com.octo.workerdecorator.processor.entity.Parameter
 import org.junit.Rule
@@ -41,4 +42,21 @@ open class CompilationAwareTest {
 
     fun parameterFixture(name: String, kind: TypeKind): Parameter
             = Parameter(name, typeElement(kind))
+
+    /*
+     * More complex fixtures
+     */
+
+    fun simpleInterfaceFixture(): Document {
+        val typeElement = typeElement(SimpleInterface::class)
+        val methods = listOf(
+                methodFixture("pam"),
+                methodFixture("jim",
+                        listOf(
+                                parameterFixture("arg0", TypeKind.INT),
+                                parameterFixture("arg1", String::class))))
+
+        return Document("com.octo.workerdecorator.processor.test.fixture",
+                "SimpleInterfaceDecorated", methods, typeElement.asType())
+    }
 }
