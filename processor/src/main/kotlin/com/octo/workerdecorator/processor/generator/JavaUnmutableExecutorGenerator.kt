@@ -10,7 +10,6 @@ import com.squareup.javapoet.TypeSpec
 import java.util.concurrent.Executor
 import javax.lang.model.element.Modifier.*
 
-
 class JavaUnmutableExecutorGenerator : Generator {
 
     override fun generate(document: Document): String {

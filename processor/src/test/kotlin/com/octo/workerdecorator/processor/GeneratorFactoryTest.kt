@@ -6,6 +6,7 @@ import com.octo.workerdecorator.processor.entity.Language.JAVA
 import com.octo.workerdecorator.processor.entity.Language.KOTLIN
 import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
 import com.octo.workerdecorator.processor.entity.Mutability.UNMUTABLE
+import com.octo.workerdecorator.processor.generator.JavaMutableExecutorGenerator
 import com.octo.workerdecorator.processor.generator.JavaUnmutableExecutorGenerator
 import com.octo.workerdecorator.processor.generator.KotlinMutableExecutorGenerator
 import com.octo.workerdecorator.processor.generator.KotlinUnmutableExecutorGenerator
@@ -15,16 +16,29 @@ import org.junit.Test
 class GeneratorFactoryTest {
 
     @Test
-    fun `returns a Java an unmutable generator`() {
+    fun `returns a Java unmutable generator`() {
         // Given
         val reader = GeneratorFactory()
-        val configuration = Configuration(JAVA, mock(), mock())
+        val configuration = Configuration(JAVA, mock(), UNMUTABLE)
 
         // When
         val result = reader.make(configuration)
 
         // Then
         assertThat(result).isExactlyInstanceOf(JavaUnmutableExecutorGenerator::class.java)
+    }
+
+    @Test
+    fun `returns a Java mutable generator`() {
+        // Given
+        val reader = GeneratorFactory()
+        val configuration = Configuration(JAVA, mock(), MUTABLE)
+
+        // When
+        val result = reader.make(configuration)
+
+        // Then
+        assertThat(result).isExactlyInstanceOf(JavaMutableExecutorGenerator::class.java)
     }
 
     @Test
