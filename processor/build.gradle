@@ -10,6 +10,7 @@ dependencies {
     compile project(":workerdecorator-annotation")
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7"
 
+    compile "com.google.code.findbugs:jsr305:3.0.2"
     compile "com.squareup:javapoet:1.9.0"
     compile "com.squareup:kotlinpoet:0.6.0"
 
