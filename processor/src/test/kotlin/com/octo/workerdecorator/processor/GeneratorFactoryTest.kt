@@ -2,8 +2,11 @@ package com.octo.workerdecorator.processor
 
 import com.nhaarman.mockito_kotlin.mock
 import com.octo.workerdecorator.processor.entity.Configuration
+import com.octo.workerdecorator.processor.entity.Language.JAVA
+import com.octo.workerdecorator.processor.entity.Language.KOTLIN
 import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
 import com.octo.workerdecorator.processor.entity.Mutability.UNMUTABLE
+import com.octo.workerdecorator.processor.generator.JavaUnmutableExecutorGenerator
 import com.octo.workerdecorator.processor.generator.KotlinMutableExecutorGenerator
 import com.octo.workerdecorator.processor.generator.KotlinUnmutableExecutorGenerator
 import org.assertj.core.api.Assertions.assertThat
@@ -12,10 +15,23 @@ import org.junit.Test
 class GeneratorFactoryTest {
 
     @Test
-    fun `return an unmutable generator`() {
+    fun `returns a Java an unmutable generator`() {
         // Given
         val reader = GeneratorFactory()
-        val configuration = Configuration(mock(), mock(), UNMUTABLE)
+        val configuration = Configuration(JAVA, mock(), mock())
+
+        // When
+        val result = reader.make(configuration)
+
+        // Then
+        assertThat(result).isExactlyInstanceOf(JavaUnmutableExecutorGenerator::class.java)
+    }
+
+    @Test
+    fun `returns a Kotlin an unmutable generator`() {
+        // Given
+        val reader = GeneratorFactory()
+        val configuration = Configuration(KOTLIN, mock(), UNMUTABLE)
 
         // When
         val result = reader.make(configuration)
@@ -25,10 +41,10 @@ class GeneratorFactoryTest {
     }
 
     @Test
-    fun `return a mutable generator`() {
+    fun `returns a Kotlin mutable generator`() {
         // Given
         val reader = GeneratorFactory()
-        val configuration = Configuration(mock(), mock(), MUTABLE)
+        val configuration = Configuration(KOTLIN, mock(), MUTABLE)
 
         // When
         val result = reader.make(configuration)
