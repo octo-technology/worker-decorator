@@ -8,6 +8,7 @@ import com.squareup.javapoet.MethodSpec
 import com.squareup.javapoet.ParameterSpec
 import com.squareup.javapoet.TypeSpec
 import java.util.concurrent.Executor
+import javax.annotation.Nonnull
 import javax.lang.model.element.Modifier.*
 
 class JavaUnmutableExecutorGenerator : Generator {
@@ -42,8 +43,12 @@ class JavaUnmutableExecutorGenerator : Generator {
                         .addSuperinterface(document.typeMirror.asTypeName())
                         .addMethod(MethodSpec.constructorBuilder()
                                 .addModifiers(PUBLIC)
-                                .addParameter(Executor::class.java, "executor")
-                                .addParameter(document.typeMirror.asTypeName(), "decorated")
+                                .addParameter(ParameterSpec.builder(Executor::class.java, "executor")
+                                        .addAnnotation(Nonnull::class.java)
+                                        .build())
+                                .addParameter(ParameterSpec.builder(document.typeMirror.asTypeName(), "decorated")
+                                        .addAnnotation(Nonnull::class.java)
+                                        .build())
                                 .addStatement("this.executor = executor")
                                 .addStatement("this.decorated = decorated")
                                 .build())

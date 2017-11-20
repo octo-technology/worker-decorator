@@ -4,13 +4,14 @@ import java.lang.Override;
 import java.lang.Runnable;
 import java.lang.String;
 import java.util.concurrent.Executor;
+import javax.annotation.Nonnull;
 
 public final class SimpleInterfaceDecorated implements SimpleInterface {
   private final Executor executor;
 
   private final SimpleInterface decorated;
 
-  public SimpleInterfaceDecorated(Executor executor, SimpleInterface decorated) {
+  public SimpleInterfaceDecorated(@Nonnull Executor executor, @Nonnull SimpleInterface decorated) {
     this.executor = executor;
     this.decorated = decorated;
   }
