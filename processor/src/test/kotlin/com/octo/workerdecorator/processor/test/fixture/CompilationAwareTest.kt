@@ -5,6 +5,7 @@ import com.octo.workerdecorator.processor.entity.Document
 import com.octo.workerdecorator.processor.entity.Method
 import com.octo.workerdecorator.processor.entity.Parameter
 import org.junit.Rule
+import java.util.*
 import javax.lang.model.type.TypeKind
 import kotlin.reflect.KClass
 
@@ -54,7 +55,7 @@ open class CompilationAwareTest {
                 methodFixture("jim",
                         listOf(
                                 parameterFixture("arg0", TypeKind.INT),
-                                parameterFixture("arg1", String::class))))
+                                parameterFixture("arg1", Date::class))))
 
         return Document("com.octo.workerdecorator.processor.test.fixture",
                 "SimpleInterfaceDecorated", methods, typeElement.asType())

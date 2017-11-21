@@ -2,7 +2,7 @@ package com.octo.workerdecorator.processor.test.fixture;
 
 import java.lang.Override;
 import java.lang.Runnable;
-import java.lang.String;
+import java.util.Date;
 import java.util.concurrent.Executor;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -34,7 +34,7 @@ public final class SimpleInterfaceDecorated implements SimpleInterface {
   }
 
   @Override
-  public void jim(int arg0, String arg1) {
+  public void jim(int arg0, Date arg1) {
     executor.execute(new Runnable() {
       @Override
       public void run() {

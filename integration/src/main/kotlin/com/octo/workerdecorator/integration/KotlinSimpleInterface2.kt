@@ -5,5 +5,5 @@ import com.octo.workerdecorator.annotation.Decorate
 @Decorate(decoratedObjectIsMutable = true)
 interface KotlinSimpleInterface2 {
     fun a(param: Int)
-    fun b(param: String)
+    fun b(param: Double)
 }
