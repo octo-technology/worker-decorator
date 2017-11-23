@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    compile project(":workerdecorator-annotation")
+    compile project(":workerdecorator")
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7"
 
     compile "com.squareup:javapoet:1.9.0"
