@@ -4,8 +4,8 @@ import java.lang.Override;
 import java.lang.Runnable;
 import java.util.Date;
 import java.util.concurrent.Executor;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public final class SimpleInterfaceDecorated implements SimpleInterface {
   private final Executor executor;
@@ -13,7 +13,7 @@ public final class SimpleInterfaceDecorated implements SimpleInterface {
   @Nullable
   private SimpleInterface decorated;
 
-  public SimpleInterfaceDecorated(@Nonnull Executor executor) {
+  public SimpleInterfaceDecorated(@NotNull Executor executor) {
     this.executor = executor;
   }
 

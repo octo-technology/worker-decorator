@@ -4,9 +4,9 @@ import com.octo.workerdecorator.processor.Generator
 import com.octo.workerdecorator.processor.entity.Document
 import com.octo.workerdecorator.processor.extension.asTypeName
 import com.squareup.javapoet.*
+import org.jetbrains.annotations.NotNull
+import org.jetbrains.annotations.Nullable
 import java.util.concurrent.Executor
-import javax.annotation.Nonnull
-import javax.annotation.Nullable
 import javax.lang.model.element.Modifier.*
 
 class JavaMutableExecutorGenerator : Generator {
@@ -43,7 +43,7 @@ class JavaMutableExecutorGenerator : Generator {
                         .addMethod(MethodSpec.constructorBuilder()
                                 .addModifiers(PUBLIC)
                                 .addParameter(ParameterSpec.builder(Executor::class.java, "executor")
-                                        .addAnnotation(Nonnull::class.java)
+                                        .addAnnotation(NotNull::class.java)
                                         .build())
                                 .addStatement("this.executor = executor")
                                 .build())

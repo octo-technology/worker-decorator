@@ -7,7 +7,7 @@ plugins {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7"
 
-    compile project(":workerdecorator-annotation")
+    compileOnly project(":workerdecorator-annotation")
     kapt project(":workerdecorator-processor")
 
     testCompile "junit:junit:4.12"
