@@ -1,10 +1,10 @@
 package com.octo.workerdecorator.processor
 
 import com.octo.workerdecorator.processor.entity.Document
-import com.octo.workerdecorator.processor.test.fixture.ChildrenInterface
-import com.octo.workerdecorator.processor.test.fixture.CompilationAwareTest
-import com.octo.workerdecorator.processor.test.fixture.SimpleInterface
-import com.octo.workerdecorator.processor.test.fixture.SimpleJavaInterface
+import com.octo.workerdecorator.processor.test.fixture.KotlinChildrenInterface
+import com.octo.workerdecorator.processor.test.CompilationAwareTest
+import com.octo.workerdecorator.processor.test.fixture.KotlinInterface
+import com.octo.workerdecorator.processor.test.fixture.JavaInterface
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import javax.lang.model.type.TypeKind.BOOLEAN
@@ -16,7 +16,7 @@ class AnalyserTest : CompilationAwareTest() {
         // Given
         val analyser = Analyser(compilationRule.elements)
 
-        val input = typeElement(SimpleInterface::class)
+        val input = typeElement(KotlinInterface::class)
         val expected = simpleInterfaceFixture()
 
         // When
@@ -31,14 +31,14 @@ class AnalyserTest : CompilationAwareTest() {
         // Given
         val analyser = Analyser(compilationRule.elements)
 
-        val input = typeElement(ChildrenInterface::class)
+        val input = typeElement(KotlinChildrenInterface::class)
 
         val methods = listOf(
                 methodFixture("daddy", parameterFixture("arg0", String::class)),
                 methodFixture("son", parameterFixture("arg0", BOOLEAN)))
 
         val expected = Document("com.octo.workerdecorator.processor.test.fixture",
-                "ChildrenInterfaceDecorated", methods, input.asType(), true)
+                "KotlinChildrenInterfaceDecorated", methods, input.asType(), true)
 
         // When
         val document = analyser.analyse(input)
@@ -52,7 +52,7 @@ class AnalyserTest : CompilationAwareTest() {
         // Given
         val analyser = Analyser(compilationRule.elements)
 
-        val input = typeElement(SimpleJavaInterface::class)
+        val input = typeElement(JavaInterface::class)
         val expected = simpleJavaInterfaceFixture()
 
         // When

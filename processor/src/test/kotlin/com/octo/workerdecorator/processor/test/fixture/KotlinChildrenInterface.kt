@@ -1,5 +1,5 @@
 package com.octo.workerdecorator.processor.test.fixture
 
-interface ChildrenInterface : ParentInterface {
+interface KotlinChildrenInterface : KotlinParentInterface {
     fun son(iAmDisappoint: Boolean )
 }

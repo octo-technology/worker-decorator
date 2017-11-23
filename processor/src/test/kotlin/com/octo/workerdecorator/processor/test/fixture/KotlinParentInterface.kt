@@ -1,5 +1,5 @@
 package com.octo.workerdecorator.processor.test.fixture
 
-interface ParentInterface {
+interface KotlinParentInterface {
     fun daddy(cool: String)
 }

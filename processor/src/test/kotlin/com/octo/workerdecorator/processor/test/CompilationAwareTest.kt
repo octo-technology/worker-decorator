@@ -1,9 +1,11 @@
-package com.octo.workerdecorator.processor.test.fixture
+package com.octo.workerdecorator.processor.test
 
 import com.google.testing.compile.CompilationRule
 import com.octo.workerdecorator.processor.entity.Document
 import com.octo.workerdecorator.processor.entity.Method
 import com.octo.workerdecorator.processor.entity.Parameter
+import com.octo.workerdecorator.processor.test.fixture.KotlinInterface
+import com.octo.workerdecorator.processor.test.fixture.JavaInterface
 import org.junit.Rule
 import java.util.*
 import javax.lang.model.type.TypeKind
@@ -50,7 +52,7 @@ open class CompilationAwareTest {
      */
 
     fun simpleInterfaceFixture(): Document {
-        val typeElement = typeElement(SimpleInterface::class)
+        val typeElement = typeElement(KotlinInterface::class)
         val methods = listOf(
                 methodFixture("pam"),
                 methodFixture("jim",
@@ -59,11 +61,11 @@ open class CompilationAwareTest {
                                 parameterFixture("arg1", Date::class, true))))
 
         return Document("com.octo.workerdecorator.processor.test.fixture",
-                "SimpleInterfaceDecorated", methods, typeElement.asType(), true)
+                "KotlinInterfaceDecorated", methods, typeElement.asType(), true)
     }
 
     fun simpleJavaInterfaceFixture(): Document {
-        val typeElement = typeElement(SimpleJavaInterface::class)
+        val typeElement = typeElement(JavaInterface::class)
         val methods = listOf(
                 methodFixture("jon"),
                 methodFixture("daenerys",
@@ -73,6 +75,6 @@ open class CompilationAwareTest {
                                 parameterFixture("arg2", Formatter::class, true))))
 
         return Document("com.octo.workerdecorator.processor.test.fixture",
-                "SimpleJavaInterfaceDecorated", methods, typeElement.asType(), false)
+                "JavaInterfaceDecorated", methods, typeElement.asType(), false)
     }
 }

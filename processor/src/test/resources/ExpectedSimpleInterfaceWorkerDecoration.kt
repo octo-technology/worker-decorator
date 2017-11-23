@@ -4,7 +4,7 @@ import java.util.Currency
 import java.util.Date
 import java.util.concurrent.Executor
 
-class SimpleInterfaceDecorated(private val executor: Executor, private val decorated: SimpleInterface) : SimpleInterface {
+class KotlinInterfaceDecorated(private val executor: Executor, private val decorated: KotlinInterface) : KotlinInterface {
   override fun pam() {
     executor.execute { decorated.pam() }
   }

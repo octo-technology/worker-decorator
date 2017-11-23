@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Date;
 import java.util.Formatter;
 
-public interface SimpleJavaInterface {
+public interface JavaInterface {
     void jon();
 
     void daenerys(@NotNull Date mother, int of, Formatter dragons);

@@ -1,6 +1,6 @@
 package com.octo.workerdecorator.processor.generator
 
-import com.octo.workerdecorator.processor.test.fixture.CompilationAwareTest
+import com.octo.workerdecorator.processor.test.CompilationAwareTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 

@@ -8,12 +8,12 @@ import java.util.concurrent.Executor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public final class SimpleInterfaceDecorated implements SimpleInterface {
+public final class KotlinInterfaceDecorated implements KotlinInterface {
   private final Executor executor;
 
-  private final SimpleInterface decorated;
+  private final KotlinInterface decorated;
 
-  public SimpleInterfaceDecorated(@NotNull Executor executor, @NotNull SimpleInterface decorated) {
+  public KotlinInterfaceDecorated(@NotNull Executor executor, @NotNull KotlinInterface decorated) {
     this.executor = executor;
     this.decorated = decorated;
   }

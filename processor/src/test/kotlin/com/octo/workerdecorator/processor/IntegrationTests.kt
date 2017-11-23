@@ -9,8 +9,8 @@ import com.octo.workerdecorator.processor.entity.Language.KOTLIN
 import com.octo.workerdecorator.processor.entity.Mutability.UNMUTABLE
 import com.octo.workerdecorator.processor.extension.children
 import com.octo.workerdecorator.processor.sourcewriter.KotlinSourceWriter
-import com.octo.workerdecorator.processor.test.fixture.CompilationAwareTest
-import com.octo.workerdecorator.processor.test.fixture.SimpleInterface
+import com.octo.workerdecorator.processor.test.CompilationAwareTest
+import com.octo.workerdecorator.processor.test.fixture.KotlinInterface
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Rule
 import org.junit.Test
@@ -27,7 +27,7 @@ class IntegrationTests : CompilationAwareTest() {
         // Given
         val folder = testFolder.newFolder()
 
-        val input = typeElement(SimpleInterface::class)
+        val input = typeElement(KotlinInterface::class)
         val annotation: Decorate = mock()
 
         val analyser = Analyser(compilationRule.elements)
@@ -45,7 +45,7 @@ class IntegrationTests : CompilationAwareTest() {
         interactor.process(input, annotation)
 
         // Then
-        val resultingContent = folder.children("SimpleInterfaceDecorated.kt", "com.octo.workerdecorator.processor.test.fixture").readText()
+        val resultingContent = folder.children("KotlinInterfaceDecorated.kt", "com.octo.workerdecorator.processor.test.fixture").readText()
         val targetContent = readResource("ExpectedSimpleInterfaceWorkerDecoration.kt")
 
         assertThat(resultingContent).isEqualTo(targetContent)

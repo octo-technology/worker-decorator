@@ -2,7 +2,7 @@ package com.octo.workerdecorator.processor.test.fixture
 
 import java.util.*
 
-interface SimpleInterface {
+interface KotlinInterface {
     fun pam()
     fun jim(the: Currency, office: Date?)
 }
