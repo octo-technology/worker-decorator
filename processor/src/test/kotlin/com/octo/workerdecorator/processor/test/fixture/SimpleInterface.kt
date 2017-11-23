@@ -4,5 +4,5 @@ import java.util.*
 
 interface SimpleInterface {
     fun pam()
-    fun jim(the: Int, office: Date)
+    fun jim(the: Currency, office: Date?)
 }

@@ -2,9 +2,11 @@ package com.octo.workerdecorator.processor.test.fixture;
 
 import java.lang.Override;
 import java.lang.Runnable;
+import java.util.Currency;
 import java.util.Date;
 import java.util.concurrent.Executor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public final class SimpleInterfaceDecorated implements SimpleInterface {
   private final Executor executor;
@@ -27,7 +29,7 @@ public final class SimpleInterfaceDecorated implements SimpleInterface {
   }
 
   @Override
-  public void jim(int arg0, Date arg1) {
+  public void jim(@NotNull Currency arg0, @Nullable Date arg1) {
     executor.execute(new Runnable() {
       @Override
       public void run() {

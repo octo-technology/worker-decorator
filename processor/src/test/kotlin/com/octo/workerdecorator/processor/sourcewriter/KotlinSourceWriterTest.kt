@@ -19,7 +19,7 @@ class KotlinSourceWriterTest {
         // Given
         val folder = testFolder.newFolder()
 
-        val document = Document("stuff", "DogeDecoration", mock(), mock())
+        val document = Document("stuff", "DogeDecoration", mock(), mock(), false)
         val source = "much source, wow!"
         val sourceWriter = KotlinSourceWriter(folder)
 

@@ -24,7 +24,7 @@ class JavaSourceWriterTest {
         given(filer.createSourceFile("stuff.DogeDecoration").openWriter())
                 .willReturn(file.writer())
 
-        val document = Document("stuff", "DogeDecoration", mock(), mock())
+        val document = Document("stuff", "DogeDecoration", mock(), mock(), false)
         val source = "much source, wow!"
         val sourceWriter = JavaSourceWriter(filer)
 

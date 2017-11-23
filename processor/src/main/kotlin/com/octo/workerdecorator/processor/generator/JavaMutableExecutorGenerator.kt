@@ -14,7 +14,11 @@ class JavaMutableExecutorGenerator : Generator {
     override fun generate(document: Document): String {
         val methods = document.methods.map {
 
-            val parameters = it.parameters.map { ParameterSpec.builder(it.typeMirror.asTypeName(), it.name).build() }
+            val parameters = it.parameters.map {
+                ParameterSpec.builder(it.typeMirror.asTypeName(), it.name)
+                        .addAnnotation(if (it.isOptional) Nullable::class.java else NotNull::class.java)
+                        .build()
+            }
             val bodyParameters = it.parameters.joinToString(", ") { it.name }
 
             val comparator = TypeSpec.anonymousClassBuilder("")

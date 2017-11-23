@@ -15,7 +15,9 @@ class KotlinUnmutableExecutorGenerator : Generator {
         val functions = document.methods.map {
 
             val specParameters = it.parameters.map {
-                ParameterSpec.builder(it.name, it.typeMirror.asTypeName()).build()
+                val typeName = it.typeMirror.asTypeName()
+                val optTypeName = if (it.isOptional) typeName.asNullable() else typeName.asNonNullable()
+                ParameterSpec.builder(it.name, optTypeName).build()
             }
             val bodyParameters = it.parameters.joinToString(", ") { it.name }
 

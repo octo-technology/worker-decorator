@@ -3,6 +3,7 @@ package com.octo.workerdecorator.processor
 import com.octo.workerdecorator.processor.entity.Document
 import com.octo.workerdecorator.processor.entity.Method
 import com.octo.workerdecorator.processor.entity.Parameter
+import org.jetbrains.annotations.NotNull
 import javax.lang.model.element.ElementKind
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.element.TypeElement
@@ -31,9 +32,16 @@ class Analyser(private val elements: Elements) {
         val originalQualifiedName = input.qualifiedName.toString()
         val originalPackage = originalQualifiedName.split(".").dropLast(1).joinToString(".")
         val originalName = input.simpleName
-        return Document(originalPackage, "${originalName}Decorated", methods, input.asType())
+        val isWrittenInKotlin = input.annotationMirrors.map { it.annotationType.toString() }.contains("kotlin.Metadata")
+
+        return Document(originalPackage, "${originalName}Decorated", methods, input.asType(), isWrittenInKotlin)
     }
 
-    private fun makeParameterList(input: List<VariableElement>): List<Parameter>
-            = input.map { Parameter(it.simpleName.toString(), it.asType()) }
+    private fun makeParameterList(input: List<VariableElement>): List<Parameter> {
+        return input.map {
+            val name = it.simpleName.toString()
+            val isOptional = it.getAnnotation(NotNull::class.java) == null
+            Parameter(name, it.asType(), isOptional)
+        }
+    }
 }

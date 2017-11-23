@@ -8,6 +8,7 @@ import com.squareup.javapoet.MethodSpec
 import com.squareup.javapoet.ParameterSpec
 import com.squareup.javapoet.TypeSpec
 import org.jetbrains.annotations.NotNull
+import org.jetbrains.annotations.Nullable
 import java.util.concurrent.Executor
 import javax.lang.model.element.Modifier.*
 
@@ -17,7 +18,11 @@ class JavaUnmutableExecutorGenerator : Generator {
 
         val methods = document.methods.map {
 
-            val parameters = it.parameters.map { ParameterSpec.builder(it.typeMirror.asTypeName(), it.name).build() }
+            val parameters = it.parameters.map {
+                ParameterSpec.builder(it.typeMirror.asTypeName(), it.name)
+                        .addAnnotation(if (it.isOptional) Nullable::class.java else NotNull::class.java)
+                        .build()
+            }
             val bodyParameters = it.parameters.joinToString(", ") { it.name }
 
             val comparator = TypeSpec.anonymousClassBuilder("")

@@ -4,6 +4,7 @@ import com.octo.workerdecorator.processor.entity.Document
 import com.octo.workerdecorator.processor.test.fixture.ChildrenInterface
 import com.octo.workerdecorator.processor.test.fixture.CompilationAwareTest
 import com.octo.workerdecorator.processor.test.fixture.SimpleInterface
+import com.octo.workerdecorator.processor.test.fixture.SimpleJavaInterface
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import javax.lang.model.type.TypeKind.BOOLEAN
@@ -37,7 +38,22 @@ class AnalyserTest : CompilationAwareTest() {
                 methodFixture("son", parameterFixture("arg0", BOOLEAN)))
 
         val expected = Document("com.octo.workerdecorator.processor.test.fixture",
-                "ChildrenInterfaceDecorated", methods, input.asType())
+                "ChildrenInterfaceDecorated", methods, input.asType(), true)
+
+        // When
+        val document = analyser.analyse(input)
+
+        // Then
+        assertThat(document).isEqualTo(expected)
+    }
+
+    @Test
+    fun `analyses a simple java interface`() {
+        // Given
+        val analyser = Analyser(compilationRule.elements)
+
+        val input = typeElement(SimpleJavaInterface::class)
+        val expected = simpleJavaInterfaceFixture()
 
         // When
         val document = analyser.analyse(input)
