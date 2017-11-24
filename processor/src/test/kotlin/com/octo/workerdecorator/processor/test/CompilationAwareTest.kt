@@ -45,7 +45,7 @@ open class CompilationAwareTest {
             = Parameter(name, typeElement(`class`).asType(), optional)
 
     fun parameterFixture(name: String, kind: TypeKind): Parameter
-            = Parameter(name, typeElement(kind), true)
+            = Parameter(name, typeElement(kind), false) // Non-boxed primitives never are optional
 
     /*
      * More complex fixtures

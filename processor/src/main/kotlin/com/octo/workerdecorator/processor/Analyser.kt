@@ -8,6 +8,7 @@ import javax.lang.model.element.ElementKind
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.element.TypeElement
 import javax.lang.model.element.VariableElement
+import javax.lang.model.type.TypeKind.*
 import javax.lang.model.util.Elements
 
 /**
@@ -40,8 +41,14 @@ class Analyser(private val elements: Elements) {
     private fun makeParameterList(input: List<VariableElement>): List<Parameter> {
         return input.map {
             val name = it.simpleName.toString()
-            val isOptional = it.getAnnotation(NotNull::class.java) == null
+            val isOptional = !(it.isPrimitive() || it.hasNotNullAnnotation())
             Parameter(name, it.asType(), isOptional)
         }
     }
 }
+
+fun VariableElement.hasNotNullAnnotation(): Boolean
+        = this.getAnnotation(NotNull::class.java) != null
+
+fun VariableElement.isPrimitive(): Boolean
+        = listOf(BOOLEAN, BYTE, SHORT, INT, LONG, CHAR, FLOAT, DOUBLE).contains(this.asType().kind)

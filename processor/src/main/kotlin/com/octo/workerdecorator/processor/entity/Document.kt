@@ -70,6 +70,7 @@ data class Parameter(
 
         if (name != other.name) return false
         if (typeMirror.toString() != other.typeMirror.toString()) return false
+        if (isOptional != other.isOptional) return false
 
         return true
     }
@@ -77,6 +78,7 @@ data class Parameter(
     override fun hashCode(): Int {
         var result = name.hashCode()
         result = 31 * result + typeMirror.toString().hashCode()
+        result = 31 * result + isOptional.hashCode()
         return result
     }
 }
