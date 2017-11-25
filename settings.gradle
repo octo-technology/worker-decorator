@@ -2,6 +2,9 @@ rootProject.name = 'worker-decorator'
 
 include 'runtime'
 findProject(':runtime')?.name = 'workerdecorator'
+
 include 'processor'
 findProject(':processor')?.name = 'workerdecorator-processor'
+
+include 'kotlinelements'
 include 'integration'

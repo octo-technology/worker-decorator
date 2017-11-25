@@ -2,11 +2,10 @@ plugins {
     id "org.jetbrains.kotlin.jvm" version "1.1.60"
 }
 
-dependencies {
-    compile project(":workerdecorator")
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8"
+version '1.0-SNAPSHOT'
 
-    compile "com.squareup:javapoet:1.9.0"
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8"
     compile "com.squareup:kotlinpoet:0.6.0"
 
     testCompile "junit:junit:4.12"
