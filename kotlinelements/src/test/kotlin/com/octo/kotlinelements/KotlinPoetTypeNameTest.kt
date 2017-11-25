@@ -1,9 +1,6 @@
 package com.octo.kotlinelements
 
-import com.squareup.kotlinpoet.ClassName
-import com.squareup.kotlinpoet.ParameterizedTypeName
-import com.squareup.kotlinpoet.asClassName
-import com.squareup.kotlinpoet.asTypeName
+import com.squareup.kotlinpoet.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
@@ -86,6 +83,19 @@ class KotlinPoetTypeNameTest {
 
         assertThat(`Java List•String•`.asKotlinTypeName()).isEqualTo(`Kotlin List•String•`)
         assertThat(`Java Map•List·String·,Number•`.asKotlinTypeName()).isEqualTo(`Kotlin Map•List·String·,Number•`)
+    }
+
+    @Test
+    fun `converts java arrays`() {
+
+        val `Java Integer••` = ParameterizedTypeName.get(java.lang.reflect.Array::class.java, java.lang.Integer::class.java)
+        val `Java String••` = ParameterizedTypeName.get(java.lang.reflect.Array::class.java, java.lang.String::class.java)
+
+        val `Kotlin Array•String•` = ParameterizedTypeName.get(ARRAY, String::class.asTypeName())
+
+
+        assertThat(`Java Integer••`.asKotlinTypeName()).isEqualTo(IntArray::class.asTypeName())
+        assertThat(`Java String••`.asKotlinTypeName()).isEqualTo(`Kotlin Array•String•`)
     }
 
     private fun <T : Any> typeNameFor(`class`: Class<T>): ClassName

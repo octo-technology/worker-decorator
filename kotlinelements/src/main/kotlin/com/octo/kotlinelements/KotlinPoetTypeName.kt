@@ -1,9 +1,6 @@
 package com.octo.kotlinelements
 
-import com.squareup.kotlinpoet.ClassName
-import com.squareup.kotlinpoet.ParameterizedTypeName
-import com.squareup.kotlinpoet.TypeName
-import com.squareup.kotlinpoet.asTypeName
+import com.squareup.kotlinpoet.*
 
 /**
  * Translate a Java [TypeName] into the corresponding Kotlin equivalent.
@@ -17,7 +14,16 @@ fun TypeName.asKotlinTypeName(): TypeName {
     if (this is ParameterizedTypeName) {
         val rootType = this.rawType.asKotlinTypeName() as ClassName
         val parameterTypes = this.typeArguments.map { it.asKotlinTypeName() }.toTypedArray()
-        return ParameterizedTypeName.get(rootType, *parameterTypes)
+
+        val parameterizedTypeName = ParameterizedTypeName.get(rootType, *parameterTypes)
+
+        if (parameterizedTypeName.rawType == ARRAY
+                && parameterizedTypeName.typeArguments.size == 1
+                && parameterizedTypeName.typeArguments[0] == INT) {
+            return IntArray::class.asTypeName()
+        }
+
+        return parameterizedTypeName
     }
 
     return when (this.toString()) {
@@ -59,6 +65,11 @@ fun TypeName.asKotlinTypeName(): TypeName {
         java.util.ListIterator::class.java.name -> ListIterator::class.asTypeName()
         java.util.Map::class.java.name -> Map::class.asTypeName()
         "java.util.Entry" -> Map.Entry::class.asTypeName()
+
+
+    // Java arrays
+
+        java.lang.reflect.Array::class.java.name -> ARRAY
 
 
     // Already good :)
