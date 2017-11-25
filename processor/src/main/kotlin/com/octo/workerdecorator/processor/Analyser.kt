@@ -1,14 +1,14 @@
 package com.octo.workerdecorator.processor
 
+import com.octo.kotlinelements.isOptional
+import com.octo.kotlinelements.isProducedByKotlin
 import com.octo.workerdecorator.processor.entity.Document
 import com.octo.workerdecorator.processor.entity.Method
 import com.octo.workerdecorator.processor.entity.Parameter
-import org.jetbrains.annotations.NotNull
 import javax.lang.model.element.ElementKind
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.element.TypeElement
 import javax.lang.model.element.VariableElement
-import javax.lang.model.type.TypeKind.*
 import javax.lang.model.util.Elements
 
 /**
@@ -33,22 +33,11 @@ class Analyser(private val elements: Elements) {
         val originalQualifiedName = input.qualifiedName.toString()
         val originalPackage = originalQualifiedName.split(".").dropLast(1).joinToString(".")
         val originalName = input.simpleName
-        val isWrittenInKotlin = input.annotationMirrors.map { it.annotationType.toString() }.contains("kotlin.Metadata")
+        val isWrittenInKotlin = input.isProducedByKotlin()
 
         return Document(originalPackage, "${originalName}Decorated", methods, input.asType(), isWrittenInKotlin)
     }
 
-    private fun makeParameterList(input: List<VariableElement>): List<Parameter> {
-        return input.map {
-            val name = it.simpleName.toString()
-            val isOptional = !(it.isPrimitive() || it.hasNotNullAnnotation())
-            Parameter(name, it.asType(), isOptional)
-        }
-    }
+    private fun makeParameterList(input: List<VariableElement>): List<Parameter>
+            = input.map { Parameter(it.simpleName.toString(), it.asType(), it.isOptional()) }
 }
-
-fun VariableElement.hasNotNullAnnotation(): Boolean
-        = this.getAnnotation(NotNull::class.java) != null
-
-fun VariableElement.isPrimitive(): Boolean
-        = listOf(BOOLEAN, BYTE, SHORT, INT, LONG, CHAR, FLOAT, DOUBLE).contains(this.asType().kind)
