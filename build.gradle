@@ -1,5 +1,9 @@
 allprojects {
     group 'com.octo'
+    /*
+     * Version applied for processor and runtime modules.
+     * KotlinElements module uses kotlin version as lib version
+     */
     version '1.0-SNAPSHOT'
 
     repositories {
