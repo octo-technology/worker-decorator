@@ -57,7 +57,7 @@ open class CompilationAwareTest {
                 methodFixture("pam"),
                 methodFixture("jim",
                         listOf(
-                                parameterFixture("arg0", Currency::class, false),
+                                parameterFixture("arg0", String::class, false),
                                 parameterFixture("arg1", Date::class, true))))
 
         return Document("com.octo.workerdecorator.processor.test.fixture",
@@ -70,7 +70,7 @@ open class CompilationAwareTest {
                 methodFixture("jon"),
                 methodFixture("daenerys",
                         listOf(
-                                parameterFixture("arg0", Date::class, false),
+                                parameterFixture("arg0", String::class, false),
                                 parameterFixture("arg1", INT),
                                 parameterFixture("arg2", Formatter::class, true))))
 

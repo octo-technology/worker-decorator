@@ -4,5 +4,5 @@ import java.util.*
 
 interface KotlinInterface {
     fun pam()
-    fun jim(the: Currency, office: Date?)
+    fun jim(the: String, office: Date?)
 }

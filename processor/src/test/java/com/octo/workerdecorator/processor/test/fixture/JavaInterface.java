@@ -8,5 +8,5 @@ import java.util.Formatter;
 public interface JavaInterface {
     void jon();
 
-    void daenerys(@NotNull Date mother, int of, Formatter dragons);
+    void daenerys(@NotNull String mother, int of, Formatter dragons);
 }

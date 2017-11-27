@@ -1,5 +1,6 @@
 package com.octo.workerdecorator.processor.generator
 
+import com.octo.kotlinelements.asKotlinTypeName
 import com.octo.workerdecorator.processor.Generator
 import com.octo.workerdecorator.processor.entity.Document
 import com.squareup.kotlinpoet.*
@@ -14,9 +15,17 @@ class KotlinMutableExecutorGenerator : Generator {
         val functions = document.methods.map {
 
             val specParameters = it.parameters.map {
-                val typeName = it.typeMirror.asTypeName()
-                val optTypeName = if (it.isOptional) typeName.asNullable() else typeName.asNonNullable()
-                ParameterSpec.builder(it.name, optTypeName).build()
+                var typeName = it.typeMirror.asTypeName()
+                if (document.interfaceIsInKotlin) {
+                    typeName = typeName.asKotlinTypeName()
+                }
+                typeName = if (it.isOptional) {
+                    typeName.asNullable()
+                } else {
+                    typeName.asNonNullable()
+                }
+
+                ParameterSpec.builder(it.name, typeName).build()
             }
             val bodyParameters = it.parameters.joinToString(", ") { it.name }
 
