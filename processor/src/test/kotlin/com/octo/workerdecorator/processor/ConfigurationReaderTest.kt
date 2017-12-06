@@ -20,7 +20,7 @@ class ConfigurationReaderTest {
         val expected = Configuration(KOTLIN, EXECUTOR, MUTABLE)
 
         val annotation: Decorate = mock()
-        given(annotation.decoratedObjectIsMutable).willReturn(true)
+        given(annotation.decoratedIsMutable).willReturn(true)
 
         // When
         val result = reader.read(annotation)
@@ -36,7 +36,7 @@ class ConfigurationReaderTest {
         val expected = Configuration(KOTLIN, EXECUTOR, UNMUTABLE)
 
         val annotation: Decorate = mock()
-        given(annotation.decoratedObjectIsMutable).willReturn(false)
+        given(annotation.decoratedIsMutable).willReturn(false)
 
         // When
         val result = reader.read(annotation)

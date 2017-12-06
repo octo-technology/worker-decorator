@@ -3,9 +3,9 @@ package com.octo.kotlinelements
 import com.squareup.kotlinpoet.*
 
 /**
- * Translate a Java [TypeName] into the corresponding Kotlin equivalent.
+ * Translate a [TypeName] referencing a Java type into the corresponding Kotlin equivalent.
  *
- * Based on the [kotlin documentation](https://kotlinlang.org/docs/reference/java-interop.html)
+ * Based on the [kotlin documentation](https://kotlinlang.org/docs/reference/java-interop.html) mapped types list.
  */
 fun TypeName.asKotlinTypeName(): TypeName {
 

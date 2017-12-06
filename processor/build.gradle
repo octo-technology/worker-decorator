@@ -1,4 +1,7 @@
 apply plugin: "kotlin"
+apply plugin: "maven-publish"
+apply plugin: "com.jfrog.bintray"
+apply plugin: "org.jetbrains.dokka"
 
 sourceCompatibility = 1.8
 compileKotlin {
@@ -11,7 +14,7 @@ compileTestKotlin {
 dependencies {
     compile project(":workerdecorator")
     compile project(":kotlinelements")
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion"
 
     compile "com.squareup:javapoet:1.9.0"
     compile "com.squareup:kotlinpoet:0.6.0"
@@ -23,3 +26,65 @@ dependencies {
     testCompile "com.google.testing.compile:compile-testing:0.12"
 }
 
+
+task sourceJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
+    outputFormat = 'javadoc'
+    outputDirectory = javadoc.destinationDir
+    inputs.dir 'src/main/kotlin'
+}
+
+task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+
+publishing {
+    publications {
+        workerDecoratorProcessor(MavenPublication) {
+            from components.java
+            artifact sourceJar
+            artifact javadocJar
+            pom.withXml {
+                asNode().with {
+                    appendNode("description", "An annotation processor generating various decorations for supplied interfaces.")
+                    appendNode("licenses").with {
+                        appendNode("license").with {
+                            appendNode("name", "Apache License, Version 2.0")
+                            appendNode("url", "https://www.apache.org/licenses/LICENSE-2.0.txt")
+                        }
+                    }
+                    appendNode("organization").with {
+                        appendNode("name", "OCTO Technology – Mobile Squad")
+                        appendNode("url", "https://www.octo.com")
+                    }
+                }
+            }
+        }
+    }
+}
+
+bintray {
+    user = bintrayUser
+    key = bintrayKey
+    publications = ["workerDecoratorProcessor"]
+    pkg {
+        repo = bintrayRepository
+        name = project.name
+        userOrg = "octomob"
+        licenses = ["Apache-2.0"]
+        vcsUrl = "git@gitlab.octo.com:team-mob/worker-decorator.git"
+        publicDownloadNumbers = true
+        version {
+            name = project.version
+        }
+    }
+    dryRun = bintrayDryRun
+    publish = true
+    override = workerDecoratorIsSnapshot
+}

@@ -2,14 +2,17 @@ buildscript {
     ext {
         kotlinVersion = "1.1.61"
         workerDecoratorVersion = "1.0-SNAPSHOT"
-        kotlinElementsVersion = "$kotlinVersion-1.0-SNAPSHOT"
+        workerDecoratorIsSnapshot = true
+        kotlinElementsVersion = "$kotlinVersion-1-SNAPSHOT"
+        kotlinElementsIsSnapshot = true
     }
     repositories {
         jcenter()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.9.15"
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3"
     }
 }
 

@@ -8,11 +8,11 @@ import javax.lang.model.type.TypeMirror
  */
 data class Document(
         /**
-         * The package of the interface we're decorating
+         * The package of the interface that is being decorated
          */
         val `package`: String,
         /**
-         * The name of the class
+         * The name of the class to generate
          */
         val name: String,
         /**
@@ -20,11 +20,11 @@ data class Document(
          */
         val methods: List<Method>,
         /**
-         * The [TypeMirror] of the interface we're decorating
+         * The [TypeMirror] of the interface that is being decorated
          */
         val typeMirror: TypeMirror,
         /**
-         * True if the interface we're decorating is a Kotlin source file
+         * True if the interface that is being decorated is a Kotlin source file
          */
         val interfaceIsInKotlin: Boolean)
 

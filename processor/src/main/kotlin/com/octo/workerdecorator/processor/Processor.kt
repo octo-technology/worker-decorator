@@ -40,6 +40,7 @@ open class Processor : AbstractProcessor() {
     }
 
     override fun process(annotations: MutableSet<out TypeElement>, roundEnv: RoundEnvironment): Boolean {
+        // TODO This logic should not be here and should raise errors
         annotations.map { roundEnv.getElementsAnnotatedWith(it) }
                 .flatten()
                 .filter { it.kind == ElementKind.INTERFACE }

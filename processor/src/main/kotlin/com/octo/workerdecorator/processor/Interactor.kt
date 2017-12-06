@@ -3,7 +3,9 @@ package com.octo.workerdecorator.processor
 import com.octo.workerdecorator.annotation.Decorate
 import javax.lang.model.element.TypeElement
 
-
+/**
+ * Class orchestrating the processing of an annotated interface
+ */
 class Interactor(private val analyser: Analyser,
                  private val configurationReader: ConfigurationReader,
                  private val generatorFactory: GeneratorFactory,

@@ -1,8 +1,21 @@
 package com.octo.workerdecorator.processor.entity
 
-data class Configuration(val language: Language,
-                         val implementation: Implementation,
-                         val mutability: Mutability)
+/**
+ * Entity representing the options of the decoration to generate
+ */
+data class Configuration(
+        /**
+         * The wanted language for the generated decoration
+         */
+        val language: Language,
+        /**
+         * The wanted implementation for decorated methods
+         */
+        val implementation: Implementation,
+        /**
+         * Option specifying if the decoration should allow modifying the decorated instance
+         */
+        val mutability: Mutability)
 
 
 enum class Language { JAVA, KOTLIN }
