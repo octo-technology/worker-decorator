@@ -1,10 +1,25 @@
+buildscript {
+    ext {
+        kotlinVersion = "1.1.61"
+        workerDecoratorVersion = "1.0-SNAPSHOT"
+        kotlinElementsVersion = "$kotlinVersion-1.0-SNAPSHOT"
+    }
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+    }
+}
+
 allprojects {
     group 'com.octo'
     /*
      * Version applied for processor and runtime modules.
      * KotlinElements module uses kotlin version as lib version
      */
-    version '1.0-SNAPSHOT'
+    version workerDecoratorVersion
 
     repositories {
         jcenter()
