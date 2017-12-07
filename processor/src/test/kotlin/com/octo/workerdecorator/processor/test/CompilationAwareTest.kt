@@ -8,6 +8,8 @@ import com.octo.workerdecorator.processor.test.fixture.KotlinInterface
 import com.octo.workerdecorator.processor.test.fixture.JavaInterface
 import org.junit.Rule
 import java.util.*
+import javax.lang.model.element.TypeElement
+import javax.lang.model.type.PrimitiveType
 import javax.lang.model.type.TypeKind
 import javax.lang.model.type.TypeKind.INT
 import kotlin.reflect.KClass
@@ -22,10 +24,10 @@ open class CompilationAwareTest {
      * Type related helpers
      */
 
-    fun <T : Any> typeElement(`class`: KClass<T>)
+    fun <T : Any> typeElement(`class`: KClass<T>): TypeElement
             = compilationRule.elements.getTypeElement(`class`.java.name)
 
-    fun typeElement(kind: TypeKind)
+    fun typeElement(kind: TypeKind): PrimitiveType
             = compilationRule.types.getPrimitiveType(kind)
 
     /*

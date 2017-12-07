@@ -8,6 +8,7 @@ version kotlinElementsVersion
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion" // Force transitive kotlinpoet version
     compile "com.squareup:kotlinpoet:0.6.0"
 
     testCompile "junit:junit:4.12"

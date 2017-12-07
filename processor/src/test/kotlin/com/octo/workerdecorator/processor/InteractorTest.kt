@@ -16,11 +16,11 @@ import javax.lang.model.element.TypeElement
 @RunWith(MockitoJUnitRunner::class)
 class InteractorTest {
 
-    @Mock lateinit var analyser: Analyser
-    @Mock lateinit var configurationReader: ConfigurationReader
-    @Mock lateinit var generatorFactory: GeneratorFactory
-    @Mock lateinit var sourceWriterFactory: SourceWriterFactory
-    @InjectMocks lateinit var interactor: Interactor
+    @Mock private lateinit var analyser: Analyser
+    @Mock private lateinit var configurationReader: ConfigurationReader
+    @Mock private lateinit var generatorFactory: GeneratorFactory
+    @Mock private lateinit var sourceWriterFactory: SourceWriterFactory
+    @InjectMocks private lateinit var interactor: Interactor
 
     @Test
     fun `interactor orchestrates correctly`() {
