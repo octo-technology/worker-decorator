@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable
 import java.util.concurrent.Executor
 import javax.lang.model.element.Modifier.*
 
-class JavaUnmutableExecutorGenerator : Generator {
+class JavaImmutableExecutorGenerator : Generator {
 
     override fun generate(document: Document): String {
 

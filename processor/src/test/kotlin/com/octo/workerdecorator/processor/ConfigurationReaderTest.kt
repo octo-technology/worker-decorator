@@ -7,7 +7,7 @@ import com.octo.workerdecorator.processor.entity.Configuration
 import com.octo.workerdecorator.processor.entity.Implementation.EXECUTOR
 import com.octo.workerdecorator.processor.entity.Language.KOTLIN
 import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
-import com.octo.workerdecorator.processor.entity.Mutability.UNMUTABLE
+import com.octo.workerdecorator.processor.entity.Mutability.IMMUTABLE
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
@@ -30,10 +30,10 @@ class ConfigurationReaderTest {
     }
 
     @Test
-    fun `return a unmutable configuration`() {
+    fun `return an immutable configuration`() {
         // Given
         val reader = ConfigurationReader()
-        val expected = Configuration(KOTLIN, EXECUTOR, UNMUTABLE)
+        val expected = Configuration(KOTLIN, EXECUTOR, IMMUTABLE)
 
         val annotation: Decorate = mock()
         given(annotation.decoratedIsMutable).willReturn(false)

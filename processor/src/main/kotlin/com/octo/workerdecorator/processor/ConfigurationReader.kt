@@ -5,7 +5,7 @@ import com.octo.workerdecorator.processor.entity.Configuration
 import com.octo.workerdecorator.processor.entity.Implementation.EXECUTOR
 import com.octo.workerdecorator.processor.entity.Language.KOTLIN
 import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
-import com.octo.workerdecorator.processor.entity.Mutability.UNMUTABLE
+import com.octo.workerdecorator.processor.entity.Mutability.IMMUTABLE
 
 /**
  * Class responsible for creating a [Configuration] object describing the wanted decoration
@@ -20,6 +20,6 @@ class ConfigurationReader {
     fun read(annotation: Decorate): Configuration =
             when (annotation.decoratedIsMutable) {
                 true -> Configuration(KOTLIN, EXECUTOR, MUTABLE)
-                false -> Configuration(KOTLIN, EXECUTOR, UNMUTABLE)
+                false -> Configuration(KOTLIN, EXECUTOR, IMMUTABLE)
             }
 }

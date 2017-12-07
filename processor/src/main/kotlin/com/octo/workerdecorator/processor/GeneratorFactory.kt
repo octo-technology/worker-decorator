@@ -4,11 +4,11 @@ import com.octo.workerdecorator.processor.entity.Configuration
 import com.octo.workerdecorator.processor.entity.Language.JAVA
 import com.octo.workerdecorator.processor.entity.Language.KOTLIN
 import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
-import com.octo.workerdecorator.processor.entity.Mutability.UNMUTABLE
+import com.octo.workerdecorator.processor.entity.Mutability.IMMUTABLE
 import com.octo.workerdecorator.processor.generator.JavaMutableExecutorGenerator
-import com.octo.workerdecorator.processor.generator.JavaUnmutableExecutorGenerator
+import com.octo.workerdecorator.processor.generator.JavaImmutableExecutorGenerator
 import com.octo.workerdecorator.processor.generator.KotlinMutableExecutorGenerator
-import com.octo.workerdecorator.processor.generator.KotlinUnmutableExecutorGenerator
+import com.octo.workerdecorator.processor.generator.KotlinImmutableExecutorGenerator
 
 /**
  * Class responsible for creating the [Generator] corresponding to the given [Configuration]
@@ -24,13 +24,13 @@ class GeneratorFactory {
 
     private fun getJavaDecorator(configuration: Configuration): Generator =
             when (configuration.mutability) {
-                UNMUTABLE -> JavaUnmutableExecutorGenerator()
+                IMMUTABLE -> JavaImmutableExecutorGenerator()
                 MUTABLE -> JavaMutableExecutorGenerator()
             }
 
     private fun getKotlinDecorator(configuration: Configuration): Generator =
             when (configuration.mutability) {
-                UNMUTABLE -> KotlinUnmutableExecutorGenerator()
+                IMMUTABLE -> KotlinImmutableExecutorGenerator()
                 MUTABLE -> KotlinMutableExecutorGenerator()
             }
 }

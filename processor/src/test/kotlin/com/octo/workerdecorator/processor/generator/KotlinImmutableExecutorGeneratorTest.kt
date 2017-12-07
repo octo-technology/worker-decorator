@@ -4,12 +4,12 @@ import com.octo.workerdecorator.processor.test.CompilationAwareTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
-class KotlinUnmutableExecutorGeneratorTest : CompilationAwareTest() {
+class KotlinImmutableExecutorGeneratorTest : CompilationAwareTest() {
 
     @Test
     fun `it generates the wanted kotlin file`() {
         // Given
-        val generator = KotlinUnmutableExecutorGenerator()
+        val generator = KotlinImmutableExecutorGenerator()
         val document = simpleInterfaceFixture()
 
         // When

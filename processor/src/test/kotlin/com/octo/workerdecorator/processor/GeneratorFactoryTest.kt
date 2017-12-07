@@ -5,27 +5,27 @@ import com.octo.workerdecorator.processor.entity.Configuration
 import com.octo.workerdecorator.processor.entity.Language.JAVA
 import com.octo.workerdecorator.processor.entity.Language.KOTLIN
 import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
-import com.octo.workerdecorator.processor.entity.Mutability.UNMUTABLE
+import com.octo.workerdecorator.processor.entity.Mutability.IMMUTABLE
 import com.octo.workerdecorator.processor.generator.JavaMutableExecutorGenerator
-import com.octo.workerdecorator.processor.generator.JavaUnmutableExecutorGenerator
+import com.octo.workerdecorator.processor.generator.JavaImmutableExecutorGenerator
 import com.octo.workerdecorator.processor.generator.KotlinMutableExecutorGenerator
-import com.octo.workerdecorator.processor.generator.KotlinUnmutableExecutorGenerator
+import com.octo.workerdecorator.processor.generator.KotlinImmutableExecutorGenerator
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class GeneratorFactoryTest {
 
     @Test
-    fun `returns a Java unmutable generator`() {
+    fun `returns a Java immutable generator`() {
         // Given
         val reader = GeneratorFactory()
-        val configuration = Configuration(JAVA, mock(), UNMUTABLE)
+        val configuration = Configuration(JAVA, mock(), IMMUTABLE)
 
         // When
         val result = reader.make(configuration)
 
         // Then
-        assertThat(result).isExactlyInstanceOf(JavaUnmutableExecutorGenerator::class.java)
+        assertThat(result).isExactlyInstanceOf(JavaImmutableExecutorGenerator::class.java)
     }
 
     @Test
@@ -42,16 +42,16 @@ class GeneratorFactoryTest {
     }
 
     @Test
-    fun `returns a Kotlin an unmutable generator`() {
+    fun `returns a Kotlin an immutable generator`() {
         // Given
         val reader = GeneratorFactory()
-        val configuration = Configuration(KOTLIN, mock(), UNMUTABLE)
+        val configuration = Configuration(KOTLIN, mock(), IMMUTABLE)
 
         // When
         val result = reader.make(configuration)
 
         // Then
-        assertThat(result).isExactlyInstanceOf(KotlinUnmutableExecutorGenerator::class.java)
+        assertThat(result).isExactlyInstanceOf(KotlinImmutableExecutorGenerator::class.java)
     }
 
     @Test

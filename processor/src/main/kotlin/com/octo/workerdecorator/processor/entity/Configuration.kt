@@ -22,4 +22,4 @@ enum class Language { JAVA, KOTLIN }
 
 enum class Implementation { EXECUTOR, COROUTINE }
 
-enum class Mutability { UNMUTABLE, MUTABLE }
+enum class Mutability { IMMUTABLE, MUTABLE }

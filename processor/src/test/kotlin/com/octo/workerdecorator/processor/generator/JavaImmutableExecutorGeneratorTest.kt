@@ -4,12 +4,12 @@ import com.octo.workerdecorator.processor.test.CompilationAwareTest
 import org.assertj.core.api.Assertions
 import org.junit.Test
 
-class JavaUnmutableExecutorGeneratorTest : CompilationAwareTest() {
+class JavaImmutableExecutorGeneratorTest : CompilationAwareTest() {
 
     @Test
     fun `it generates the wanted java file`() {
         // Given
-        val generator = JavaUnmutableExecutorGenerator()
+        val generator = JavaImmutableExecutorGenerator()
         val document = simpleInterfaceFixture()
 
         // When

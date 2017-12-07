@@ -8,7 +8,7 @@ import com.squareup.kotlinpoet.KModifier.OVERRIDE
 import com.squareup.kotlinpoet.KModifier.PRIVATE
 import java.util.concurrent.Executor
 
-class KotlinUnmutableExecutorGenerator : Generator {
+class KotlinImmutableExecutorGenerator : Generator {
 
     override fun generate(document: Document): String {
         val decoratedType = document.typeMirror.asTypeName()

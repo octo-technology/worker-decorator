@@ -6,7 +6,7 @@ import com.octo.workerdecorator.annotation.Decorate
 import com.octo.workerdecorator.processor.entity.Configuration
 import com.octo.workerdecorator.processor.entity.Implementation.EXECUTOR
 import com.octo.workerdecorator.processor.entity.Language.KOTLIN
-import com.octo.workerdecorator.processor.entity.Mutability.UNMUTABLE
+import com.octo.workerdecorator.processor.entity.Mutability.IMMUTABLE
 import com.octo.workerdecorator.processor.extension.children
 import com.octo.workerdecorator.processor.sourcewriter.KotlinSourceWriter
 import com.octo.workerdecorator.processor.test.CompilationAwareTest
@@ -23,7 +23,7 @@ class IntegrationTests : CompilationAwareTest() {
     var testFolder = TemporaryFolder()
 
     @Test
-    fun `Kotlin executor unmutable`() {
+    fun `Kotlin executor immutable`() {
         // Given
         val folder = testFolder.newFolder()
 
@@ -35,7 +35,7 @@ class IntegrationTests : CompilationAwareTest() {
         val configurationReader: ConfigurationReader = mock()
         val sourceWriterFactory: SourceWriterFactory = mock()
 
-        val configuration = Configuration(KOTLIN, EXECUTOR, UNMUTABLE)
+        val configuration = Configuration(KOTLIN, EXECUTOR, IMMUTABLE)
         given(configurationReader.read(annotation)).willReturn(configuration)
         given(sourceWriterFactory.make(configuration)).willReturn(KotlinSourceWriter(folder))
 
