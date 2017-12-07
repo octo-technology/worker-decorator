@@ -15,7 +15,7 @@ buildscript {
 }
 
 allprojects {
-    group 'com.octo'
+    group 'com.octo.workerdecorator'
     /*
      * Version applied for processor and runtime modules.
      * KotlinElements module uses kotlin version as lib version

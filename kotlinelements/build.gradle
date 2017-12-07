@@ -3,6 +3,7 @@ apply plugin: "maven-publish"
 apply plugin: "com.jfrog.bintray"
 apply plugin: "org.jetbrains.dokka"
 
+group 'com.octo.kotlinelements'
 version kotlinElementsVersion
 
 dependencies {
