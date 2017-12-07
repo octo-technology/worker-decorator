@@ -59,7 +59,5 @@ bintray {
             name = project.version
         }
     }
-    dryRun = bintrayDryRun
     publish = true
-    override = workerDecoratorIsSnapshot
 }
