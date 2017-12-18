@@ -24,6 +24,16 @@ class SourceWriterFactoryTest {
         assertThat(writer).isExactlyInstanceOf(KotlinSourceWriter::class.java)
     }
 
+    @Test(expected = Error::class)
+    fun `Factory crashes when Kotlin writer is needed but kotlin folder is null`() {
+        // Given
+        val configuration = Configuration(KOTLIN, mock(), mock())
+        val factory = SourceWriterFactory(null, mock())
+
+        // When
+        factory.make(configuration)
+    }
+
     @Test
     fun `Factory returns the Java writer`() {
         // Given

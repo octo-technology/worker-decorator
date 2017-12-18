@@ -17,6 +17,11 @@ class SourceWriterFactory(private val kotlinFolder: File?, private val javaFiler
             // TODO Crash the processor if the wanted language is Kotlin and kotlinFolder is null
             when (configuration.language) {
                 JAVA -> JavaSourceWriter(javaFiler)
-                KOTLIN -> KotlinSourceWriter(kotlinFolder!!) // FIXME
+                KOTLIN -> {
+                    if (kotlinFolder == null) {
+                        throw Error("workerdecorator-processor is set to generate kotlin sources, but the kotlin folder for the generated sources is null")
+                    }
+                    KotlinSourceWriter(kotlinFolder)
+                }
             }
 }
