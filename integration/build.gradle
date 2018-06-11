@@ -8,12 +8,16 @@ compileKotlin {
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.6"
 }
+sourceSets {
+    main.kotlin.srcDirs += 'build/generated/source/kaptKotlin/main'
+}
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 
-    compileOnly project(":workerdecorator")
+    compile project(":workerdecorator")
     kapt project(":workerdecorator-processor")
 
     testCompile "junit:junit:4.12"
+    testCompile "org.assertj:assertj-core:3.10.0"
 }

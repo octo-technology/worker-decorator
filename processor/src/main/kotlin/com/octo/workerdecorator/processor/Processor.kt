@@ -6,6 +6,7 @@ import javax.annotation.processing.*
 import javax.lang.model.SourceVersion
 import javax.lang.model.element.ElementKind
 import javax.lang.model.element.TypeElement
+import javax.tools.Diagnostic
 
 /**
  * The processor called by annotation processing tools
@@ -14,11 +15,10 @@ import javax.lang.model.element.TypeElement
  */
 @Suppress("unused")
 @SupportedAnnotationTypes("com.octo.workerdecorator.annotation.Decorate")
-@SupportedOptions(Processor.GENERATE_KOTLIN_CODE_OPTION)
+@SupportedOptions(Processor.KAPT_KOTLIN_GENERATED_OPTION)
 open class Processor : AbstractProcessor() {
 
     companion object {
-        const val GENERATE_KOTLIN_CODE_OPTION = "generate.kotlin.code"
         const val KAPT_KOTLIN_GENERATED_OPTION = "kapt.kotlin.generated"
     }
 
@@ -29,27 +29,34 @@ open class Processor : AbstractProcessor() {
 
         val javaFiler = processingEnv.filer
         val kotlinPath = processingEnv.options[KAPT_KOTLIN_GENERATED_OPTION]
-        val kotlinFolder = if (kotlinPath != null) File(kotlinPath) else null
-        kotlinFolder?.mkdirs()
+        val kotlinFolder =
+            if (kotlinPath != null) {
+                File(kotlinPath)
+            } else {
+                processingEnv.messager.printMessage(Diagnostic.Kind.WARNING,
+                    "Can't find the target directory for generated Kotlin files.")
+                return
+            }
+        kotlinFolder.mkdirs()
 
         interactor = Interactor(
-                Analyser(processingEnv.elementUtils),
-                ConfigurationReader(),
-                GeneratorFactory(),
-                SourceWriterFactory(kotlinFolder, javaFiler))
+            Analyser(processingEnv.elementUtils),
+            ConfigurationReader(),
+            GeneratorFactory(),
+            SourceWriterFactory(kotlinFolder, javaFiler)
+        )
     }
 
     override fun process(annotations: MutableSet<out TypeElement>, roundEnv: RoundEnvironment): Boolean {
         // TODO This logic should not be here and should raise errors
         annotations.map { roundEnv.getElementsAnnotatedWith(it) }
-                .flatten()
-                .filter { it.kind == ElementKind.INTERFACE }
-                .map { it as TypeElement }
-                .map { interactor.process(it, it.getAnnotation(Decorate::class.java)) }
+            .flatten()
+            .filter { it.kind == ElementKind.INTERFACE }
+            .map { it as TypeElement }
+            .map { interactor.process(it, it.getAnnotation(Decorate::class.java)) }
 
         return true
     }
 
-    override fun getSupportedSourceVersion(): SourceVersion
-            = SourceVersion.latestSupported()
+    override fun getSupportedSourceVersion(): SourceVersion = SourceVersion.latestSupported()
 }
