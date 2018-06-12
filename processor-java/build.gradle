@@ -3,11 +3,18 @@ apply plugin: "maven-publish"
 apply plugin: "com.jfrog.bintray"
 apply plugin: "org.jetbrains.dokka"
 
-sourceCompatibility = 1.7
+sourceCompatibility = 1.8
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
 
 dependencies {
-    compile project(":workerdecorator-common")
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    compile project(":workerdecorator-processor")
+    testCompile "junit:junit:4.12"
+    testCompile "org.assertj:assertj-core:3.10.0"
 }
 
 
@@ -27,15 +34,16 @@ task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
     from javadoc.destinationDir
 }
 
+
 publishing {
     publications {
-        workerDecoratorRuntime(MavenPublication) {
+        workerDecoratorProcessor(MavenPublication) {
             from components.java
             artifact sourceJar
             artifact javadocJar
             pom.withXml {
                 asNode().with {
-                    appendNode("description", "An annotation processor generating various decorations for supplied interfaces.")
+                    appendNode("description", "An annotation processor generating Java decorations for supplied interfaces.")
                     appendNode("licenses").with {
                         appendNode("license").with {
                             appendNode("name", "Apache License, Version 2.0")
@@ -55,7 +63,7 @@ publishing {
 bintray {
     user = bintrayUser
     key = bintrayKey
-    publications = ["workerDecoratorRuntime"]
+    publications = ["workerDecoratorProcessor"]
     pkg {
         repo = bintrayRepository
         name = project.name

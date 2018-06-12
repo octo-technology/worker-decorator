@@ -1,12 +1,12 @@
 package com.octo.workerdecorator.integration
 
-import com.octo.workerdecorator.annotation.KotlinDecoration.decorate
+import com.octo.workerdecorator.annotation.WorkerDecorator.decorate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import java.util.*
 import java.util.concurrent.Executors
 
-class DecorateTest {
+class WorkerDecoratorTest {
 
     @Test
     fun `decorates with the helper the given implementation`() {

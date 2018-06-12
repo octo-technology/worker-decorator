@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor
 import java.lang.reflect.InvocationTargetException
 import java.util.concurrent.Executor
 
-object KotlinDecoration {
+object WorkerDecorator {
 
     private val CONSTRUCTORS = mutableMapOf<Class<Any>, Constructor<Any>>()
 

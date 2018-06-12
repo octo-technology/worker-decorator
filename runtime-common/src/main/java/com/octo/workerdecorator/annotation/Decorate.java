@@ -14,5 +14,5 @@ public @interface Decorate {
     /**
      * @return Specify if it should be possible to modify the instance given to the decoration
      */
-    boolean decoratedIsMutable() default false;
+    boolean mutable() default false;
 }

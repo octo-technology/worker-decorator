@@ -7,13 +7,13 @@ import javax.lang.model.element.TypeElement
  * Class orchestrating the processing of an annotated interface
  */
 class Interactor(private val analyser: Analyser,
-                 private val configurationReader: ConfigurationReader,
+                 private val configurationMaker: ConfigurationMaker,
                  private val generatorFactory: GeneratorFactory,
                  private val sourceWriterFactory: SourceWriterFactory) {
 
     fun process(element: TypeElement, annotation: Decorate) {
         val document = analyser.analyse(element)
-        val configuration = configurationReader.read(annotation)
+        val configuration = configurationMaker.read(annotation)
         val generator = generatorFactory.make(configuration)
         val writer = sourceWriterFactory.make(configuration)
 

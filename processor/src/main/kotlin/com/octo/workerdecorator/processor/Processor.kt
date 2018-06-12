@@ -41,7 +41,7 @@ open class Processor : AbstractProcessor() {
 
         interactor = Interactor(
             Analyser(processingEnv.elementUtils),
-            ConfigurationReader(),
+            ConfigurationMaker(ReflectConfigurationReader()),
             GeneratorFactory(),
             SourceWriterFactory(kotlinFolder, javaFiler)
         )

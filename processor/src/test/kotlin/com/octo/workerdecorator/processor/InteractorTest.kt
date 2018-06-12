@@ -17,7 +17,7 @@ import javax.lang.model.element.TypeElement
 class InteractorTest {
 
     @Mock private lateinit var analyser: Analyser
-    @Mock private lateinit var configurationReader: ConfigurationReader
+    @Mock private lateinit var configurationMaker: ConfigurationMaker
     @Mock private lateinit var generatorFactory: GeneratorFactory
     @Mock private lateinit var sourceWriterFactory: SourceWriterFactory
     @InjectMocks private lateinit var interactor: Interactor
@@ -35,7 +35,7 @@ class InteractorTest {
 
         given(analyser.analyse(element))
                 .willReturn(document)
-        given(configurationReader.read(annotation))
+        given(configurationMaker.read(annotation))
                 .willReturn(configuration)
         given(generatorFactory.make(configuration))
                 .willReturn(generator)
