@@ -7,6 +7,9 @@ group 'com.octo.workerdecorator'
 version '1.0-alpha3'
 
 sourceCompatibility = 1.8
+sourceSets {
+    main.java.srcDirs += 'build/generated/source/apt/main'
+}
 
 dependencies {
 
