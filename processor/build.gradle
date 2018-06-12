@@ -55,7 +55,7 @@ publishing {
             artifact javadocJar
             pom.withXml {
                 asNode().with {
-                    appendNode("description", "An annotation processor generating various decorations for supplied interfaces.")
+                    appendNode("description", "An annotation processor generating Kotlin decorations for supplied interfaces.")
                     appendNode("licenses").with {
                         appendNode("license").with {
                             appendNode("name", "Apache License, Version 2.0")
