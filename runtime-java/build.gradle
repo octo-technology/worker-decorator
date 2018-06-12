@@ -3,30 +3,11 @@ apply plugin: "maven-publish"
 apply plugin: "com.jfrog.bintray"
 apply plugin: "org.jetbrains.dokka"
 
-sourceCompatibility = 1.8
-compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
-}
-compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
-}
+sourceCompatibility = 1.7
 
 dependencies {
-    compile project(":workerdecorator")
-    compile project(":workerdecorator-java")
-    compile project(":kotlinelements")
-
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
-    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion" // Force transitive kotlinpoet version
-
-    compile "com.squareup:javapoet:1.11.1"
-    compile "com.squareup:kotlinpoet:0.7.0"
-
-    testCompile "junit:junit:4.12"
-    testCompile "org.assertj:assertj-core:3.10.0"
-    testCompile "org.mockito:mockito-core:2.18.3"
-    testCompile "com.nhaarman:mockito-kotlin-kt1.1:1.5.0"
-    testCompile "com.google.testing.compile:compile-testing:0.15"
+    compile project(":workerdecorator-common")
+    compile "org.jetbrains:annotations-java5:16.0.2"
 }
 
 
@@ -46,10 +27,9 @@ task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
     from javadoc.destinationDir
 }
 
-
 publishing {
     publications {
-        workerDecoratorProcessor(MavenPublication) {
+        workerDecoratorRuntime(MavenPublication) {
             from components.java
             artifact sourceJar
             artifact javadocJar
@@ -75,7 +55,7 @@ publishing {
 bintray {
     user = bintrayUser
     key = bintrayKey
-    publications = ["workerDecoratorProcessor"]
+    publications = ["workerDecoratorRuntime"]
     pkg {
         repo = bintrayRepository
         name = project.name

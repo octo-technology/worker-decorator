@@ -17,5 +17,5 @@ class KotlinInterfaceDecorated(private val executor: Executor) : KotlinInterface
         executor.execute { decorated?.jim(arg0, arg1) }
     }
 
-    override fun decoration(): KotlinInterface = this
+    override fun asType(): KotlinInterface = this
 }

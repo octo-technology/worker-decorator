@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+    id 'net.ltgt.apt' version '0.15'
+}
+
+group 'com.octo.workerdecorator'
+version '1.0-alpha3'
+
+sourceCompatibility = 1.8
+
+dependencies {
+
+    compile project(":workerdecorator-java")
+    annotationProcessor project(":workerdecorator-processor-java")
+
+    testCompile "junit:junit:4.12"
+    testCompile "org.assertj:assertj-core:3.10.0"
+}

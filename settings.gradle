@@ -1,10 +1,11 @@
 rootProject.name = 'worker-decorator'
 
-include 'runtime-common'
-findProject(':runtime-common')?.name = 'workerdecorator-common'
-
 include 'runtime'
 findProject(':runtime')?.name = 'workerdecorator'
+include 'runtime-common'
+findProject(':runtime-common')?.name = 'workerdecorator-common'
+include 'runtime-java'
+findProject(':runtime-java')?.name = 'workerdecorator-java'
 
 include 'processor'
 findProject(':processor')?.name = 'workerdecorator-processor'
@@ -13,5 +14,7 @@ include 'processor-java'
 findProject(':processor-java')?.name = 'workerdecorator-processor-java'
 
 include 'kotlinelements'
-include 'integration'
+
+include 'integration-kotlin'
+include 'integration-java'
 

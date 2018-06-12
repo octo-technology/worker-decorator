@@ -11,11 +11,11 @@ import javax.annotation.processing.Filer
 /**
  * Class responsible for creating the [SourceWriter] corresponding to the language specified in the [Configuration]
  */
-class SourceWriterFactory(private val kotlinFolder: File, private val javaFiler: Filer) {
+class SourceWriterFactory(private val kotlinFolder: File?, private val javaFiler: Filer) {
 
     fun make(configuration: Configuration): SourceWriter =
         when (configuration.language) {
             JAVA -> JavaSourceWriter(javaFiler)
-            KOTLIN -> KotlinSourceWriter(kotlinFolder)
+            KOTLIN -> KotlinSourceWriter(kotlinFolder!!)
         }
 }

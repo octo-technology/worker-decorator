@@ -53,7 +53,7 @@ class KotlinMutableExecutorGenerator : Generator {
                         .initializer("null")
                         .build())
                 .addFunctions(functions)
-                .addFunction(FunSpec.builder(WorkerDecoration<Any>::decoration.name)
+                .addFunction(FunSpec.builder(WorkerDecoration<Any>::asType.name)
                         .addModifiers(OVERRIDE)
                         .returns(decoratedType)
                         .addStatement("return this")

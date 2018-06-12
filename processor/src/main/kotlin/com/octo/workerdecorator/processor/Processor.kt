@@ -1,6 +1,7 @@
 package com.octo.workerdecorator.processor
 
 import com.octo.workerdecorator.annotation.Decorate
+import com.octo.workerdecorator.processor.entity.Language
 import java.io.File
 import javax.annotation.processing.*
 import javax.lang.model.SourceVersion
@@ -27,21 +28,26 @@ open class Processor : AbstractProcessor() {
     override fun init(processingEnv: ProcessingEnvironment) {
         super.init(processingEnv)
 
+        val configurationReader = ReflectConfigurationReader()
+
         val javaFiler = processingEnv.filer
         val kotlinPath = processingEnv.options[KAPT_KOTLIN_GENERATED_OPTION]
+
         val kotlinFolder =
             if (kotlinPath != null) {
                 File(kotlinPath)
             } else {
-                processingEnv.messager.printMessage(Diagnostic.Kind.WARNING,
-                    "Can't find the target directory for generated Kotlin files.")
-                return
+                if (configurationReader.language == Language.KOTLIN) {
+                    processingEnv.messager.printMessage(Diagnostic.Kind.WARNING,
+                        "Can't find the target directory for generated Kotlin files.")
+                }
+                null
             }
-        kotlinFolder.mkdirs()
+        kotlinFolder?.mkdirs()
 
         interactor = Interactor(
             Analyser(processingEnv.elementUtils),
-            ConfigurationMaker(ReflectConfigurationReader()),
+            ConfigurationMaker(configurationReader),
             GeneratorFactory(),
             SourceWriterFactory(kotlinFolder, javaFiler)
         )

@@ -1,5 +1,6 @@
 package com.octo.workerdecorator.processor.test.fixture;
 
+import com.octo.workerdecorator.annotation.java.WorkerDecoration;
 import java.lang.Override;
 import java.lang.Runnable;
 import java.lang.String;
@@ -8,7 +9,7 @@ import java.util.concurrent.Executor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public final class KotlinInterfaceDecorated implements KotlinInterface {
+public final class KotlinInterfaceDecorated implements KotlinInterface, WorkerDecoration<KotlinInterface> {
   private final Executor executor;
 
   @Nullable
@@ -18,6 +19,7 @@ public final class KotlinInterfaceDecorated implements KotlinInterface {
     this.executor = executor;
   }
 
+  @Override
   public void setDecorated(@Nullable KotlinInterface decorated) {
     this.decorated = decorated;
   }
@@ -44,5 +46,11 @@ public final class KotlinInterfaceDecorated implements KotlinInterface {
         }
       }
     });
+  }
+
+  @Override
+  @NotNull
+  public KotlinInterface asType() {
+    return this;
   }
 }
