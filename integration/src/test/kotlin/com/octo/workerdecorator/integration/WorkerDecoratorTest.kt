@@ -9,11 +9,19 @@ import java.util.concurrent.Executors
 class WorkerDecoratorTest {
 
     @Test
-    fun `decorates with the helper the given implementation`() {
+    fun `returns a immutable decoration with the helper`() {
         val executor = Executors.newSingleThreadScheduledExecutor()
         val decorated = decorate<KotlinSimpleInterface>(Implementation(), executor)
 
         assertThat(decorated).isOfAnyClassIn(KotlinSimpleInterfaceDecorated::class.java)
+    }
+
+    @Test
+    fun `returns a mutable decoration with the helper`() {
+        val executor = Executors.newSingleThreadScheduledExecutor()
+        val decorated = decorate<KotlinSimpleInterface2>(executor)
+
+        assertThat(decorated).isOfAnyClassIn(KotlinSimpleInterface2Decorated::class.java)
     }
 
     inner class Implementation : KotlinSimpleInterface {

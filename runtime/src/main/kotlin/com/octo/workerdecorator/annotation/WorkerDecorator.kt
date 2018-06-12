@@ -12,7 +12,7 @@ object WorkerDecorator {
      * Instantiate an immutable decoration for the given instance and executor
      */
     inline fun <reified T : Any> decorate(instance: T, executor: Executor): T {
-        val constructor = findImmutableConstructor(T::class.java)
+        val constructor = findConstructor(T::class.java)
         try {
             return constructor.newInstance(executor, instance)
         } catch (e: IllegalAccessException) {
@@ -24,6 +24,21 @@ object WorkerDecorator {
         }
     }
 
+    /**
+     * Instantiate a mutable decoration for the wanted type and executor
+     */
+    inline fun <reified T : Any> decorate(executor: Executor): T {
+        val constructor = findConstructor(T::class.java, mutable = true)
+        try {
+            return constructor.newInstance(executor)
+        } catch (e: IllegalAccessException) {
+            throw RuntimeException("Unable to invoke $constructor", e)
+        } catch (e: InstantiationException) {
+            throw RuntimeException("Unable to invoke $constructor", e)
+        } catch (e: InvocationTargetException) {
+            throw RuntimeException("Unable to instantiate the decoration", e)
+        }
+    }
 
 
     /*
@@ -31,7 +46,7 @@ object WorkerDecorator {
      */
 
     @Suppress("UNCHECKED_CAST", "MemberVisibilityCanBePrivate")
-    fun <T : Any> findImmutableConstructor(targetClass: Class<in T>): Constructor<T> {
+    fun <T : Any> findConstructor(targetClass: Class<in T>, mutable: Boolean = false): Constructor<T> {
 
         var constructor: Constructor<*>? = CONSTRUCTORS[targetClass]
         if (constructor != null) {
@@ -40,7 +55,12 @@ object WorkerDecorator {
 
         constructor = try {
             val decorationClass = targetClass.classLoader.loadClass("${targetClass.name}Decorated")
-            decorationClass.getConstructor(Executor::class.java, targetClass)
+
+            if (mutable) {
+                decorationClass.getConstructor(Executor::class.java)
+            } else {
+                decorationClass.getConstructor(Executor::class.java, targetClass)
+            }
         } catch (e: ClassNotFoundException) {
             throw RuntimeException("Unable to find $targetClass's decoration", e)
         } catch (e: NoSuchMethodException) {
