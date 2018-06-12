@@ -26,7 +26,7 @@ public class IntegrationTest {
             }
         };
 
-        JavaSimpleInterfaceDecorated immutable = new JavaSimpleInterfaceDecorated(executor, implementation);
+        JavaSimpleInterfaceDecorated immutable = new JavaSimpleInterfaceDecorated(implementation, executor);
     }
 
     @Test

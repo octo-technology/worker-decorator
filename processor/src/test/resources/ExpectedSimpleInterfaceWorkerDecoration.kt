@@ -4,7 +4,7 @@ import java.util.Date
 import java.util.concurrent.Executor
 import kotlin.String
 
-class KotlinInterfaceDecorated(private val executor: Executor, private val decorated: KotlinInterface) : KotlinInterface {
+class KotlinInterfaceDecorated(private val decorated: KotlinInterface, private val executor: Executor) : KotlinInterface {
     override fun pam() {
         executor.execute { decorated.pam() }
     }

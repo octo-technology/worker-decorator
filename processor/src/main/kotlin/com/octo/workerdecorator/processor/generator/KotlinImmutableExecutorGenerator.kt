@@ -40,11 +40,11 @@ class KotlinImmutableExecutorGenerator : Generator {
         val source = FileSpec.get(document.`package`, TypeSpec.classBuilder(document.name)
                 .addSuperinterface(decoratedType)
                 .primaryConstructor(FunSpec.constructorBuilder()
-                        .addParameter("executor", Executor::class)
                         .addParameter("decorated", decoratedType)
+                        .addParameter("executor", Executor::class)
                         .build())
-                .addProperty(PropertySpec.builder("executor", Executor::class, PRIVATE).initializer("executor").build())
                 .addProperty(PropertySpec.builder("decorated", decoratedType, PRIVATE).initializer("decorated").build())
+                .addProperty(PropertySpec.builder("executor", Executor::class, PRIVATE).initializer("executor").build())
                 .addFunctions(functions)
                 .build())
 

@@ -9,13 +9,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class KotlinInterfaceDecorated implements KotlinInterface {
-  private final Executor executor;
-
   private final KotlinInterface decorated;
 
-  public KotlinInterfaceDecorated(@NotNull Executor executor, @NotNull KotlinInterface decorated) {
-    this.executor = executor;
+  private final Executor executor;
+
+  public KotlinInterfaceDecorated(@NotNull KotlinInterface decorated, @NotNull Executor executor) {
     this.decorated = decorated;
+    this.executor = executor;
   }
 
   @Override
