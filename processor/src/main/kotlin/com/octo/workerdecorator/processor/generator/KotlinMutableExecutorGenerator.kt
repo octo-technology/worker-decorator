@@ -1,7 +1,7 @@
 package com.octo.workerdecorator.processor.generator
 
 import com.octo.kotlinelements.asKotlinTypeName
-import com.octo.workerdecorator.annotation.MutableWorkerDecoration
+import com.octo.workerdecorator.annotation.WorkerDecoration
 import com.octo.workerdecorator.processor.Generator
 import com.octo.workerdecorator.processor.entity.Document
 import com.squareup.kotlinpoet.*
@@ -40,7 +40,7 @@ class KotlinMutableExecutorGenerator : Generator {
 
         val source = FileSpec.get(document.`package`, TypeSpec.classBuilder(document.name)
                 .addSuperinterface(decoratedType)
-                .addSuperinterface(ParameterizedTypeName.get(MutableWorkerDecoration::class.asClassName(), decoratedType))
+                .addSuperinterface(ParameterizedTypeName.get(WorkerDecoration::class.asClassName(), decoratedType))
                 .primaryConstructor(FunSpec.constructorBuilder()
                         .addParameter("executor", Executor::class)
                         .build())
@@ -53,7 +53,7 @@ class KotlinMutableExecutorGenerator : Generator {
                         .initializer("null")
                         .build())
                 .addFunctions(functions)
-                .addFunction(FunSpec.builder(MutableWorkerDecoration<Any>::decoration.name)
+                .addFunction(FunSpec.builder(WorkerDecoration<Any>::decoration.name)
                         .addModifiers(OVERRIDE)
                         .returns(decoratedType)
                         .addStatement("return this")

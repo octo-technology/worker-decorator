@@ -8,6 +8,9 @@ object WorkerDecorator {
 
     private val CONSTRUCTORS = mutableMapOf<Class<Any>, Constructor<Any>>()
 
+    /**
+     * Instantiate an immutable decoration for the given instance and executor
+     */
     inline fun <reified T : Any> decorate(instance: T, executor: Executor): T {
         val constructor = findImmutableConstructor(T::class.java)
         try {
@@ -21,7 +24,13 @@ object WorkerDecorator {
         }
     }
 
-    @Suppress("UNCHECKED_CAST")
+
+
+    /*
+     * Private and Semi-Private methods
+     */
+
+    @Suppress("UNCHECKED_CAST", "MemberVisibilityCanBePrivate")
     fun <T : Any> findImmutableConstructor(targetClass: Class<in T>): Constructor<T> {
 
         var constructor: Constructor<*>? = CONSTRUCTORS[targetClass]

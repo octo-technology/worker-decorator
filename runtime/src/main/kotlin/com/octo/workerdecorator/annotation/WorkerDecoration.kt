@@ -1,6 +1,6 @@
 package com.octo.workerdecorator.annotation
 
-interface MutableWorkerDecoration<DECORATED> {
+interface WorkerDecoration<DECORATED> {
     var decorated: DECORATED?
     fun decoration(): DECORATED
 }
