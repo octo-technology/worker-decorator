@@ -1,5 +1,6 @@
 package com.octo.workerdecorator.integration
 
+import com.octo.workerdecorator.annotation.WorkerDecoration
 import com.octo.workerdecorator.annotation.WorkerDecorator.decorate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
@@ -13,7 +14,8 @@ class WorkerDecoratorTest {
         val executor = Executors.newSingleThreadScheduledExecutor()
         val decorated = decorate<KotlinSimpleInterface>(Implementation(), executor)
 
-        assertThat(decorated).isOfAnyClassIn(KotlinSimpleInterfaceDecorated::class.java)
+        assertThat(decorated).isInstanceOf(KotlinSimpleInterfaceDecorated::class.java)
+        assertThat(decorated).isInstanceOf(KotlinSimpleInterface::class.java)
     }
 
     @Test
@@ -21,7 +23,9 @@ class WorkerDecoratorTest {
         val executor = Executors.newSingleThreadScheduledExecutor()
         val decorated = decorate<KotlinSimpleInterface2>(executor)
 
-        assertThat(decorated).isOfAnyClassIn(KotlinSimpleInterface2Decorated::class.java)
+        assertThat(decorated).isInstanceOf(KotlinSimpleInterface2Decorated::class.java)
+        assertThat(decorated).isInstanceOf(KotlinSimpleInterface2::class.java)
+        assertThat(decorated).isInstanceOf(WorkerDecoration::class.java)
     }
 
     inner class Implementation : KotlinSimpleInterface {

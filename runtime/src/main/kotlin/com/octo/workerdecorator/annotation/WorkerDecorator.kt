@@ -27,10 +27,12 @@ object WorkerDecorator {
     /**
      * Instantiate a mutable decoration for the wanted type and executor
      */
-    inline fun <reified T : Any> decorate(executor: Executor): T {
+    @Suppress("UNCHECKED_CAST")
+    inline fun <reified T : Any> decorate(executor: Executor): WorkerDecoration<T> {
         val constructor = findConstructor(T::class.java, mutable = true)
         try {
-            return constructor.newInstance(executor)
+            return constructor.newInstance(executor) as? WorkerDecoration<T>
+                    ?: throw RuntimeException("Unable to cast the constructor")
         } catch (e: IllegalAccessException) {
             throw RuntimeException("Unable to invoke $constructor", e)
         } catch (e: InstantiationException) {
