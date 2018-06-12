@@ -1,6 +1,7 @@
 package com.octo.workerdecorator.processor.generator
 
 import com.octo.kotlinelements.asKotlinTypeName
+import com.octo.workerdecorator.annotation.WorkerDecorator
 import com.octo.workerdecorator.processor.Generator
 import com.octo.workerdecorator.processor.entity.Document
 import com.squareup.kotlinpoet.*
@@ -37,7 +38,7 @@ class KotlinImmutableExecutorGenerator : Generator {
                     .build()
         }.asIterable()
 
-        val source = FileSpec.get(document.`package`, TypeSpec.classBuilder(document.name)
+        val decoration = TypeSpec.classBuilder(document.name)
                 .addSuperinterface(decoratedType)
                 .primaryConstructor(FunSpec.constructorBuilder()
                         .addParameter("decorated", decoratedType)
@@ -46,7 +47,18 @@ class KotlinImmutableExecutorGenerator : Generator {
                 .addProperty(PropertySpec.builder("decorated", decoratedType, PRIVATE).initializer("decorated").build())
                 .addProperty(PropertySpec.builder("executor", Executor::class, PRIVATE).initializer("executor").build())
                 .addFunctions(functions)
-                .build())
+                .build()
+
+        val source = FileSpec.builder(document.`package`, document.name)
+                .addType(decoration)
+                .addFunction(FunSpec.builder("decorate")
+                        .receiver(WorkerDecorator::class)
+                        .returns(decoratedType)
+                        .addParameter("implementation", decoratedType)
+                        .addParameter("executor", Executor::class)
+                        .addStatement("return ${document.name}(implementation, executor)")
+                        .build())
+                .build()
 
         return source.toString()
     }

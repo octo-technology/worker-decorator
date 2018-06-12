@@ -1,6 +1,7 @@
 package com.octo.workerdecorator.processor.test.fixture
 
 import com.octo.workerdecorator.annotation.WorkerDecoration
+import com.octo.workerdecorator.annotation.WorkerDecorator
 import java.util.Date
 import java.util.concurrent.Executor
 import kotlin.String
@@ -19,3 +20,5 @@ class KotlinInterfaceDecorated(private val executor: Executor) : KotlinInterface
 
     override fun asType(): KotlinInterface = this
 }
+
+fun WorkerDecorator.decorate(executor: Executor): WorkerDecoration<KotlinInterface> = KotlinInterfaceDecorated(executor)

@@ -1,7 +1,7 @@
 package com.octo.workerdecorator.integration
 
 import com.octo.workerdecorator.annotation.WorkerDecoration
-import com.octo.workerdecorator.annotation.WorkerDecorator.decorate
+import com.octo.workerdecorator.annotation.WorkerDecorator
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import java.util.*
@@ -12,7 +12,7 @@ class WorkerDecoratorTest {
     @Test
     fun `returns a immutable decoration with the helper`() {
         val executor = Executors.newSingleThreadScheduledExecutor()
-        val decorated = decorate<KotlinSimpleInterface>(Implementation(), executor)
+        val decorated = WorkerDecorator.decorate(Implementation(), executor)
 
         assertThat(decorated).isInstanceOf(KotlinSimpleInterfaceDecorated::class.java)
         assertThat(decorated).isInstanceOf(KotlinSimpleInterface::class.java)
@@ -21,7 +21,7 @@ class WorkerDecoratorTest {
     @Test
     fun `returns a mutable decoration with the helper`() {
         val executor = Executors.newSingleThreadScheduledExecutor()
-        val decorated = decorate<KotlinSimpleInterface2>(executor)
+        val decorated = WorkerDecorator.decorate(executor)
 
         assertThat(decorated).isInstanceOf(KotlinSimpleInterface2Decorated::class.java)
         assertThat(decorated).isInstanceOf(KotlinSimpleInterface2::class.java)
