@@ -84,9 +84,9 @@ class VariableElementTest {
 
     private fun <T : Any> getVariableElement(name: String, `class`: KClass<T>): VariableElement {
         return compilationRule.elements.getTypeElement(`class`.java.name)
-                .enclosedElements
-                .filter { it.kind == ElementKind.FIELD }
-                .map { it as VariableElement }
-                .find { it.simpleName.toString() == name }!!
+            .enclosedElements
+            .filter { it.kind == ElementKind.FIELD }
+            .map { it as VariableElement }
+            .find { it.simpleName.toString() == name }!!
     }
 }

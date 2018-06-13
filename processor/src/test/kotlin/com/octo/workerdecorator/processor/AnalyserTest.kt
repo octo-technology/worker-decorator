@@ -134,7 +134,6 @@ class AnalyserTest : CompilationAwareTest() {
         val analyser = Analyser(compilationRule.elements)
 
         val input = typeElement(KotlinInterface::class)
-        val expected = simpleInterfaceFixture()
 
         val annotation = mock<Decorate>()
         given(annotation.mutable).willReturn(true)

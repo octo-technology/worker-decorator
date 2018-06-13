@@ -18,8 +18,9 @@ fun TypeName.asKotlinTypeName(): TypeName {
         val parameterizedTypeName = ParameterizedTypeName.get(rootType, *parameterTypes)
 
         if (parameterizedTypeName.rawType == ARRAY
-                && parameterizedTypeName.typeArguments.size == 1
-                && parameterizedTypeName.typeArguments[0] == INT) {
+            && parameterizedTypeName.typeArguments.size == 1
+            && parameterizedTypeName.typeArguments[0] == INT
+        ) {
             return IntArray::class.asTypeName()
         }
 

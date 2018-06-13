@@ -3,12 +3,11 @@ package com.octo.workerdecorator.processor
 import com.nhaarman.mockito_kotlin.mock
 import com.octo.workerdecorator.processor.entity.AggregateConfiguration
 import com.octo.workerdecorator.processor.entity.Configuration
-import com.octo.workerdecorator.processor.entity.Implementation
 import com.octo.workerdecorator.processor.entity.Implementation.EXECUTOR
 import com.octo.workerdecorator.processor.entity.Language.JAVA
 import com.octo.workerdecorator.processor.entity.Language.KOTLIN
-import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
 import com.octo.workerdecorator.processor.entity.Mutability.IMMUTABLE
+import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
 import com.octo.workerdecorator.processor.generator.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test

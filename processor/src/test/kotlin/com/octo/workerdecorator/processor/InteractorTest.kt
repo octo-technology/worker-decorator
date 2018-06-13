@@ -7,9 +7,7 @@ import com.octo.workerdecorator.annotation.Decorate
 import com.octo.workerdecorator.processor.entity.*
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Answers
 import org.mockito.Answers.RETURNS_DEEP_STUBS
-import org.mockito.Answers.RETURNS_MOCKS
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner

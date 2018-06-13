@@ -9,7 +9,7 @@ class KotlinSourceWriter(private val kotlinFolder: File) : SourceWriter {
 
     override fun write(document: Document, source: String) {
         kotlinFolder.children("${document.name}.kt", document.`package`)
-                .bufferedWriter()
-                .use { it.write(source) }
+            .bufferedWriter()
+            .use { it.write(source) }
     }
 }

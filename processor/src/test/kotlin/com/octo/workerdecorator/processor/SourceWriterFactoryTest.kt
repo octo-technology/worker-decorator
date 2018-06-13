@@ -1,7 +1,6 @@
 package com.octo.workerdecorator.processor
 
 import com.nhaarman.mockito_kotlin.mock
-import com.octo.workerdecorator.processor.entity.Configuration
 import com.octo.workerdecorator.processor.entity.Language.JAVA
 import com.octo.workerdecorator.processor.entity.Language.KOTLIN
 import com.octo.workerdecorator.processor.sourcewriter.JavaSourceWriter

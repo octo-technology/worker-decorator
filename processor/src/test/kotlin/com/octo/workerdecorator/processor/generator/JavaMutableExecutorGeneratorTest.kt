@@ -20,6 +20,6 @@ class JavaMutableExecutorGeneratorTest : CompilationAwareTest() {
         Assertions.assertThat(result).isEqualTo(targetContent)
     }
 
-    private fun readResource(file: String)
-            = javaClass.classLoader.getResourceAsStream(file).bufferedReader().use { it.readText() }
+    private fun readResource(file: String) =
+        javaClass.classLoader.getResourceAsStream(file).bufferedReader().use { it.readText() }
 }

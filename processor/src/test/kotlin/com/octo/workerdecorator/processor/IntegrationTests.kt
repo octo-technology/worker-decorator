@@ -45,12 +45,13 @@ class IntegrationTests : CompilationAwareTest() {
         interactor.process(input, annotation)
 
         // Then
-        val resultingContent = folder.children("KotlinInterfaceDecorated.kt", "com.octo.workerdecorator.processor.test.fixture").readText()
+        val resultingContent =
+            folder.children("KotlinInterfaceDecorated.kt", "com.octo.workerdecorator.processor.test.fixture").readText()
         val targetContent = readResource("ExpectedSimpleInterfaceWorkerDecoration.kt")
 
         assertThat(resultingContent).isEqualTo(targetContent)
     }
 
-    private fun readResource(file: String)
-            = javaClass.classLoader.getResourceAsStream(file).bufferedReader().use { it.readText() }
+    private fun readResource(file: String) =
+        javaClass.classLoader.getResourceAsStream(file).bufferedReader().use { it.readText() }
 }

@@ -2,7 +2,6 @@ package com.octo.workerdecorator.processor.sourcewriter
 
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
-import com.octo.workerdecorator.processor.entity.DecorationDocument
 import com.octo.workerdecorator.processor.entity.Document
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Rule
@@ -23,7 +22,7 @@ class JavaSourceWriterTest {
         val file = testFolder.newFile()
         val filer: Filer = mock(defaultAnswer = RETURNS_DEEP_STUBS)
         given(filer.createSourceFile("stuff.DogeDecoration").openWriter())
-                .willReturn(file.writer())
+            .willReturn(file.writer())
 
         val document = mock<Document>()
         given(document.`package`).willReturn("stuff")
