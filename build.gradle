@@ -1,7 +1,7 @@
 buildscript {
     ext {
         kotlinVersion = "1.2.31"
-        workerDecoratorVersion = "1.0-beta3"
+        workerDecoratorVersion = "1.0-beta4"
         kotlinElementsVersion = "$kotlinVersion-1-beta"
     }
     repositories {
