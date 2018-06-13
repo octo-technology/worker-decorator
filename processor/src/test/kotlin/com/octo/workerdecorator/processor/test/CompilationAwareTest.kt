@@ -103,13 +103,13 @@ open class CompilationAwareTest {
                 "com.octo.workerdecorator.processor.test.fixture",
                 "KotlinInterfaceDecorated",
                 typeElement(KotlinInterface::class).asType(),
-                MUTABLE
+                IMMUTABLE
             ),
             AggregateDocument(
                 "com.octo.workerdecorator.processor.test.fixture",
                 "JavaInterfaceDecorated",
                 typeElement(JavaInterface::class).asType(),
-                IMMUTABLE
+                MUTABLE
             )
         )
     }

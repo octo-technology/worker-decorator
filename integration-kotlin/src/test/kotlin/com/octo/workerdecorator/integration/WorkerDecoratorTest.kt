@@ -21,11 +21,9 @@ class WorkerDecoratorTest {
     @Test
     fun `returns a mutable decoration with the helper`() {
         val executor = Executors.newSingleThreadScheduledExecutor()
-        val decorated = WorkerDecorator.decorate(executor)
+        val decorated: WorkerDecoration<KotlinSimpleInterface2> = WorkerDecorator.decorate(executor)
 
         assertThat(decorated).isInstanceOf(KotlinSimpleInterface2Decorated::class.java)
-        assertThat(decorated).isInstanceOf(KotlinSimpleInterface2::class.java)
-        assertThat(decorated).isInstanceOf(WorkerDecoration::class.java)
     }
 
     inner class Implementation : KotlinSimpleInterface {
