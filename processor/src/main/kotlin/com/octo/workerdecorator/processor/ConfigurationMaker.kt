@@ -1,5 +1,6 @@
 package com.octo.workerdecorator.processor
 
+import com.octo.workerdecorator.processor.entity.AggregateConfiguration
 import com.octo.workerdecorator.processor.entity.Configuration
 import com.octo.workerdecorator.processor.entity.Mutability.IMMUTABLE
 import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
@@ -13,7 +14,6 @@ import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
  */
 class ConfigurationMaker(private val configurationReader: ConfigurationReader) {
 
-    // This is partially "mocked" for now
     fun read(annotation: com.octo.workerdecorator.annotation.Decorate): Configuration {
         val language = configurationReader.language
         val implementation = configurationReader.implementation
@@ -23,4 +23,8 @@ class ConfigurationMaker(private val configurationReader: ConfigurationReader) {
             false -> Configuration(language, implementation, IMMUTABLE)
         }
     }
+
+    fun read(): AggregateConfiguration =
+        AggregateConfiguration(configurationReader.language, configurationReader.implementation)
+
 }

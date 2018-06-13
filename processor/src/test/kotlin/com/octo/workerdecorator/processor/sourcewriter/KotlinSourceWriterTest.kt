@@ -1,6 +1,8 @@
 package com.octo.workerdecorator.processor.sourcewriter
 
+import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
+import com.octo.workerdecorator.processor.entity.DecorationDocument
 import com.octo.workerdecorator.processor.entity.Document
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Rule
@@ -19,7 +21,10 @@ class KotlinSourceWriterTest {
         // Given
         val folder = testFolder.newFolder()
 
-        val document = Document("stuff", "DogeDecoration", mock(), mock(), false)
+        val document = mock<Document>()
+        given(document.`package`).willReturn("stuff")
+        given(document.name).willReturn("DogeDecoration")
+
         val source = "much source, wow!"
         val sourceWriter = KotlinSourceWriter(folder)
 

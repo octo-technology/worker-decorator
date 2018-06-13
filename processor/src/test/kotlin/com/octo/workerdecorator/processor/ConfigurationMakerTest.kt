@@ -2,9 +2,12 @@ package com.octo.workerdecorator.processor
 
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
+import com.octo.workerdecorator.processor.entity.AggregateConfiguration
 import com.octo.workerdecorator.processor.entity.Configuration
+import com.octo.workerdecorator.processor.entity.Implementation
 import com.octo.workerdecorator.processor.entity.Implementation.COROUTINE
 import com.octo.workerdecorator.processor.entity.Implementation.EXECUTOR
+import com.octo.workerdecorator.processor.entity.Language
 import com.octo.workerdecorator.processor.entity.Language.JAVA
 import com.octo.workerdecorator.processor.entity.Language.KOTLIN
 import com.octo.workerdecorator.processor.entity.Mutability.IMMUTABLE
@@ -47,6 +50,23 @@ class ConfigurationMakerTest {
 
         // When
         val result = reader.read(annotation)
+
+        // Then
+        assertThat(result).isEqualTo(expected)
+    }
+
+    @Test
+    fun `return an aggregate configuration`() {
+        // Given
+        val conf: ConfigurationReader = object : ConfigurationReader {
+            override val language = mock<Language>()
+            override val implementation = mock<Implementation>()
+        }
+        val reader = ConfigurationMaker(conf)
+        val expected = AggregateConfiguration(conf.language, conf.implementation)
+
+        // When
+        val result = reader.read()
 
         // Then
         assertThat(result).isEqualTo(expected)

@@ -1,7 +1,7 @@
 package com.octo.workerdecorator.processor.generator
 
 import com.octo.workerdecorator.processor.Generator
-import com.octo.workerdecorator.processor.entity.Document
+import com.octo.workerdecorator.processor.entity.DecorationDocument
 import com.octo.workerdecorator.processor.extension.asTypeName
 import com.squareup.javapoet.JavaFile
 import com.squareup.javapoet.MethodSpec
@@ -14,7 +14,7 @@ import javax.lang.model.element.Modifier.*
 
 class JavaImmutableExecutorGenerator : Generator {
 
-    override fun generate(document: Document): String {
+    override fun generate(document: DecorationDocument): String {
 
         val methods = document.methods.map {
 

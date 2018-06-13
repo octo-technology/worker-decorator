@@ -38,8 +38,10 @@ open class Processor : AbstractProcessor() {
                 File(kotlinPath)
             } else {
                 if (configurationReader.language == Language.KOTLIN) {
-                    processingEnv.messager.printMessage(Diagnostic.Kind.WARNING,
-                        "Can't find the target directory for generated Kotlin files.")
+                    processingEnv.messager.printMessage(
+                        Diagnostic.Kind.WARNING,
+                        "Can't find the target directory for generated Kotlin files."
+                    )
                 }
                 null
             }
@@ -55,11 +57,15 @@ open class Processor : AbstractProcessor() {
 
     override fun process(annotations: MutableSet<out TypeElement>, roundEnv: RoundEnvironment): Boolean {
         // TODO This logic should not be here and should raise errors
-        annotations.map { roundEnv.getElementsAnnotatedWith(it) }
+        val data = annotations.map { roundEnv.getElementsAnnotatedWith(it) }
             .flatten()
             .filter { it.kind == ElementKind.INTERFACE }
             .map { it as TypeElement }
-            .map { interactor.process(it, it.getAnnotation(Decorate::class.java)) }
+            .map { Pair(it, it.getAnnotation(Decorate::class.java)) }
+
+        data.forEach { interactor.process(it.first, it.second) }
+
+        interactor.aggregate(data)
 
         return true
     }

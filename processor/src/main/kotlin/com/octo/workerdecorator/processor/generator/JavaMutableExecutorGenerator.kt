@@ -2,7 +2,7 @@ package com.octo.workerdecorator.processor.generator
 
 import com.octo.workerdecorator.annotation.java.WorkerDecoration
 import com.octo.workerdecorator.processor.Generator
-import com.octo.workerdecorator.processor.entity.Document
+import com.octo.workerdecorator.processor.entity.DecorationDocument
 import com.octo.workerdecorator.processor.extension.asTypeName
 import com.squareup.javapoet.*
 import org.jetbrains.annotations.NotNull
@@ -12,7 +12,7 @@ import javax.lang.model.element.Modifier.*
 
 class JavaMutableExecutorGenerator : Generator {
 
-    override fun generate(document: Document): String {
+    override fun generate(document: DecorationDocument): String {
         val decoratedType = document.typeMirror.asTypeName()
 
         val methods = document.methods.map {

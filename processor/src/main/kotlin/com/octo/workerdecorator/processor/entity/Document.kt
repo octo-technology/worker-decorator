@@ -3,60 +3,82 @@ package com.octo.workerdecorator.processor.entity
 import org.jetbrains.annotations.Nullable
 import javax.lang.model.type.TypeMirror
 
+interface Document {
+    val `package`: String
+    val name: String
+}
+
 /**
  * Entity to represent the class to be generated
  */
-data class Document(
-        /**
-         * The package of the interface that is being decorated
-         */
-        val `package`: String,
-        /**
-         * The name of the class to generate
-         */
-        val name: String,
-        /**
-         * A list of methods to implement
-         */
-        val methods: List<Method>,
-        /**
-         * The [TypeMirror] of the interface that is being decorated
-         */
-        val typeMirror: TypeMirror,
-        /**
-         * True if the interface that is being decorated is a Kotlin source file
-         */
-        val interfaceIsInKotlin: Boolean)
+data class DecorationDocument(
+    /**
+     * The package of the interface that is being decorated
+     */
+    override val `package`: String,
+    /**
+     * The name of the class to generate
+     */
+    override val name: String,
+    /**
+     * A list of methods to implement
+     */
+    val methods: List<Method>,
+    /**
+     * The [TypeMirror] of the interface that is being decorated
+     */
+    val typeMirror: TypeMirror,
+    /**
+     * True if the interface that is being decorated is a Kotlin source file
+     */
+    val interfaceIsInKotlin: Boolean
+) : Document
+
+data class AggregateDocument(
+    override val `package`: String,
+    override val name: String,
+    val typeMirror: TypeMirror,
+    val mutability: Mutability
+) : Document {
+    companion object {
+        val AGGREGATOR = object : Document {
+            override val `package` = "com.octo.workerdecorator"
+            override val name = "WorkerDecorator"
+        }
+    }
+}
 
 /**
  * Entity representing a method to override
  */
 data class Method(
-        /**
-         * The name of the method
-         */
-        val name: String,
-        /**
-         * The list of arguments accepted by the method
-         */
-        val parameters: List<Parameter>)
+    /**
+     * The name of the method
+     */
+    val name: String,
+    /**
+     * The list of arguments accepted by the method
+     */
+    val parameters: List<Parameter>
+)
 
 /**
  * Entity representing a [Method] parameter
  */
 data class Parameter(
-        /**
-         * The parameter name
-         */
-        val name: String,
-        /**
-         * The [TypeMirror] of the parameter
-         */
-        val typeMirror: TypeMirror,
-        /**
-         * True if the parameter is a kotlin optional type, or a java [Nullable]
-         */
-        val isOptional: Boolean) {
+    /**
+     * The parameter name
+     */
+    val name: String,
+    /**
+     * The [TypeMirror] of the parameter
+     */
+    val typeMirror: TypeMirror,
+    /**
+     * True if the parameter is a kotlin optional type, or a java [Nullable]
+     */
+    val isOptional: Boolean
+) {
 
     // Ugly but true (needed for tests)
     // Overriding equals and hashcode to only consider the TypeMirror's name for equality checks :

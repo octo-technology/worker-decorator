@@ -14,11 +14,10 @@ class SourceWriterFactoryTest {
     @Test
     fun `Factory returns the Kotlin writer`() {
         // Given
-        val configuration = Configuration(KOTLIN, mock(), mock())
         val factory = SourceWriterFactory(mock(), mock())
 
         // When
-        val writer = factory.make(configuration)
+        val writer = factory.make(KOTLIN)
 
         // Then
         assertThat(writer).isExactlyInstanceOf(KotlinSourceWriter::class.java)
@@ -27,11 +26,10 @@ class SourceWriterFactoryTest {
     @Test
     fun `Factory returns the Java writer`() {
         // Given
-        val configuration = Configuration(JAVA, mock(), mock())
         val factory = SourceWriterFactory(mock(), mock())
 
         // When
-        val writer = factory.make(configuration)
+        val writer = factory.make(JAVA)
 
         // Then
         assertThat(writer).isExactlyInstanceOf(JavaSourceWriter::class.java)

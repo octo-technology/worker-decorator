@@ -37,7 +37,7 @@ class IntegrationTests : CompilationAwareTest() {
 
         val configuration = Configuration(KOTLIN, EXECUTOR, IMMUTABLE)
         given(configurationMaker.read(annotation)).willReturn(configuration)
-        given(sourceWriterFactory.make(configuration)).willReturn(KotlinSourceWriter(folder))
+        given(sourceWriterFactory.make(configuration.language)).willReturn(KotlinSourceWriter(folder))
 
         val interactor = Interactor(analyser, configurationMaker, generatorFactory, sourceWriterFactory)
 

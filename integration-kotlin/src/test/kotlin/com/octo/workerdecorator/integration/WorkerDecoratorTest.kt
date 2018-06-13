@@ -1,7 +1,7 @@
 package com.octo.workerdecorator.integration
 
+import com.octo.workerdecorator.WorkerDecorator
 import com.octo.workerdecorator.annotation.WorkerDecoration
-import com.octo.workerdecorator.annotation.WorkerDecorator
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import java.util.*
