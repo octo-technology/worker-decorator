@@ -5,7 +5,6 @@ import com.nhaarman.mockito_kotlin.mock
 import com.octo.workerdecorator.processor.entity.AggregateConfiguration
 import com.octo.workerdecorator.processor.entity.Configuration
 import com.octo.workerdecorator.processor.entity.Implementation
-import com.octo.workerdecorator.processor.entity.Implementation.COROUTINE
 import com.octo.workerdecorator.processor.entity.Implementation.EXECUTOR
 import com.octo.workerdecorator.processor.entity.Language
 import com.octo.workerdecorator.processor.entity.Language.JAVA
@@ -20,13 +19,13 @@ import org.junit.Test
 class ConfigurationMakerTest {
 
     @Test
-    fun `returns a Kotlin Coroutine Mutable Strong configuration`() {
+    fun `returns a Kotlin Executable Mutable Strong configuration`() {
         // Given
         val reader = ConfigurationMaker(object : ConfigurationReader {
             override val language = KOTLIN
-            override val implementation = COROUTINE
+            override val implementation = EXECUTOR
         })
-        val expected = Configuration(KOTLIN, COROUTINE, MUTABLE, STRONG)
+        val expected = Configuration(KOTLIN, EXECUTOR, MUTABLE, STRONG)
 
         val annotation: com.octo.workerdecorator.annotation.Decorate = mock()
         given(annotation.mutable).willReturn(true)

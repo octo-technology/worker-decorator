@@ -30,7 +30,7 @@ data class AggregateConfiguration(
 
 enum class Language { JAVA, KOTLIN }
 
-enum class Implementation { EXECUTOR, COROUTINE }
+enum class Implementation { EXECUTOR }
 
 enum class Mutability { IMMUTABLE, MUTABLE }
 
