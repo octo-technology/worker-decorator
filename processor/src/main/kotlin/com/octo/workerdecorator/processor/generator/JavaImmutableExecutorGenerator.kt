@@ -25,7 +25,7 @@ class JavaImmutableExecutorGenerator : Generator {
             }
             val bodyParameters = it.parameters.joinToString(", ") { it.name }
 
-            val comparator = TypeSpec.anonymousClassBuilder("")
+            val runnable = TypeSpec.anonymousClassBuilder("")
                 .addSuperinterface(Runnable::class.java)
                 .addMethod(
                     MethodSpec.methodBuilder("run")
@@ -40,7 +40,7 @@ class JavaImmutableExecutorGenerator : Generator {
                 .addAnnotation(Override::class.java)
                 .addModifiers(PUBLIC)
                 .addParameters(parameters)
-                .addStatement("executor.execute(\$L)", comparator)
+                .addStatement("executor.execute(\$L)", runnable)
                 .build()
         }
 
