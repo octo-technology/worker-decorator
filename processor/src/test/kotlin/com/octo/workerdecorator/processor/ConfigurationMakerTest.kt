@@ -12,22 +12,25 @@ import com.octo.workerdecorator.processor.entity.Language.JAVA
 import com.octo.workerdecorator.processor.entity.Language.KOTLIN
 import com.octo.workerdecorator.processor.entity.Mutability.IMMUTABLE
 import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
+import com.octo.workerdecorator.processor.entity.ReferenceStrength.STRONG
+import com.octo.workerdecorator.processor.entity.ReferenceStrength.WEAK
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class ConfigurationMakerTest {
 
     @Test
-    fun `return kotlin coroutine mutable configuration`() {
+    fun `returns a Kotlin Coroutine Mutable Strong configuration`() {
         // Given
         val reader = ConfigurationMaker(object : ConfigurationReader {
             override val language = KOTLIN
             override val implementation = COROUTINE
         })
-        val expected = Configuration(KOTLIN, COROUTINE, MUTABLE)
+        val expected = Configuration(KOTLIN, COROUTINE, MUTABLE, STRONG)
 
         val annotation: com.octo.workerdecorator.annotation.Decorate = mock()
         given(annotation.mutable).willReturn(true)
+        given(annotation.weak).willReturn(false)
 
         // When
         val result = reader.read(annotation)
@@ -37,16 +40,17 @@ class ConfigurationMakerTest {
     }
 
     @Test
-    fun `return a java executor immutable configuration`() {
+    fun `returns a Java Executable Immutable Weak configuration`() {
         // Given
         val reader = ConfigurationMaker(object : ConfigurationReader {
             override val language = JAVA
             override val implementation = EXECUTOR
         })
-        val expected = Configuration(JAVA, EXECUTOR, IMMUTABLE)
+        val expected = Configuration(JAVA, EXECUTOR, IMMUTABLE, WEAK)
 
         val annotation: com.octo.workerdecorator.annotation.Decorate = mock()
         given(annotation.mutable).willReturn(false)
+        given(annotation.weak).willReturn(true)
 
         // When
         val result = reader.read(annotation)
@@ -56,7 +60,7 @@ class ConfigurationMakerTest {
     }
 
     @Test
-    fun `return an aggregate configuration`() {
+    fun `returns an aggregate configuration`() {
         // Given
         val conf: ConfigurationReader = object : ConfigurationReader {
             override val language = mock<Language>()

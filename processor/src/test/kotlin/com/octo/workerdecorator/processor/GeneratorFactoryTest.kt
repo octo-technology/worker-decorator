@@ -8,6 +8,7 @@ import com.octo.workerdecorator.processor.entity.Language.JAVA
 import com.octo.workerdecorator.processor.entity.Language.KOTLIN
 import com.octo.workerdecorator.processor.entity.Mutability.IMMUTABLE
 import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
+import com.octo.workerdecorator.processor.entity.ReferenceStrength.STRONG
 import com.octo.workerdecorator.processor.generator.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
@@ -18,7 +19,7 @@ class GeneratorFactoryTest {
     fun `returns a Java immutable generator`() {
         // Given
         val reader = GeneratorFactory()
-        val configuration = Configuration(JAVA, mock(), IMMUTABLE)
+        val configuration = Configuration(JAVA, mock(), IMMUTABLE, STRONG)
 
         // When
         val result = reader.make(configuration)
@@ -31,7 +32,7 @@ class GeneratorFactoryTest {
     fun `returns a Java mutable generator`() {
         // Given
         val reader = GeneratorFactory()
-        val configuration = Configuration(JAVA, mock(), MUTABLE)
+        val configuration = Configuration(JAVA, mock(), MUTABLE, STRONG)
 
         // When
         val result = reader.make(configuration)
@@ -44,7 +45,7 @@ class GeneratorFactoryTest {
     fun `returns a Kotlin immutable generator`() {
         // Given
         val reader = GeneratorFactory()
-        val configuration = Configuration(KOTLIN, mock(), IMMUTABLE)
+        val configuration = Configuration(KOTLIN, mock(), IMMUTABLE, STRONG)
 
         // When
         val result = reader.make(configuration)
@@ -57,7 +58,7 @@ class GeneratorFactoryTest {
     fun `returns a Kotlin mutable generator`() {
         // Given
         val reader = GeneratorFactory()
-        val configuration = Configuration(KOTLIN, mock(), MUTABLE)
+        val configuration = Configuration(KOTLIN, mock(), MUTABLE, STRONG)
 
         // When
         val result = reader.make(configuration)

@@ -13,9 +13,13 @@ data class Configuration(
      */
     val implementation: Implementation,
     /**
-     * Option specifying if the decoration should allow modifying the decorated instance
+     * Should the decorated instance be modifiable ?
      */
-    val mutability: Mutability
+    val mutability: Mutability,
+    /**
+     * The strength of the reference to the decorated instance
+     */
+    val strength: ReferenceStrength
 )
 
 data class AggregateConfiguration(
@@ -29,3 +33,5 @@ enum class Language { JAVA, KOTLIN }
 enum class Implementation { EXECUTOR, COROUTINE }
 
 enum class Mutability { IMMUTABLE, MUTABLE }
+
+enum class ReferenceStrength { STRONG, WEAK }

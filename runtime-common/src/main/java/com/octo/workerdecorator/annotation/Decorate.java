@@ -15,4 +15,9 @@ public @interface Decorate {
      * @return Specify if it should be possible to modify the instance given to the decoration
      */
     boolean mutable() default false;
+
+    /**
+     * @return Specify if the reference to the given instance should be weak
+     */
+    boolean weak() default false;
 }

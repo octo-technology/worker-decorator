@@ -7,6 +7,7 @@ import com.octo.workerdecorator.processor.entity.Configuration
 import com.octo.workerdecorator.processor.entity.Implementation.EXECUTOR
 import com.octo.workerdecorator.processor.entity.Language.KOTLIN
 import com.octo.workerdecorator.processor.entity.Mutability.IMMUTABLE
+import com.octo.workerdecorator.processor.entity.ReferenceStrength.STRONG
 import com.octo.workerdecorator.processor.extension.children
 import com.octo.workerdecorator.processor.sourcewriter.KotlinSourceWriter
 import com.octo.workerdecorator.processor.test.CompilationAwareTest
@@ -35,7 +36,7 @@ class IntegrationTests : CompilationAwareTest() {
         val configurationMaker: ConfigurationMaker = mock()
         val sourceWriterFactory: SourceWriterFactory = mock()
 
-        val configuration = Configuration(KOTLIN, EXECUTOR, IMMUTABLE)
+        val configuration = Configuration(KOTLIN, EXECUTOR, IMMUTABLE, STRONG)
         given(configurationMaker.read(annotation)).willReturn(configuration)
         given(sourceWriterFactory.make(configuration.language)).willReturn(KotlinSourceWriter(folder))
 

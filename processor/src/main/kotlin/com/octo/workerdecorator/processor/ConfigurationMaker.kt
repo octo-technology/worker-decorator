@@ -4,6 +4,8 @@ import com.octo.workerdecorator.processor.entity.AggregateConfiguration
 import com.octo.workerdecorator.processor.entity.Configuration
 import com.octo.workerdecorator.processor.entity.Mutability.IMMUTABLE
 import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
+import com.octo.workerdecorator.processor.entity.ReferenceStrength.STRONG
+import com.octo.workerdecorator.processor.entity.ReferenceStrength.WEAK
 
 /**
  * Class responsible for creating a [Configuration] object describing the wanted decoration
@@ -18,10 +20,17 @@ class ConfigurationMaker(private val configurationReader: ConfigurationReader) {
         val language = configurationReader.language
         val implementation = configurationReader.implementation
 
-        return when (annotation.mutable) {
-            true -> Configuration(language, implementation, MUTABLE)
-            false -> Configuration(language, implementation, IMMUTABLE)
+        val mutability = when (annotation.mutable) {
+            true -> MUTABLE
+            false -> IMMUTABLE
         }
+
+        val strength = when (annotation.weak) {
+            true -> WEAK
+            false -> STRONG
+        }
+
+        return Configuration(language, implementation, mutability, strength)
     }
 
     fun read(): AggregateConfiguration =
