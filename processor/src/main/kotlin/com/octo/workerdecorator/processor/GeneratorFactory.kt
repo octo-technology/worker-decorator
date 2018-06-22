@@ -25,6 +25,7 @@ class GeneratorFactory {
             Configuration(JAVA, EXECUTOR, IMMUTABLE, STRONG) -> JavaImmutableExecutorGenerator()
             Configuration(JAVA, EXECUTOR, IMMUTABLE, WEAK) -> JavaImmutableWeakExecutorGenerator()
             Configuration(JAVA, EXECUTOR, MUTABLE, STRONG) -> JavaMutableExecutorGenerator()
+            Configuration(JAVA, EXECUTOR, MUTABLE, WEAK) -> JavaMutableWeakExecutorGenerator()
             else -> throw Exception("No generator for $configuration")
         }
 

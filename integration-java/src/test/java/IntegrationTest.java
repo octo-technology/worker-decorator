@@ -65,4 +65,23 @@ public class IntegrationTest {
         WorkerDecoration<JavaSimpleInterface2> mutable = new JavaSimpleInterface2Decorated(executor);
         mutable.setDecorated(implementation);
     }
+
+    @Test
+    public void testWeakMutable() {
+        Executor executor = Executors.newSingleThreadExecutor();
+        JavaSimpleInterface4 implementation = new JavaSimpleInterface4() {
+            @Override
+            public void a(int param) {
+                // Stuff
+            }
+
+            @Override
+            public void b(Date param) {
+                // Stuff
+            }
+        };
+
+        WorkerDecoration<JavaSimpleInterface4> mutable = new JavaSimpleInterface4Decorated(executor);
+        mutable.setDecorated(implementation);
+    }
 }

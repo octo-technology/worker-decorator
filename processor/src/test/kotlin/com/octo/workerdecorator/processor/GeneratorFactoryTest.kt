@@ -56,6 +56,19 @@ class GeneratorFactoryTest {
     }
 
     @Test
+    fun `returns a Java weak mutable generator`() {
+        // Given
+        val reader = GeneratorFactory()
+        val configuration = Configuration(JAVA, EXECUTOR, MUTABLE, WEAK)
+
+        // When
+        val result = reader.make(configuration)
+
+        // Then
+        assertThat(result).isExactlyInstanceOf(JavaMutableWeakExecutorGenerator::class.java)
+    }
+
+    @Test
     fun `returns a Kotlin immutable generator`() {
         // Given
         val reader = GeneratorFactory()
