@@ -5,7 +5,10 @@ import com.nhaarman.mockito_kotlin.mock
 import com.octo.workerdecorator.annotation.Decorate
 import com.octo.workerdecorator.processor.entity.AggregateDocument
 import com.octo.workerdecorator.processor.entity.DecorationDocument
+import com.octo.workerdecorator.processor.entity.Mutability.IMMUTABLE
 import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
+import com.octo.workerdecorator.processor.entity.ReferenceStrength.STRONG
+import com.octo.workerdecorator.processor.entity.ReferenceStrength.WEAK
 import com.octo.workerdecorator.processor.test.CompilationAwareTest
 import com.octo.workerdecorator.processor.test.fixture.*
 import org.assertj.core.api.Assertions.assertThat
@@ -133,13 +136,18 @@ class AnalyserTest : CompilationAwareTest() {
         // Given
         val analyser = Analyser(compilationRule.elements)
 
-        val input = typeElement(KotlinInterface::class)
+        val interface1 = typeElement(KotlinInterface::class)
+        val interface2 = typeElement(KotlinChildrenInterface::class)
 
-        val annotation = mock<Decorate>()
-        given(annotation.mutable).willReturn(true)
+        val annotation1 = mock<Decorate>()
+        given(annotation1.mutable).willReturn(true)
+        given(annotation1.weak).willReturn(true)
+        val annotation2 = mock<Decorate>()
+        given(annotation2.mutable).willReturn(false)
+        given(annotation2.weak).willReturn(false)
 
         // When
-        val documents = analyser.analyse(listOf(Pair(input, annotation)))
+        val documents = analyser.analyse(listOf(Pair(interface1, annotation1), Pair(interface2, annotation2)))
 
         // Then
         assertThat(documents).isEqualTo(
@@ -147,8 +155,16 @@ class AnalyserTest : CompilationAwareTest() {
                 AggregateDocument(
                     "com.octo.workerdecorator.processor.test.fixture",
                     "KotlinInterfaceDecorated",
-                    input.asType(),
-                    MUTABLE
+                    interface1.asType(),
+                    MUTABLE,
+                    WEAK
+                ),
+                AggregateDocument(
+                    "com.octo.workerdecorator.processor.test.fixture",
+                    "KotlinChildrenInterfaceDecorated",
+                    interface2.asType(),
+                    IMMUTABLE,
+                    STRONG
                 )
             )
         )

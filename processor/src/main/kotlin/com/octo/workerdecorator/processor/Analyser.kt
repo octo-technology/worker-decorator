@@ -9,6 +9,8 @@ import com.octo.workerdecorator.processor.entity.Method
 import com.octo.workerdecorator.processor.entity.Mutability.IMMUTABLE
 import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
 import com.octo.workerdecorator.processor.entity.Parameter
+import com.octo.workerdecorator.processor.entity.ReferenceStrength.STRONG
+import com.octo.workerdecorator.processor.entity.ReferenceStrength.WEAK
 import javax.lang.model.element.ElementKind
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.element.TypeElement
@@ -55,12 +57,14 @@ class Analyser(private val elements: Elements) {
             val originalName = element.simpleName
 
             val mutability = if (it.second.mutable) MUTABLE else IMMUTABLE
+            val strength = if (it.second.weak) WEAK else STRONG
 
             AggregateDocument(
                 originalPackage,
                 "${originalName}Decorated",
                 element.asType(),
-                mutability
+                mutability,
+                strength
             )
         }
     }

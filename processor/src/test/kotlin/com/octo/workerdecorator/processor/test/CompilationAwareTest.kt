@@ -1,14 +1,15 @@
 package com.octo.workerdecorator.processor.test
 
 import com.google.testing.compile.CompilationRule
-import com.octo.workerdecorator.processor.entity.AggregateDocument
-import com.octo.workerdecorator.processor.entity.DecorationDocument
-import com.octo.workerdecorator.processor.entity.Method
+import com.octo.workerdecorator.processor.entity.*
 import com.octo.workerdecorator.processor.entity.Mutability.IMMUTABLE
 import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
-import com.octo.workerdecorator.processor.entity.Parameter
+import com.octo.workerdecorator.processor.entity.ReferenceStrength.STRONG
+import com.octo.workerdecorator.processor.entity.ReferenceStrength.WEAK
 import com.octo.workerdecorator.processor.test.fixture.JavaInterface
+import com.octo.workerdecorator.processor.test.fixture.KotlinChildrenInterface
 import com.octo.workerdecorator.processor.test.fixture.KotlinInterface
+import com.octo.workerdecorator.processor.test.fixture.KotlinParentInterface
 import org.junit.Rule
 import java.util.*
 import javax.lang.model.element.TypeElement
@@ -103,13 +104,22 @@ open class CompilationAwareTest {
                 "com.octo.workerdecorator.processor.test.fixture",
                 "KotlinInterfaceDecorated",
                 typeElement(KotlinInterface::class).asType(),
-                IMMUTABLE
+                IMMUTABLE,
+                STRONG
             ),
             AggregateDocument(
                 "com.octo.workerdecorator.processor.test.fixture",
-                "JavaInterfaceDecorated",
-                typeElement(JavaInterface::class).asType(),
-                MUTABLE
+                "KotlinChildrenInterfaceDecorated",
+                typeElement(KotlinChildrenInterface::class).asType(),
+                MUTABLE,
+                STRONG
+            ),
+            AggregateDocument(
+                "com.octo.workerdecorator.processor.test.fixture",
+                "KotlinParentInterfaceDecorated",
+                typeElement(KotlinParentInterface::class).asType(),
+                MUTABLE,
+                WEAK
             )
         )
     }

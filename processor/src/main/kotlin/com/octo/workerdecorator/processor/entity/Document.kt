@@ -34,11 +34,30 @@ data class DecorationDocument(
     val interfaceIsInKotlin: Boolean
 ) : Document
 
+/**
+ * Entity to represent an already generated class for the helper methods
+ */
 data class AggregateDocument(
+    /**
+     * The package of the interface that was decorated
+     */
     override val `package`: String,
+    /**
+     * The name of the class that was decorated
+     */
     override val name: String,
+    /**
+     * The [TypeMirror] of the interface that was decorated
+     */
     val typeMirror: TypeMirror,
-    val mutability: Mutability
+    /**
+     * Indicates the [Mutability] of the generated decoration
+     */
+    val mutability: Mutability,
+    /**
+     * Indicates the [ReferenceStrength] of the reference to the decorated instance in the generated decoration
+     */
+    val reference: ReferenceStrength
 ) : Document {
     companion object {
         val AGGREGATOR = object : Document {
