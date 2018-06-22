@@ -7,6 +7,8 @@ import com.octo.workerdecorator.processor.entity.Language.JAVA
 import com.octo.workerdecorator.processor.entity.Language.KOTLIN
 import com.octo.workerdecorator.processor.entity.Mutability.IMMUTABLE
 import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
+import com.octo.workerdecorator.processor.entity.ReferenceStrength.STRONG
+import com.octo.workerdecorator.processor.entity.ReferenceStrength.WEAK
 import com.octo.workerdecorator.processor.generator.*
 
 /**
@@ -14,23 +16,14 @@ import com.octo.workerdecorator.processor.generator.*
  */
 class GeneratorFactory {
 
-    // This is partially "mocked" for now
     fun make(configuration: Configuration): Generator =
-        when (configuration.language) {
-            JAVA -> getJavaDecorator(configuration)
-            KOTLIN -> getKotlinDecorator(configuration)
-        }
-
-    private fun getJavaDecorator(configuration: Configuration): Generator =
-        when (configuration.mutability) {
-            IMMUTABLE -> JavaImmutableExecutorGenerator()
-            MUTABLE -> JavaMutableExecutorGenerator()
-        }
-
-    private fun getKotlinDecorator(configuration: Configuration): Generator =
-        when (configuration.mutability) {
-            IMMUTABLE -> KotlinImmutableExecutorGenerator()
-            MUTABLE -> KotlinMutableExecutorGenerator()
+        when (configuration) {
+            Configuration(KOTLIN, EXECUTOR, IMMUTABLE, STRONG) -> KotlinImmutableExecutorGenerator()
+            Configuration(KOTLIN, EXECUTOR, IMMUTABLE, WEAK) -> KotlinImmutableWeakExecutorGenerator()
+            Configuration(KOTLIN, EXECUTOR, MUTABLE, STRONG) -> KotlinMutableExecutorGenerator()
+            Configuration(JAVA, EXECUTOR, IMMUTABLE, STRONG) -> JavaImmutableExecutorGenerator()
+            Configuration(JAVA, EXECUTOR, MUTABLE, STRONG) -> JavaMutableExecutorGenerator()
+            else -> throw Exception("No generator for $configuration")
         }
 
     fun makeAggregator(configuration: AggregateConfiguration): AggregateGenerator =

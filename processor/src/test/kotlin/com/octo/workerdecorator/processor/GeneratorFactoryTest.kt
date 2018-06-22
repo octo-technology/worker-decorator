@@ -9,6 +9,7 @@ import com.octo.workerdecorator.processor.entity.Language.KOTLIN
 import com.octo.workerdecorator.processor.entity.Mutability.IMMUTABLE
 import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
 import com.octo.workerdecorator.processor.entity.ReferenceStrength.STRONG
+import com.octo.workerdecorator.processor.entity.ReferenceStrength.WEAK
 import com.octo.workerdecorator.processor.generator.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
@@ -19,7 +20,7 @@ class GeneratorFactoryTest {
     fun `returns a Java immutable generator`() {
         // Given
         val reader = GeneratorFactory()
-        val configuration = Configuration(JAVA, mock(), IMMUTABLE, STRONG)
+        val configuration = Configuration(JAVA, EXECUTOR, IMMUTABLE, STRONG)
 
         // When
         val result = reader.make(configuration)
@@ -32,7 +33,7 @@ class GeneratorFactoryTest {
     fun `returns a Java mutable generator`() {
         // Given
         val reader = GeneratorFactory()
-        val configuration = Configuration(JAVA, mock(), MUTABLE, STRONG)
+        val configuration = Configuration(JAVA, EXECUTOR, MUTABLE, STRONG)
 
         // When
         val result = reader.make(configuration)
@@ -45,7 +46,7 @@ class GeneratorFactoryTest {
     fun `returns a Kotlin immutable generator`() {
         // Given
         val reader = GeneratorFactory()
-        val configuration = Configuration(KOTLIN, mock(), IMMUTABLE, STRONG)
+        val configuration = Configuration(KOTLIN, EXECUTOR, IMMUTABLE, STRONG)
 
         // When
         val result = reader.make(configuration)
@@ -55,10 +56,23 @@ class GeneratorFactoryTest {
     }
 
     @Test
+    fun `returns a Kotlin weak immutable generator`() {
+        // Given
+        val reader = GeneratorFactory()
+        val configuration = Configuration(KOTLIN, EXECUTOR, IMMUTABLE, WEAK)
+
+        // When
+        val result = reader.make(configuration)
+
+        // Then
+        assertThat(result).isExactlyInstanceOf(KotlinImmutableWeakExecutorGenerator::class.java)
+    }
+
+    @Test
     fun `returns a Kotlin mutable generator`() {
         // Given
         val reader = GeneratorFactory()
-        val configuration = Configuration(KOTLIN, mock(), MUTABLE, STRONG)
+        val configuration = Configuration(KOTLIN, EXECUTOR, MUTABLE, STRONG)
 
         // When
         val result = reader.make(configuration)
