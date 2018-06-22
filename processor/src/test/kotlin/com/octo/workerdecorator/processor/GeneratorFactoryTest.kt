@@ -134,6 +134,21 @@ class GeneratorFactoryTest {
         assertThat(result).isExactlyInstanceOf(KotlinExecutorAggregatorGenerator::class.java)
     }
 
+
+    @Test
+    fun `returns a Java executor aggregate generator`() {
+        // Given
+        // Given
+        val reader = GeneratorFactory()
+        val configuration = AggregateConfiguration(JAVA, EXECUTOR)
+
+        // When
+        val result = reader.makeAggregator(configuration)
+
+        // Then
+        assertThat(result).isExactlyInstanceOf(JavaExecutorAggregatorGenerator::class.java)
+    }
+
     @Test
     fun `returns a no-op aggregate generator`() {
         // Given

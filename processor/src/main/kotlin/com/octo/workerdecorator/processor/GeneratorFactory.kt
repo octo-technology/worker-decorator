@@ -32,6 +32,7 @@ class GeneratorFactory {
     fun makeAggregator(configuration: AggregateConfiguration): AggregateGenerator =
         when (configuration) {
             AggregateConfiguration(KOTLIN, EXECUTOR) -> KotlinExecutorAggregatorGenerator()
+            AggregateConfiguration(JAVA, EXECUTOR) -> JavaExecutorAggregatorGenerator()
             else -> EmptyAggregateGenerator()
         }
 }

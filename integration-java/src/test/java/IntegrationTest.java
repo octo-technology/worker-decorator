@@ -1,3 +1,4 @@
+import com.octo.workerdecorator.WorkerDecorator;
 import com.octo.workerdecorator.annotation.java.WorkerDecoration;
 import com.octo.workerdecorator.integration.*;
 import org.junit.Test;
@@ -5,6 +6,8 @@ import org.junit.Test;
 import java.util.Date;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Very weak tests just to check that the decorations are generated and that it all compiles
@@ -26,7 +29,8 @@ public class IntegrationTest {
             }
         };
 
-        JavaSimpleInterfaceDecorated immutable = new JavaSimpleInterfaceDecorated(implementation, executor);
+        JavaSimpleInterface immutable = WorkerDecorator.decorate(implementation, executor);
+        assertThat(immutable).isInstanceOf(JavaSimpleInterfaceDecorated.class);
     }
 
     @Test
@@ -44,7 +48,8 @@ public class IntegrationTest {
             }
         };
 
-        JavaSimpleInterface3Decorated immutable = new JavaSimpleInterface3Decorated(implementation, executor);
+        JavaSimpleInterface3 immutable = WorkerDecorator.decorate(implementation, executor);
+        assertThat(immutable).isInstanceOf(JavaSimpleInterface3Decorated.class);
     }
 
     @Test
@@ -62,8 +67,9 @@ public class IntegrationTest {
             }
         };
 
-        WorkerDecoration<JavaSimpleInterface2> mutable = new JavaSimpleInterface2Decorated(executor);
+        WorkerDecoration<JavaSimpleInterface2> mutable = WorkerDecorator.decorate(JavaSimpleInterface2.class, executor);
         mutable.setDecorated(implementation);
+        assertThat(mutable).isInstanceOf(JavaSimpleInterface2Decorated.class);
     }
 
     @Test
@@ -81,7 +87,8 @@ public class IntegrationTest {
             }
         };
 
-        WorkerDecoration<JavaSimpleInterface4> mutable = new JavaSimpleInterface4Decorated(executor);
+        WorkerDecoration<JavaSimpleInterface4> mutable = WorkerDecorator.decorate(JavaSimpleInterface4.class, executor);
         mutable.setDecorated(implementation);
+        assertThat(mutable).isInstanceOf(JavaSimpleInterface4Decorated.class);
     }
 }
