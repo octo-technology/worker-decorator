@@ -19,6 +19,15 @@ class WorkerDecoratorTest {
     }
 
     @Test
+    fun `returns a immutable weak decoration with the helper`() {
+        val executor = Executors.newSingleThreadScheduledExecutor()
+        val decorated = WorkerDecorator.decorate(Implementation3(), executor)
+
+        assertThat(decorated).isInstanceOf(KotlinSimpleInterface3Decorated::class.java)
+        assertThat(decorated).isInstanceOf(KotlinSimpleInterface3::class.java)
+    }
+
+    @Test
     fun `returns a mutable decoration with the helper`() {
         val executor = Executors.newSingleThreadScheduledExecutor()
         val decorated: WorkerDecoration<KotlinSimpleInterface2> = WorkerDecorator.decorate(executor)
@@ -34,6 +43,15 @@ class WorkerDecoratorTest {
         override fun b(param: Date) {
             // stuff
         }
+    }
 
+    inner class Implementation3 : KotlinSimpleInterface3 {
+        override fun a(param: Int) {
+            // stuff
+        }
+
+        override fun b(param: Double) {
+            // stuff
+        }
     }
 }

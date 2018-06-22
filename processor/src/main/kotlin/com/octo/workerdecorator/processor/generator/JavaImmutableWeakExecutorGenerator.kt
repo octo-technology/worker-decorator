@@ -35,7 +35,7 @@ class JavaImmutableWeakExecutorGenerator : Generator {
                             CodeBlock.builder()
                                 .addStatement("\$T ref = decorated.get()", decoratedType)
                                 .beginControlFlow("if (ref != null)")
-                                .addStatement("decorated.${it.name}($bodyParameters)")
+                                .addStatement("ref.${it.name}($bodyParameters)")
                                 .endControlFlow()
                                 .build()
                         )

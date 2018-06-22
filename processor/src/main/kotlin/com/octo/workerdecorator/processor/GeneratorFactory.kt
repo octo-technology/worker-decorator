@@ -22,6 +22,7 @@ class GeneratorFactory {
             Configuration(KOTLIN, EXECUTOR, IMMUTABLE, WEAK) -> KotlinImmutableWeakExecutorGenerator()
             Configuration(KOTLIN, EXECUTOR, MUTABLE, STRONG) -> KotlinMutableExecutorGenerator()
             Configuration(JAVA, EXECUTOR, IMMUTABLE, STRONG) -> JavaImmutableExecutorGenerator()
+            Configuration(JAVA, EXECUTOR, IMMUTABLE, WEAK) -> JavaImmutableWeakExecutorGenerator()
             Configuration(JAVA, EXECUTOR, MUTABLE, STRONG) -> JavaMutableExecutorGenerator()
             else -> throw Exception("No generator for $configuration")
         }

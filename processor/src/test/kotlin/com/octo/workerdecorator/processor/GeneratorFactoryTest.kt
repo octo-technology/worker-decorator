@@ -30,6 +30,19 @@ class GeneratorFactoryTest {
     }
 
     @Test
+    fun `returns a Java weak immutable generator`() {
+        // Given
+        val reader = GeneratorFactory()
+        val configuration = Configuration(JAVA, EXECUTOR, IMMUTABLE, WEAK)
+
+        // When
+        val result = reader.make(configuration)
+
+        // Then
+        assertThat(result).isExactlyInstanceOf(JavaImmutableWeakExecutorGenerator::class.java)
+    }
+
+    @Test
     fun `returns a Java mutable generator`() {
         // Given
         val reader = GeneratorFactory()

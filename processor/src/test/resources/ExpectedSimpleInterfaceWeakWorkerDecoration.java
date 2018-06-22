@@ -26,7 +26,7 @@ public final class KotlinInterfaceDecorated implements KotlinInterface {
       public void run() {
         KotlinInterface ref = decorated.get();
         if (ref != null) {
-          decorated.pam();
+          ref.pam();
         }
       }
     });
@@ -39,7 +39,7 @@ public final class KotlinInterfaceDecorated implements KotlinInterface {
       public void run() {
         KotlinInterface ref = decorated.get();
         if (ref != null) {
-          decorated.jim(arg0, arg1);
+          ref.jim(arg0, arg1);
         }
       }
     });
