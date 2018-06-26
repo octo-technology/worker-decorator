@@ -37,7 +37,7 @@ public final class KotlinInterfaceDecorated implements KotlinInterface, WorkerDe
   }
 
   @Override
-  public void jim(@NotNull String arg0, @Nullable Date arg1) {
+  public void jim(@NotNull final String arg0, @Nullable final Date arg1) {
     executor.execute(new Runnable() {
       @Override
       public void run() {

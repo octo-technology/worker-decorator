@@ -20,6 +20,7 @@ class JavaMutableExecutorGenerator : Generator {
             val parameters = it.parameters.map {
                 ParameterSpec.builder(it.typeMirror.asTypeName(), it.name)
                     .addAnnotation(if (it.isOptional) Nullable::class.java else NotNull::class.java)
+                    .addModifiers(FINAL)
                     .build()
             }
             val bodyParameters = it.parameters.joinToString(", ") { it.name }
