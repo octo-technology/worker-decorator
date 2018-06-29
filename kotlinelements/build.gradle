@@ -9,7 +9,9 @@ version kotlinElementsVersion
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion" // Force transitive kotlinpoet version
-    compile "com.squareup:kotlinpoet:0.7.0"
+    compile ("com.squareup:kotlinpoet:0.7.0") {
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jre7'
+    }
 
     testCompile "junit:junit:4.12"
     testCompile "org.assertj:assertj-core:3.10.0"
