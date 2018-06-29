@@ -15,7 +15,7 @@ dependencies {
 
     testCompile "junit:junit:4.12"
     testCompile "org.assertj:assertj-core:3.10.0"
-    testCompile "org.mockito:mockito-core:2.18.3"
+    testCompile "org.mockito:mockito-core:2.19.0"
     testCompile "com.nhaarman:mockito-kotlin-kt1.1:1.5.0"
     testCompile "com.google.testing.compile:compile-testing:0.15"
 }
