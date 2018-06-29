@@ -1,8 +1,8 @@
 package com.octo.workerdecorator.processor.generator
 
 import com.octo.workerdecorator.WorkerDecoration
-import com.octo.workerdecorator.processor.AggregateGenerator
-import com.octo.workerdecorator.processor.entity.AggregateDocument
+import com.octo.workerdecorator.processor.HelperGenerator
+import com.octo.workerdecorator.processor.entity.HelperDocument
 import com.octo.workerdecorator.processor.entity.DecorationDocument
 import com.octo.workerdecorator.processor.entity.Document
 import com.octo.workerdecorator.processor.entity.Mutability.IMMUTABLE
@@ -16,9 +16,9 @@ import java.lang.ref.WeakReference
 import java.util.concurrent.Executor
 import javax.lang.model.element.Modifier.*
 
-class JavaExecutorAggregatorGenerator : AggregateGenerator {
+class JavaExecutorHelperGenerator : HelperGenerator {
 
-    override fun generate(aggregator: Document, documents: List<AggregateDocument>): String {
+    override fun generate(aggregator: Document, documents: List<HelperDocument>): String {
 
         val executorType = ClassName.get(Executor::class.java)
 

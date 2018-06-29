@@ -5,7 +5,7 @@ import com.octo.workerdecorator.processor.entity.Language.JAVA
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
-class LocalConfigurationTest {
+class GlobalConfigurationTest {
 
     @Test
     fun `returns the correct JAVA setting`() {

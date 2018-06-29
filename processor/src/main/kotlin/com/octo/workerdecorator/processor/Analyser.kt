@@ -3,8 +3,8 @@ package com.octo.workerdecorator.processor
 import com.octo.kotlinelements.isOptional
 import com.octo.kotlinelements.isProducedByKotlin
 import com.octo.workerdecorator.annotation.Decorate
-import com.octo.workerdecorator.processor.entity.AggregateDocument
 import com.octo.workerdecorator.processor.entity.DecorationDocument
+import com.octo.workerdecorator.processor.entity.HelperDocument
 import com.octo.workerdecorator.processor.entity.Method
 import com.octo.workerdecorator.processor.entity.Mutability.IMMUTABLE
 import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
@@ -18,17 +18,18 @@ import javax.lang.model.element.VariableElement
 import javax.lang.model.util.Elements
 
 /**
- * Class responsible for creating a [DecorationDocument] entity from a [TypeElement] input
- *
- * All the members (possibly inherited) from the given [TypeElement] are browsed.
- * Only the methods are kept.
- * The methods declared in [Any] are discarded.
- *
- * A [DecorationDocument] object is returned, containing the analysed file package name,
- * decorated name, and a representation of the methods to be overridden.
+ * Class responsible for analysing input ([TypeElement]s of annotated interfaces)
  */
 class Analyser(private val elements: Elements) {
 
+    /**
+     * All the members (possibly inherited) from the given [TypeElement] are browsed.
+     * Only the methods are kept.
+     * The methods declared in [Any] are discarded.
+     *
+     * A [DecorationDocument] object is returned, containing the analysed file package name,
+     * decorated name, and a representation of the methods to be overridden.
+     */
     fun analyse(input: TypeElement): DecorationDocument {
         val methods = elements.getAllMembers(input)
             .filter { it.kind == ElementKind.METHOD }
@@ -49,7 +50,10 @@ class Analyser(private val elements: Elements) {
         )
     }
 
-    fun analyse(input: List<Pair<TypeElement, Decorate>>): List<AggregateDocument> {
+    /**
+     * The names and packages of the annotated interfaces are aggregated with the wanted decorations
+     */
+    fun analyse(input: List<Pair<TypeElement, Decorate>>): List<HelperDocument> {
         return input.map {
 
             val element = it.first
@@ -59,7 +63,7 @@ class Analyser(private val elements: Elements) {
             val mutability = if (it.second.mutable) MUTABLE else IMMUTABLE
             val strength = if (it.second.weak) WEAK else STRONG
 
-            AggregateDocument(
+            HelperDocument(
                 originalPackage,
                 "${originalName}Decorated",
                 element.asType(),

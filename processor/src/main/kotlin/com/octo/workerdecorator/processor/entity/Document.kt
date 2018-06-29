@@ -37,7 +37,7 @@ data class DecorationDocument(
 /**
  * Entity to represent an already generated class for the helper methods
  */
-data class AggregateDocument(
+data class HelperDocument(
     /**
      * The package of the interface that was decorated
      */

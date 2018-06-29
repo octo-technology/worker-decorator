@@ -11,8 +11,6 @@ import javax.tools.Diagnostic
 
 /**
  * The processor called by annotation processing tools
- *
- * It contains no logic, all the processing is delegated to an [Interactor] instance.
  */
 @Suppress("unused")
 @SupportedAnnotationTypes("com.octo.workerdecorator.annotation.Decorate")
@@ -49,7 +47,7 @@ open class Processor : AbstractProcessor() {
 
         interactor = Interactor(
             Analyser(processingEnv.elementUtils),
-            ConfigurationMaker(configurationReader),
+            ConfigurationReader(configurationReader),
             GeneratorFactory(),
             SourceWriterFactory(kotlinFolder, javaFiler)
         )

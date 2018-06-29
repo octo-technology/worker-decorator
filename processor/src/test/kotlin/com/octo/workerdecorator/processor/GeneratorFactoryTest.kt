@@ -1,7 +1,7 @@
 package com.octo.workerdecorator.processor
 
 import com.nhaarman.mockito_kotlin.mock
-import com.octo.workerdecorator.processor.entity.AggregateConfiguration
+import com.octo.workerdecorator.processor.entity.HelperConfiguration
 import com.octo.workerdecorator.processor.entity.Configuration
 import com.octo.workerdecorator.processor.entity.Implementation.EXECUTOR
 import com.octo.workerdecorator.processor.entity.Language.JAVA
@@ -125,13 +125,13 @@ class GeneratorFactoryTest {
         // Given
         // Given
         val reader = GeneratorFactory()
-        val configuration = AggregateConfiguration(KOTLIN, EXECUTOR)
+        val configuration = HelperConfiguration(KOTLIN, EXECUTOR)
 
         // When
         val result = reader.makeAggregator(configuration)
 
         // Then
-        assertThat(result).isExactlyInstanceOf(KotlinExecutorAggregatorGenerator::class.java)
+        assertThat(result).isExactlyInstanceOf(KotlinExecutorHelperGenerator::class.java)
     }
 
 
@@ -140,25 +140,25 @@ class GeneratorFactoryTest {
         // Given
         // Given
         val reader = GeneratorFactory()
-        val configuration = AggregateConfiguration(JAVA, EXECUTOR)
+        val configuration = HelperConfiguration(JAVA, EXECUTOR)
 
         // When
         val result = reader.makeAggregator(configuration)
 
         // Then
-        assertThat(result).isExactlyInstanceOf(JavaExecutorAggregatorGenerator::class.java)
+        assertThat(result).isExactlyInstanceOf(JavaExecutorHelperGenerator::class.java)
     }
 
     @Test
     fun `returns a no-op aggregate generator`() {
         // Given
         val reader = GeneratorFactory()
-        val configuration = AggregateConfiguration(mock(), mock())
+        val configuration = HelperConfiguration(mock(), mock())
 
         // When
         val result = reader.makeAggregator(configuration)
 
         // Then
-        assertThat(result).isExactlyInstanceOf(EmptyAggregateGenerator::class.java)
+        assertThat(result).isExactlyInstanceOf(EmptyHelperGenerator::class.java)
     }
 }

@@ -98,23 +98,23 @@ open class CompilationAwareTest {
         )
     }
 
-    fun aggregateFixture(): List<AggregateDocument> {
+    fun aggregateFixture(): List<HelperDocument> {
         return listOf(
-            AggregateDocument(
+            HelperDocument(
                 "com.octo.workerdecorator.processor.test.fixture",
                 "KotlinInterfaceDecorated",
                 typeElement(KotlinInterface::class).asType(),
                 IMMUTABLE,
                 STRONG
             ),
-            AggregateDocument(
+            HelperDocument(
                 "com.octo.workerdecorator.processor.test.fixture",
                 "KotlinChildrenInterfaceDecorated",
                 typeElement(KotlinChildrenInterface::class).asType(),
                 MUTABLE,
                 STRONG
             ),
-            AggregateDocument(
+            HelperDocument(
                 "com.octo.workerdecorator.processor.test.fixture",
                 "KotlinParentInterfaceDecorated",
                 typeElement(KotlinParentInterface::class).asType(),

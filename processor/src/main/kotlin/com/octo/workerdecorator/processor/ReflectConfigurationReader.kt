@@ -7,9 +7,9 @@ import com.octo.workerdecorator.processor.entity.Language.KOTLIN
 import java.lang.IllegalArgumentException
 import java.lang.RuntimeException
 
-class ReflectConfigurationReader : ConfigurationReader {
+class ReflectConfigurationReader : GlobalConfigurationReader {
     companion object {
-        const val CONFIGURATION_CLASS = "com.octo.workerdecorator.processor.LocalConfiguration"
+        const val CONFIGURATION_CLASS = "com.octo.workerdecorator.processor.GlobalConfiguration"
     }
 
     override val language: Language by lazy { readField("LANGUAGE", KOTLIN) }

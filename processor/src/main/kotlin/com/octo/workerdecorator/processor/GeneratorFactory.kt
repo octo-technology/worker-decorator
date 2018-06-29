@@ -1,7 +1,7 @@
 package com.octo.workerdecorator.processor
 
-import com.octo.workerdecorator.processor.entity.AggregateConfiguration
 import com.octo.workerdecorator.processor.entity.Configuration
+import com.octo.workerdecorator.processor.entity.HelperConfiguration
 import com.octo.workerdecorator.processor.entity.Implementation.EXECUTOR
 import com.octo.workerdecorator.processor.entity.Language.JAVA
 import com.octo.workerdecorator.processor.entity.Language.KOTLIN
@@ -12,7 +12,7 @@ import com.octo.workerdecorator.processor.entity.ReferenceStrength.WEAK
 import com.octo.workerdecorator.processor.generator.*
 
 /**
- * Class responsible for creating the [Generator] corresponding to the given [Configuration]
+ * Class responsible for creating the generators corresponding to the given configuration
  */
 class GeneratorFactory {
 
@@ -29,10 +29,10 @@ class GeneratorFactory {
             else -> throw Exception("No generator for $configuration")
         }
 
-    fun makeAggregator(configuration: AggregateConfiguration): AggregateGenerator =
+    fun makeAggregator(configuration: HelperConfiguration): HelperGenerator =
         when (configuration) {
-            AggregateConfiguration(KOTLIN, EXECUTOR) -> KotlinExecutorAggregatorGenerator()
-            AggregateConfiguration(JAVA, EXECUTOR) -> JavaExecutorAggregatorGenerator()
-            else -> EmptyAggregateGenerator()
+            HelperConfiguration(KOTLIN, EXECUTOR) -> KotlinExecutorHelperGenerator()
+            HelperConfiguration(JAVA, EXECUTOR) -> JavaExecutorHelperGenerator()
+            else -> EmptyHelperGenerator()
         }
 }

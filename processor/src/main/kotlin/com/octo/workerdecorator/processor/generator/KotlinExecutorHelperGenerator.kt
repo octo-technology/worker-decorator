@@ -1,20 +1,18 @@
 package com.octo.workerdecorator.processor.generator
 
 import com.octo.workerdecorator.WorkerDecoration
-import com.octo.workerdecorator.processor.AggregateGenerator
-import com.octo.workerdecorator.processor.entity.AggregateDocument
+import com.octo.workerdecorator.processor.HelperGenerator
+import com.octo.workerdecorator.processor.entity.HelperDocument
 import com.octo.workerdecorator.processor.entity.Document
 import com.octo.workerdecorator.processor.entity.Mutability.IMMUTABLE
 import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
-import com.octo.workerdecorator.processor.entity.ReferenceStrength.STRONG
-import com.octo.workerdecorator.processor.entity.ReferenceStrength.WEAK
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.KModifier.INLINE
 import java.util.concurrent.Executor
 
-class KotlinExecutorAggregatorGenerator : AggregateGenerator {
+class KotlinExecutorHelperGenerator : HelperGenerator {
 
-    override fun generate(aggregator: Document, documents: List<AggregateDocument>): String {
+    override fun generate(aggregator: Document, documents: List<HelperDocument>): String {
 
         val immutableHelperFunctions = documents
             .filter { it.mutability == IMMUTABLE }

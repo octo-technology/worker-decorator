@@ -19,7 +19,7 @@ class InteractorTest {
     @Mock
     private lateinit var analyser: Analyser
     @Mock
-    private lateinit var configurationMaker: ConfigurationMaker
+    private lateinit var configurationReader: ConfigurationReader
     @Mock
     private lateinit var generatorFactory: GeneratorFactory
     @Mock
@@ -40,7 +40,7 @@ class InteractorTest {
 
         given(analyser.analyse(element))
             .willReturn(document)
-        given(configurationMaker.read(annotation))
+        given(configurationReader.read(annotation))
             .willReturn(configuration)
         given(generatorFactory.make(configuration))
             .willReturn(generator)
@@ -61,19 +61,19 @@ class InteractorTest {
         // Given
         val element: TypeElement = mock()
         val annotation: Decorate = mock()
-        val aggregateDocument: AggregateDocument = mock()
-        val document: Document = AggregateDocument.AGGREGATOR
-        val configuration = AggregateConfiguration(mock(), mock())
-        val generator: AggregateGenerator = mock()
+        val helperDocument: HelperDocument = mock()
+        val document: Document = HelperDocument.AGGREGATOR
+        val configuration = HelperConfiguration(mock(), mock())
+        val generator: HelperGenerator = mock()
         val sourceWriter: SourceWriter = mock()
         val source = "beautiful source code"
 
         val data = listOf(Pair(element, annotation))
-        val documents = listOf(aggregateDocument)
+        val documents = listOf(helperDocument)
 
         given(analyser.analyse(data))
             .willReturn(documents)
-        given(configurationMaker.read())
+        given(configurationReader.read())
             .willReturn(configuration)
         given(generatorFactory.makeAggregator(configuration))
             .willReturn(generator)

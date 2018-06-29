@@ -22,7 +22,7 @@ data class Configuration(
     val strength: ReferenceStrength
 )
 
-data class AggregateConfiguration(
+data class HelperConfiguration(
     val language: Language,
     val implementation: Implementation
 )

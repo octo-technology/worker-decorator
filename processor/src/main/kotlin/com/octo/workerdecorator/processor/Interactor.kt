@@ -1,7 +1,7 @@
 package com.octo.workerdecorator.processor
 
 import com.octo.workerdecorator.annotation.Decorate
-import com.octo.workerdecorator.processor.entity.AggregateDocument
+import com.octo.workerdecorator.processor.entity.HelperDocument
 import javax.lang.model.element.TypeElement
 
 /**
@@ -9,14 +9,14 @@ import javax.lang.model.element.TypeElement
  */
 class Interactor(
     private val analyser: Analyser,
-    private val configurationMaker: ConfigurationMaker,
+    private val configurationReader: ConfigurationReader,
     private val generatorFactory: GeneratorFactory,
     private val sourceWriterFactory: SourceWriterFactory
 ) {
 
     fun process(element: TypeElement, annotation: Decorate) {
         val document = analyser.analyse(element)
-        val configuration = configurationMaker.read(annotation)
+        val configuration = configurationReader.read(annotation)
         val generator = generatorFactory.make(configuration)
         val writer = sourceWriterFactory.make(configuration.language)
 
@@ -28,11 +28,11 @@ class Interactor(
         if (data.isEmpty()) return
 
         val documents = analyser.analyse(data)
-        val configuration = configurationMaker.read()
+        val configuration = configurationReader.read()
         val generator = generatorFactory.makeAggregator(configuration)
         val writer = sourceWriterFactory.make(configuration.language)
 
-        val source = generator.generate(AggregateDocument.AGGREGATOR, documents)
-        writer.write(AggregateDocument.AGGREGATOR, source)
+        val source = generator.generate(HelperDocument.AGGREGATOR, documents)
+        writer.write(HelperDocument.AGGREGATOR, source)
     }
 }

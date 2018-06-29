@@ -1,22 +1,22 @@
 package com.octo.workerdecorator.processor.generator
 
-import com.octo.workerdecorator.processor.entity.AggregateDocument
+import com.octo.workerdecorator.processor.entity.HelperDocument
 import com.octo.workerdecorator.processor.test.CompilationAwareTest
 import org.assertj.core.api.Assertions
 import org.junit.Test
 
-class JavaExecutorAggregatorGeneratorTest : CompilationAwareTest() {
+class KotlinExecutorHelperGeneratorTest : CompilationAwareTest() {
 
     @Test
-    fun `it generates the wanted java file`() {
+    fun `it generates the wanted kotlin file`() {
         // Given
-        val generator = JavaExecutorAggregatorGenerator()
+        val generator = KotlinExecutorHelperGenerator()
 
         // When
-        val result = generator.generate(AggregateDocument.AGGREGATOR, aggregateFixture())
+        val result = generator.generate(HelperDocument.AGGREGATOR, aggregateFixture())
 
         // Then
-        val targetContent = readResource("ExpectedWorkerDecorator.java")
+        val targetContent = readResource("ExpectedWorkerDecorator.kt")
         Assertions.assertThat(result).isEqualTo(targetContent)
     }
 

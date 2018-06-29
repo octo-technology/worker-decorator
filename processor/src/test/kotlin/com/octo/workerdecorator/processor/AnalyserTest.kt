@@ -3,7 +3,7 @@ package com.octo.workerdecorator.processor
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
 import com.octo.workerdecorator.annotation.Decorate
-import com.octo.workerdecorator.processor.entity.AggregateDocument
+import com.octo.workerdecorator.processor.entity.HelperDocument
 import com.octo.workerdecorator.processor.entity.DecorationDocument
 import com.octo.workerdecorator.processor.entity.Mutability.IMMUTABLE
 import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
@@ -152,14 +152,14 @@ class AnalyserTest : CompilationAwareTest() {
         // Then
         assertThat(documents).isEqualTo(
             listOf(
-                AggregateDocument(
+                HelperDocument(
                     "com.octo.workerdecorator.processor.test.fixture",
                     "KotlinInterfaceDecorated",
                     interface1.asType(),
                     MUTABLE,
                     WEAK
                 ),
-                AggregateDocument(
+                HelperDocument(
                     "com.octo.workerdecorator.processor.test.fixture",
                     "KotlinChildrenInterfaceDecorated",
                     interface2.asType(),

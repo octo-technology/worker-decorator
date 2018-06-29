@@ -2,7 +2,7 @@ package com.octo.workerdecorator.processor
 
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
-import com.octo.workerdecorator.processor.entity.AggregateConfiguration
+import com.octo.workerdecorator.processor.entity.HelperConfiguration
 import com.octo.workerdecorator.processor.entity.Configuration
 import com.octo.workerdecorator.processor.entity.Implementation
 import com.octo.workerdecorator.processor.entity.Implementation.EXECUTOR
@@ -16,12 +16,12 @@ import com.octo.workerdecorator.processor.entity.ReferenceStrength.WEAK
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
-class ConfigurationMakerTest {
+class ConfigurationReaderTest {
 
     @Test
     fun `returns a Kotlin Executable Mutable Strong configuration`() {
         // Given
-        val reader = ConfigurationMaker(object : ConfigurationReader {
+        val reader = ConfigurationReader(object : GlobalConfigurationReader {
             override val language = KOTLIN
             override val implementation = EXECUTOR
         })
@@ -41,7 +41,7 @@ class ConfigurationMakerTest {
     @Test
     fun `returns a Java Executable Immutable Weak configuration`() {
         // Given
-        val reader = ConfigurationMaker(object : ConfigurationReader {
+        val reader = ConfigurationReader(object : GlobalConfigurationReader {
             override val language = JAVA
             override val implementation = EXECUTOR
         })
@@ -61,12 +61,12 @@ class ConfigurationMakerTest {
     @Test
     fun `returns an aggregate configuration`() {
         // Given
-        val conf: ConfigurationReader = object : ConfigurationReader {
+        val conf: GlobalConfigurationReader = object : GlobalConfigurationReader {
             override val language = mock<Language>()
             override val implementation = mock<Implementation>()
         }
-        val reader = ConfigurationMaker(conf)
-        val expected = AggregateConfiguration(conf.language, conf.implementation)
+        val reader = ConfigurationReader(conf)
+        val expected = HelperConfiguration(conf.language, conf.implementation)
 
         // When
         val result = reader.read()
