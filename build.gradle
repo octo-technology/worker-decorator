@@ -1,8 +1,8 @@
 buildscript {
     ext {
         kotlinVersion = "1.2.50"
-        workerDecoratorVersion = "1.0-beta7"
-        kotlinElementsVersion = "$kotlinVersion-1-beta"
+        workerDecoratorVersion = "1.0-beta8"
+        kotlinElementsVersion = "$kotlinVersion-1"
     }
     repositories {
         jcenter()
