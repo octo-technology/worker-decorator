@@ -1,6 +1,6 @@
 package com.octo.workerdecorator.processor.generator
 
-import com.octo.workerdecorator.annotation.java.WorkerDecoration
+import com.octo.workerdecorator.WorkerDecoration
 import com.octo.workerdecorator.processor.Generator
 import com.octo.workerdecorator.processor.entity.DecorationDocument
 import com.octo.workerdecorator.processor.extension.asTypeName

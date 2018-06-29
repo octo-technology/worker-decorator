@@ -3,7 +3,7 @@ Worker Decorator
 
 Worker Decorator decorates your objects to facilitate navigating between the synchronous and asynchronous sides of your code.
 
-The OCTO Technology mobile squad has been heavily using it to implement its Android vision of a Clean Architecture for the past 2 years.
+The OCTO Technology mobile squad has been heavily using this approach to implement its Android vision of a Clean Architecture for the past 2 years.
 
 As of today, it can generate decorations in Kotlin or Java, holding a Strong or Weak reference to the decorated object, relying on an Executor to handle the thread change.
 
@@ -45,7 +45,7 @@ As a result, calling the `doSeriousStuff` method on the decorated object will si
 In addition to the generated class, a helper method is written to ease the instantiation of the decoration.
 
 ```kotlin
-val decoration = ImportantInterfaceDecorated(realImplementation, executor) // "Natural" way
+val decoration = ImportantInterfaceDecorated(realImplementation, executor).   // "Natural" way
 val coolerDecoration = WorkerDecorator.decorate(realImplementation, executor) // Helper method way
 ```
 

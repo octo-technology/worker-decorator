@@ -1,8 +1,7 @@
 package com.octo.workerdecorator.integration
 
+import com.octo.workerdecorator.WorkerDecoration
 import com.octo.workerdecorator.WorkerDecorator
-import com.octo.workerdecorator.annotation.WeakWorkerDecoration
-import com.octo.workerdecorator.annotation.WorkerDecoration
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import java.util.*
@@ -42,7 +41,7 @@ class WorkerDecoratorTest {
     @Test
     fun `returns a mutable weak decoration with the helper`() {
         val executor = Executors.newSingleThreadScheduledExecutor()
-        val decorated: WeakWorkerDecoration<KotlinSimpleInterface4> = WorkerDecorator.decorateWeakly(executor)
+        val decorated: WorkerDecoration<KotlinSimpleInterface4> = WorkerDecorator.decorate(executor)
 
         assertThat(decorated).isInstanceOf(KotlinSimpleInterface4Decorated::class.java)
     }

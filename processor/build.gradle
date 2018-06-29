@@ -13,7 +13,6 @@ compileTestKotlin {
 
 dependencies {
     compile project(":workerdecorator")
-    compile project(":workerdecorator-java")
     compile project(":kotlinelements")
 
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
@@ -82,7 +81,6 @@ bintray {
         userOrg = "octomob"
         licenses = ["Apache-2.0"]
         vcsUrl = "git@gitlab.octo.com:team-mob/worker-decorator.git"
-        publicDownloadNumbers = true
         version {
             name = project.version
         }

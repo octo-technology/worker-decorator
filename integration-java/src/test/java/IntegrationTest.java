@@ -1,5 +1,5 @@
+import com.octo.workerdecorator.WorkerDecoration;
 import com.octo.workerdecorator.WorkerDecorator;
-import com.octo.workerdecorator.annotation.java.WorkerDecoration;
 import com.octo.workerdecorator.integration.*;
 import org.junit.Test;
 

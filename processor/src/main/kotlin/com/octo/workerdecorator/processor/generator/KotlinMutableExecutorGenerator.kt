@@ -1,11 +1,12 @@
 package com.octo.workerdecorator.processor.generator
 
 import com.octo.kotlinelements.asKotlinTypeName
-import com.octo.workerdecorator.annotation.WorkerDecoration
+import com.octo.workerdecorator.WorkerDecoration
 import com.octo.workerdecorator.processor.Generator
 import com.octo.workerdecorator.processor.entity.DecorationDocument
 import com.squareup.kotlinpoet.*
-import com.squareup.kotlinpoet.KModifier.*
+import com.squareup.kotlinpoet.KModifier.OVERRIDE
+import com.squareup.kotlinpoet.KModifier.PRIVATE
 import java.util.concurrent.Executor
 
 class KotlinMutableExecutorGenerator : Generator {
@@ -56,11 +57,18 @@ class KotlinMutableExecutorGenerator : Generator {
             )
             .addProperty(
                 PropertySpec
-                    .varBuilder("decorated", decoratedType.asNullable(), PUBLIC, OVERRIDE)
+                    .varBuilder("decorated", decoratedType.asNullable(), PRIVATE)
                     .initializer("null")
                     .build()
             )
             .addFunctions(functions)
+            .addFunction(
+                FunSpec.builder(WorkerDecoration<Any>::setDecorated.name)
+                    .addModifiers(OVERRIDE)
+                    .addParameter("decorated", decoratedType.asNullable())
+                    .addStatement("this.decorated = decorated")
+                    .build()
+            )
             .addFunction(
                 FunSpec.builder(WorkerDecoration<Any>::asType.name)
                     .addModifiers(OVERRIDE)

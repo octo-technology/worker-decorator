@@ -70,7 +70,6 @@ bintray {
         userOrg = "octomob"
         licenses = ["Apache-2.0"]
         vcsUrl = "git@gitlab.octo.com:team-mob/worker-decorator.git"
-        publicDownloadNumbers = true
         version {
             name = project.version
         }

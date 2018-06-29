@@ -1,6 +1,5 @@
 package com.octo.workerdecorator;
 
-import com.octo.workerdecorator.annotation.java.WorkerDecoration;
 import com.octo.workerdecorator.processor.test.fixture.KotlinChildrenInterface;
 import com.octo.workerdecorator.processor.test.fixture.KotlinChildrenInterfaceDecorated;
 import com.octo.workerdecorator.processor.test.fixture.KotlinInterface;

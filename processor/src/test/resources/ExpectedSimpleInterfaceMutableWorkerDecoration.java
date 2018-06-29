@@ -1,6 +1,6 @@
 package com.octo.workerdecorator.processor.test.fixture;
 
-import com.octo.workerdecorator.annotation.java.WorkerDecoration;
+import com.octo.workerdecorator.WorkerDecoration;
 import java.lang.Override;
 import java.lang.Runnable;
 import java.lang.String;

@@ -1,12 +1,12 @@
 package com.octo.workerdecorator.processor.generator
 
 import com.octo.kotlinelements.asKotlinTypeName
-import com.octo.workerdecorator.annotation.WeakWorkerDecoration
-import com.octo.workerdecorator.annotation.WorkerDecoration
+import com.octo.workerdecorator.WorkerDecoration
 import com.octo.workerdecorator.processor.Generator
 import com.octo.workerdecorator.processor.entity.DecorationDocument
 import com.squareup.kotlinpoet.*
-import com.squareup.kotlinpoet.KModifier.*
+import com.squareup.kotlinpoet.KModifier.OVERRIDE
+import com.squareup.kotlinpoet.KModifier.PRIVATE
 import java.lang.ref.WeakReference
 import java.util.concurrent.Executor
 
@@ -40,7 +40,7 @@ class KotlinMutableWeakExecutorGenerator : Generator {
         }.asIterable()
 
 
-        val workerDecorationType = ParameterizedTypeName.get(WeakWorkerDecoration::class.asClassName(), decoratedType)
+        val workerDecorationType = ParameterizedTypeName.get(WorkerDecoration::class.asClassName(), decoratedType)
         val weakReferenceType = WeakReference::class.asClassName()
         val weakDecorationType = ParameterizedTypeName.get(weakReferenceType, decoratedType.asNullable())
 
@@ -64,16 +64,16 @@ class KotlinMutableWeakExecutorGenerator : Generator {
                     .initializer("null")
                     .build()
             )
+            .addFunctions(functions)
             .addFunction(
-                FunSpec.builder(WeakWorkerDecoration<Any>::setDecorated.name)
+                FunSpec.builder(WorkerDecoration<Any>::setDecorated.name)
                     .addModifiers(OVERRIDE)
                     .addParameter("decorated", decoratedType.asNullable())
                     .addStatement("this.decorated = WeakReference(decorated)")
                     .build()
             )
-            .addFunctions(functions)
             .addFunction(
-                FunSpec.builder(WeakWorkerDecoration<Any>::asType.name)
+                FunSpec.builder(WorkerDecoration<Any>::asType.name)
                     .addModifiers(OVERRIDE)
                     .returns(decoratedType)
                     .addStatement("return this")

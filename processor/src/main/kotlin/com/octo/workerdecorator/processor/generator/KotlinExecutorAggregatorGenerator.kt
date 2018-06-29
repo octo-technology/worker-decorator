@@ -1,7 +1,6 @@
 package com.octo.workerdecorator.processor.generator
 
-import com.octo.workerdecorator.annotation.WeakWorkerDecoration
-import com.octo.workerdecorator.annotation.WorkerDecoration
+import com.octo.workerdecorator.WorkerDecoration
 import com.octo.workerdecorator.processor.AggregateGenerator
 import com.octo.workerdecorator.processor.entity.AggregateDocument
 import com.octo.workerdecorator.processor.entity.Document
@@ -54,7 +53,7 @@ class KotlinExecutorAggregatorGenerator : AggregateGenerator {
                     .beginControlFlow("return when(DECORATED::class)")
                     .apply {
                         documents
-                            .filter { it.mutability == MUTABLE && it.reference == STRONG }
+                            .filter { it.mutability == MUTABLE }
                             .forEach {
                                 val decoration = ClassName(it.`package`, it.name)
                                 addStatement(
@@ -75,61 +74,14 @@ class KotlinExecutorAggregatorGenerator : AggregateGenerator {
             )
             .build()
 
-        val parameterizedWeakTypeName = ParameterizedTypeName.get(
-            WeakWorkerDecoration::class.asClassName(),
-            TypeVariableName.invoke("DECORATED")
-        )
-        val mutableWeakHelperFunction = FunSpec.builder("decorateWeakly")
-            .addAnnotation(
-                AnnotationSpec.builder(Suppress::class)
-                    .addMember("%S", "UNCHECKED_CAST")
-                    .build()
-            )
-            .addModifiers(INLINE)
-            .addTypeVariable(
-                TypeVariableName.invoke("DECORATED")
-                    .reified(true)
-            )
-            .addParameter("executor", Executor::class)
-            .returns(parameterizedWeakTypeName)
-            .addCode(
-                CodeBlock.builder()
-                    .beginControlFlow("return when(DECORATED::class)")
-                    .apply {
-                        documents
-                            .filter { it.mutability == MUTABLE && it.reference == WEAK }
-                            .forEach {
-                                val decoration = ClassName(it.`package`, it.name)
-                                addStatement(
-                                    "%T::class ->%W%T(executor) as %T",
-                                    it.typeMirror,
-                                    decoration,
-                                    parameterizedWeakTypeName
-                                )
-                            }
-                    }
-                    .addStatement(
-                        "else ->%Wthrow %T(%S)",
-                        RuntimeException::class.asClassName(),
-                        "Impossible to find a weak decoration for \${DECORATED::class.java.name}"
-                    )
-                    .endControlFlow()
-                    .build()
-            )
-            .build()
-
         val source = FileSpec.get(
             aggregator.`package`, TypeSpec.objectBuilder(aggregator.name)
                 .apply {
-                    if (documents.filter { it.mutability == MUTABLE && it.reference == STRONG }.count() > 0)
+                    if (documents.any { it.mutability == MUTABLE })
                         addFunction(mutableHelperFunction)
                 }
                 .apply {
-                    if (documents.filter { it.mutability == MUTABLE && it.reference == WEAK }.count() > 0)
-                        addFunction(mutableWeakHelperFunction)
-                }
-                .apply {
-                    if (immutableHelperFunctions.size > 0)
+                    if (immutableHelperFunctions.isNotEmpty())
                         addFunctions(immutableHelperFunctions)
                 }
                 .build()
