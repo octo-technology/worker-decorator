@@ -45,11 +45,11 @@ As a result, calling the `doSeriousStuff` method on the decorated object will si
 In addition to the generated class, a helper method is written to ease the instantiation of the decoration.
 
 ```kotlin
-val decoration = ImportantInterfaceDecorated(realImplementation, executor).   // "Natural" way
+val decoration = ImportantInterfaceDecorated(realImplementation, executor)    // "Natural" way
 val coolerDecoration = WorkerDecorator.decorate(realImplementation, executor) // Helper method way
 ```
 
-The `decorate` method helps you avoid having to import or know the decoration. The method can be statically imported, thus reducing the verbosity of the instantiations (for example in your Dagger modules).
+The `decorate` method helps you avoid having to import or know the generated class. The method can be statically imported, thus reducing the verbosity of the instantiations (for example in your Dagger modules).
 
 There are a [number of options](#options) for you to customize the decorations that are explained below.
 
@@ -76,6 +76,12 @@ All the possible configuration combinations and the resulting generated files ar
 
 ## <a name="using"></a>Using it in your project
 ![Worker Decorator latest version][badge]
+
+Add the maven repository to your sources:
+
+```groovy
+maven { url "https://dl.bintray.com/octomob/maven" }
+```
 
 ### Kotlin
 If you want your decorations to be generated in Kotlin, you first need to apply the `kotlin-kapt` plugin in your module's gradle build file.
