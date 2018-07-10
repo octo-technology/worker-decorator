@@ -56,8 +56,8 @@ publishing {
                     appendNode("description", "A set of extensions over the `javax.lang.model.element` API and KotlinPoet `TypeName` to facilitate analysing and writing Kotlin code in annotation processing tools.")
                     appendNode("licenses").with {
                         appendNode("license").with {
-                            appendNode("name", "Apache License, Version 2.0")
-                            appendNode("url", "https://www.apache.org/licenses/LICENSE-2.0.txt")
+                            appendNode("name", "MIT License")
+                            appendNode("url", "https://opensource.org/licenses/MIT")
                         }
                     }
                     appendNode("organization").with {
@@ -78,8 +78,8 @@ bintray {
         repo = bintrayRepository
         name = project.name
         userOrg = "octomob"
-        licenses = ["Apache-2.0"]
-        vcsUrl = "git@gitlab.octo.com:team-mob/worker-decorator.git"
+        licenses = ["MIT"]
+        vcsUrl = "git@github.com:octo-technology/worker-decorator.git"
         version {
             name = project.version
         }
