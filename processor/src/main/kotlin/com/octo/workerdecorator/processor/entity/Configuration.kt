@@ -30,7 +30,7 @@ data class HelperConfiguration(
 
 enum class Language { JAVA, KOTLIN }
 
-enum class Implementation { EXECUTOR }
+enum class Implementation { EXECUTOR, COROUTINES }
 
 enum class Mutability { IMMUTABLE, MUTABLE }
 

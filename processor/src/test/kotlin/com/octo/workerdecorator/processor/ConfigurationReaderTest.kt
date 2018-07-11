@@ -2,8 +2,8 @@ package com.octo.workerdecorator.processor
 
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
-import com.octo.workerdecorator.processor.entity.HelperConfiguration
 import com.octo.workerdecorator.processor.entity.Configuration
+import com.octo.workerdecorator.processor.entity.HelperConfiguration
 import com.octo.workerdecorator.processor.entity.Implementation
 import com.octo.workerdecorator.processor.entity.Implementation.EXECUTOR
 import com.octo.workerdecorator.processor.entity.Language

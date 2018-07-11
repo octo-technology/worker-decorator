@@ -52,7 +52,4 @@ class IntegrationTests : CompilationAwareTest() {
 
         assertThat(resultingContent).isEqualTo(targetContent)
     }
-
-    private fun readResource(file: String) =
-        javaClass.classLoader.getResourceAsStream(file).bufferedReader().use { it.readText() }
 }
