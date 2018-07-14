@@ -16,8 +16,7 @@ class KotlinImmutableCoroutinesGeneratorTest : CompilationAwareTest() {
         val result = generator.generate(document)
 
         // Then
-        // TODO Write the expected output and replace the loaded file
-        val targetContent = readResource("ExpectedSimpleInterfaceWorkerDecoration.kt")
+        val targetContent = readResource("ExpectedSimpleInterfaceCoroutinesDecoration.kt")
         assertThat(result).isEqualTo(targetContent)
     }
 }

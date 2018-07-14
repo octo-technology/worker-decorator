@@ -18,6 +18,8 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion" // Force transitive kotlinpoet version
 
+    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.23.4'
+
     compile "com.squareup:javapoet:1.11.1"
     compile ("com.squareup:kotlinpoet:0.7.0") {
         exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jre7'
