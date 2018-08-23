@@ -13,6 +13,7 @@ import com.octo.workerdecorator.processor.entity.ReferenceStrength.STRONG
 import com.octo.workerdecorator.processor.entity.ReferenceStrength.WEAK
 import com.octo.workerdecorator.processor.generator.EmptyHelperGenerator
 import com.octo.workerdecorator.processor.generator.java.*
+import com.octo.workerdecorator.processor.generator.kotlin.KotlinCoroutinesHelperGenerator
 import com.octo.workerdecorator.processor.generator.kotlin.KotlinExecutorHelperGenerator
 import com.octo.workerdecorator.processor.generator.kotlin.coroutines.KotlinImmutableCoroutinesGenerator
 import com.octo.workerdecorator.processor.generator.kotlin.executor.KotlinImmutableExecutorGenerator
@@ -179,5 +180,18 @@ class GeneratorFactoryTest {
 
         // Then
         assertThat(result).isExactlyInstanceOf(EmptyHelperGenerator::class.java)
+    }
+
+    @Test
+    fun `returns a Kotlin coroutines aggregate generator`() {
+        // Given
+        val reader = GeneratorFactory()
+        val configuration = HelperConfiguration(KOTLIN, COROUTINES)
+
+        // When
+        val result = reader.makeAggregator(configuration)
+
+        // Then
+        assertThat(result).isExactlyInstanceOf(KotlinCoroutinesHelperGenerator::class.java)
     }
 }

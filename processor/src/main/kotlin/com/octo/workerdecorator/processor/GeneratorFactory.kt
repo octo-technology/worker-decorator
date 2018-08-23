@@ -12,6 +12,7 @@ import com.octo.workerdecorator.processor.entity.ReferenceStrength.STRONG
 import com.octo.workerdecorator.processor.entity.ReferenceStrength.WEAK
 import com.octo.workerdecorator.processor.generator.EmptyHelperGenerator
 import com.octo.workerdecorator.processor.generator.java.*
+import com.octo.workerdecorator.processor.generator.kotlin.KotlinCoroutinesHelperGenerator
 import com.octo.workerdecorator.processor.generator.kotlin.KotlinExecutorHelperGenerator
 import com.octo.workerdecorator.processor.generator.kotlin.coroutines.KotlinImmutableCoroutinesGenerator
 import com.octo.workerdecorator.processor.generator.kotlin.executor.KotlinImmutableExecutorGenerator
@@ -42,6 +43,7 @@ class GeneratorFactory {
         when (configuration) {
             HelperConfiguration(KOTLIN, EXECUTOR) -> KotlinExecutorHelperGenerator()
             HelperConfiguration(JAVA, EXECUTOR) -> JavaExecutorHelperGenerator()
+            HelperConfiguration(KOTLIN, COROUTINES) -> KotlinCoroutinesHelperGenerator()
             else -> EmptyHelperGenerator()
         }
 }
