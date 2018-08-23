@@ -1,9 +1,12 @@
 package com.octo.workerdecorator.processor.test
 
 import com.google.testing.compile.CompilationRule
-import com.octo.workerdecorator.processor.entity.*
+import com.octo.workerdecorator.processor.entity.DecorationDocument
+import com.octo.workerdecorator.processor.entity.HelperDocument
+import com.octo.workerdecorator.processor.entity.Method
 import com.octo.workerdecorator.processor.entity.Mutability.IMMUTABLE
 import com.octo.workerdecorator.processor.entity.Mutability.MUTABLE
+import com.octo.workerdecorator.processor.entity.Parameter
 import com.octo.workerdecorator.processor.entity.ReferenceStrength.STRONG
 import com.octo.workerdecorator.processor.entity.ReferenceStrength.WEAK
 import com.octo.workerdecorator.processor.test.fixture.JavaInterface
@@ -123,4 +126,14 @@ open class CompilationAwareTest {
             )
         )
     }
+
+    /*
+     * Reading a resource file
+     */
+
+    fun readResource(file: String) =
+        javaClass.classLoader
+            .getResourceAsStream(file)
+            .bufferedReader()
+            .use { it.readText() }
 }

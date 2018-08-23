@@ -12,24 +12,9 @@ compileTestKotlin {
 }
 
 dependencies {
-    compile project(":workerdecorator")
-    compile project(":kotlinelements")
-
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
-    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion" // Force transitive kotlinpoet version
-
-    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.23.4'
-
-    compile "com.squareup:javapoet:1.11.1"
-    compile ("com.squareup:kotlinpoet:0.7.0") {
-        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jre7'
-    }
-
+    compile project(":workerdecorator-processor")
     testCompile "junit:junit:4.12"
     testCompile "org.assertj:assertj-core:3.10.0"
-    testCompile "org.mockito:mockito-core:2.19.0"
-    testCompile "com.nhaarman:mockito-kotlin-kt1.1:1.5.0"
-    testCompile "com.google.testing.compile:compile-testing:0.15"
 }
 
 
@@ -58,7 +43,7 @@ publishing {
             artifact javadocJar
             pom.withXml {
                 asNode().with {
-                    appendNode("description", "An annotation processor generating Kotlin decorations for supplied interfaces.")
+                    appendNode("description", "An annotation processor generating Kotlin Coroutines decorations for supplied interfaces.")
                     appendNode("licenses").with {
                         appendNode("license").with {
                             appendNode("name", "MIT License")

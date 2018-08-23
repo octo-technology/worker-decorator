@@ -6,11 +6,14 @@ findProject(':runtime')?.name = 'workerdecorator'
 include 'processor'
 findProject(':processor')?.name = 'workerdecorator-processor'
 
+include 'processor-coroutines'
+findProject(':processor-coroutines')?.name = 'workerdecorator-processor-coroutines'
+
 include 'processor-java'
 findProject(':processor-java')?.name = 'workerdecorator-processor-java'
 
 include 'kotlinelements'
 
 include 'integration-kotlin'
+include 'integration-kotlin-coroutines'
 include 'integration-java'
-
