@@ -32,7 +32,7 @@ class KotlinImmutableCoroutinesGenerator : Generator {
             FunSpec.builder(it.name)
                     .addModifiers(KModifier.OVERRIDE)
                     .addParameters(specParameters)
-                    .addStatement("kotlinx.coroutines.experimental.launch(coroutineContext) { decorated.${it.name}($bodyParameters) }")
+                    .addStatement("launch(coroutineContext) { decorated.${it.name}($bodyParameters) }")
                     .build()
         }.asIterable()
         val decoration = TypeSpec.classBuilder(document.name)
@@ -48,7 +48,10 @@ class KotlinImmutableCoroutinesGenerator : Generator {
                 .addFunctions(functions)
                 .build()
 
-        val source = FileSpec.get(document.`package`, decoration)
+        val source = FileSpec.builder(document.`package`, document.name)
+                .addStaticImport("kotlinx.coroutines.experimental", "launch")
+                .addType(decoration)
+                .build()
         return source.toString()
     }
 
